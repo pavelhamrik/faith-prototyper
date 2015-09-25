@@ -1,0 +1,621 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97115C1BB00346006DA166 /* AppDelegate.swift */; };
+		BF97115F1BB00346006DA166 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97115E1BB00346006DA166 /* ViewController.swift */; };
+		BF9711611BB00346006DA166 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9711601BB00346006DA166 /* Assets.xcassets */; };
+		BF9711641BB00346006DA166 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF9711621BB00346006DA166 /* Main.storyboard */; };
+		BF97116F1BB00346006DA166 /* Faith_PrototyperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97116E1BB00346006DA166 /* Faith_PrototyperTests.swift */; };
+		BF97117A1BB00346006DA166 /* Faith_PrototyperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9711791BB00346006DA166 /* Faith_PrototyperUITests.swift */; };
+		BF9711D91BB1F1D4006DA166 /* libZipZap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711D61BB1F1A5006DA166 /* libZipZap.a */; };
+		BF9711DB1BB1F246006DA166 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711DA1BB1F246006DA166 /* ApplicationServices.framework */; };
+		BF9711DD1BB1F250006DA166 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711DC1BB1F250006DA166 /* Foundation.framework */; };
+		BF9711DF1BB1F263006DA166 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711DE1BB1F263006DA166 /* libz.tbd */; };
+		BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BF97116B1BB00346006DA166 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF9711511BB00345006DA166 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF9711581BB00345006DA166;
+			remoteInfo = "Faith Prototyper";
+		};
+		BF9711761BB00346006DA166 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF9711511BB00345006DA166 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF9711581BB00345006DA166;
+			remoteInfo = "Faith Prototyper";
+		};
+		BF9711CF1BB1F1A5006DA166 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D87BA1F81B3D6DEA00ED7EB3;
+			remoteInfo = "ZipZap (iOS Framework)";
+		};
+		BF9711D11BB1F1A5006DA166 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D899CFB0162C5EEB00112F49;
+			remoteInfo = "ZipZap (iOS Static Library)";
+		};
+		BF9711D31BB1F1A5006DA166 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D8D140D31B423B1100C411B0;
+			remoteInfo = "ZipZap (OS X Framework)";
+		};
+		BF9711D51BB1F1A5006DA166 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D899CF82162C5EC100112F49;
+			remoteInfo = "ZipZap (OS X Static Library)";
+		};
+		BF9711D71BB1F1A5006DA166 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D899CF96162C5EC100112F49;
+			remoteInfo = ZipZapTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BF9711591BB00345006DA166 /* Faith Prototyper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Faith Prototyper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF97115C1BB00346006DA166 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BF97115E1BB00346006DA166 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BF9711601BB00346006DA166 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BF9711631BB00346006DA166 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BF9711651BB00346006DA166 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF97116A1BB00346006DA166 /* Faith PrototyperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Faith PrototyperTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF97116E1BB00346006DA166 /* Faith_PrototyperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Faith_PrototyperTests.swift; sourceTree = "<group>"; };
+		BF9711701BB00346006DA166 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF9711751BB00346006DA166 /* Faith PrototyperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Faith PrototyperUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF9711791BB00346006DA166 /* Faith_PrototyperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Faith_PrototyperUITests.swift; sourceTree = "<group>"; };
+		BF97117B1BB00346006DA166 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF97119A1BB1A607006DA166 /* ObjectiveCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveCBridge.h; sourceTree = "<group>"; };
+		BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZipZap.xcodeproj; path = ZipZap/ZipZap.xcodeproj; sourceTree = "<group>"; };
+		BF9711DA1BB1F246006DA166 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		BF9711DC1BB1F250006DA166 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BF9711DE1BB1F263006DA166 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SWXMLHash.swift; path = SWXMLHash/Source/SWXMLHash.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BF9711561BB00345006DA166 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF9711DF1BB1F263006DA166 /* libz.tbd in Frameworks */,
+				BF9711DD1BB1F250006DA166 /* Foundation.framework in Frameworks */,
+				BF9711DB1BB1F246006DA166 /* ApplicationServices.framework in Frameworks */,
+				BF9711D91BB1F1D4006DA166 /* libZipZap.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9711671BB00346006DA166 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9711721BB00346006DA166 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BF9711501BB00345006DA166 = {
+			isa = PBXGroup;
+			children = (
+				BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */,
+				BF9711DE1BB1F263006DA166 /* libz.tbd */,
+				BF9711DC1BB1F250006DA166 /* Foundation.framework */,
+				BF9711DA1BB1F246006DA166 /* ApplicationServices.framework */,
+				BF97115B1BB00345006DA166 /* Faith Prototyper */,
+				BF97116D1BB00346006DA166 /* Faith PrototyperTests */,
+				BF9711781BB00346006DA166 /* Faith PrototyperUITests */,
+				BF97115A1BB00345006DA166 /* Products */,
+				BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		BF97115A1BB00345006DA166 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BF9711591BB00345006DA166 /* Faith Prototyper.app */,
+				BF97116A1BB00346006DA166 /* Faith PrototyperTests.xctest */,
+				BF9711751BB00346006DA166 /* Faith PrototyperUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BF97115B1BB00345006DA166 /* Faith Prototyper */ = {
+			isa = PBXGroup;
+			children = (
+				BF97115C1BB00346006DA166 /* AppDelegate.swift */,
+				BF97115E1BB00346006DA166 /* ViewController.swift */,
+				BF9711601BB00346006DA166 /* Assets.xcassets */,
+				BF9711621BB00346006DA166 /* Main.storyboard */,
+				BF9711651BB00346006DA166 /* Info.plist */,
+				BF97119A1BB1A607006DA166 /* ObjectiveCBridge.h */,
+			);
+			path = "Faith Prototyper";
+			sourceTree = "<group>";
+		};
+		BF97116D1BB00346006DA166 /* Faith PrototyperTests */ = {
+			isa = PBXGroup;
+			children = (
+				BF97116E1BB00346006DA166 /* Faith_PrototyperTests.swift */,
+				BF9711701BB00346006DA166 /* Info.plist */,
+			);
+			path = "Faith PrototyperTests";
+			sourceTree = "<group>";
+		};
+		BF9711781BB00346006DA166 /* Faith PrototyperUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BF9711791BB00346006DA166 /* Faith_PrototyperUITests.swift */,
+				BF97117B1BB00346006DA166 /* Info.plist */,
+			);
+			path = "Faith PrototyperUITests";
+			sourceTree = "<group>";
+		};
+		BF9711C81BB1F1A4006DA166 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BF9711D01BB1F1A5006DA166 /* ZipZap.framework */,
+				BF9711D21BB1F1A5006DA166 /* libZipZap.a */,
+				BF9711D41BB1F1A5006DA166 /* ZipZap.framework */,
+				BF9711D61BB1F1A5006DA166 /* libZipZap.a */,
+				BF9711D81BB1F1A5006DA166 /* ZipZapTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BF9711581BB00345006DA166 /* Faith Prototyper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF97117E1BB00346006DA166 /* Build configuration list for PBXNativeTarget "Faith Prototyper" */;
+			buildPhases = (
+				BF9711551BB00345006DA166 /* Sources */,
+				BF9711561BB00345006DA166 /* Frameworks */,
+				BF9711571BB00345006DA166 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Faith Prototyper";
+			productName = "Faith Prototyper";
+			productReference = BF9711591BB00345006DA166 /* Faith Prototyper.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BF9711691BB00346006DA166 /* Faith PrototyperTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF9711811BB00346006DA166 /* Build configuration list for PBXNativeTarget "Faith PrototyperTests" */;
+			buildPhases = (
+				BF9711661BB00346006DA166 /* Sources */,
+				BF9711671BB00346006DA166 /* Frameworks */,
+				BF9711681BB00346006DA166 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF97116C1BB00346006DA166 /* PBXTargetDependency */,
+			);
+			name = "Faith PrototyperTests";
+			productName = "Faith PrototyperTests";
+			productReference = BF97116A1BB00346006DA166 /* Faith PrototyperTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BF9711741BB00346006DA166 /* Faith PrototyperUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF9711841BB00346006DA166 /* Build configuration list for PBXNativeTarget "Faith PrototyperUITests" */;
+			buildPhases = (
+				BF9711711BB00346006DA166 /* Sources */,
+				BF9711721BB00346006DA166 /* Frameworks */,
+				BF9711731BB00346006DA166 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF9711771BB00346006DA166 /* PBXTargetDependency */,
+			);
+			name = "Faith PrototyperUITests";
+			productName = "Faith PrototyperUITests";
+			productReference = BF9711751BB00346006DA166 /* Faith PrototyperUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BF9711511BB00345006DA166 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Pavel Hamřík";
+				TargetAttributes = {
+					BF9711581BB00345006DA166 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					BF9711691BB00346006DA166 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = BF9711581BB00345006DA166;
+					};
+					BF9711741BB00346006DA166 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = BF9711581BB00345006DA166;
+					};
+				};
+			};
+			buildConfigurationList = BF9711541BB00345006DA166 /* Build configuration list for PBXProject "Faith Prototyper" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BF9711501BB00345006DA166;
+			productRefGroup = BF97115A1BB00345006DA166 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = BF9711C81BB1F1A4006DA166 /* Products */;
+					ProjectRef = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				BF9711581BB00345006DA166 /* Faith Prototyper */,
+				BF9711691BB00346006DA166 /* Faith PrototyperTests */,
+				BF9711741BB00346006DA166 /* Faith PrototyperUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		BF9711D01BB1F1A5006DA166 /* ZipZap.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ZipZap.framework;
+			remoteRef = BF9711CF1BB1F1A5006DA166 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BF9711D21BB1F1A5006DA166 /* libZipZap.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libZipZap.a;
+			remoteRef = BF9711D11BB1F1A5006DA166 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BF9711D41BB1F1A5006DA166 /* ZipZap.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ZipZap.framework;
+			remoteRef = BF9711D31BB1F1A5006DA166 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BF9711D61BB1F1A5006DA166 /* libZipZap.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libZipZap.a;
+			remoteRef = BF9711D51BB1F1A5006DA166 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BF9711D81BB1F1A5006DA166 /* ZipZapTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ZipZapTests.xctest;
+			remoteRef = BF9711D71BB1F1A5006DA166 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BF9711571BB00345006DA166 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF9711611BB00346006DA166 /* Assets.xcassets in Resources */,
+				BF9711641BB00346006DA166 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9711681BB00346006DA166 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9711731BB00346006DA166 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BF9711551BB00345006DA166 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF97115F1BB00346006DA166 /* ViewController.swift in Sources */,
+				BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */,
+				BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9711661BB00346006DA166 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF97116F1BB00346006DA166 /* Faith_PrototyperTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF9711711BB00346006DA166 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF97117A1BB00346006DA166 /* Faith_PrototyperUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BF97116C1BB00346006DA166 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF9711581BB00345006DA166 /* Faith Prototyper */;
+			targetProxy = BF97116B1BB00346006DA166 /* PBXContainerItemProxy */;
+		};
+		BF9711771BB00346006DA166 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF9711581BB00345006DA166 /* Faith Prototyper */;
+			targetProxy = BF9711761BB00346006DA166 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BF9711621BB00346006DA166 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF9711631BB00346006DA166 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BF97117C1BB00346006DA166 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BF97117D1BB00346006DA166 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BF97117F1BB00346006DA166 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/ZipZap/**";
+				INFOPLIST_FILE = "Faith Prototyper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "ph.Faith-Prototyper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Faith Prototyper/ObjectiveCBridge.h";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		BF9711801BB00346006DA166 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/ZipZap/**";
+				INFOPLIST_FILE = "Faith Prototyper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "ph.Faith-Prototyper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Faith Prototyper/ObjectiveCBridge.h";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+		BF9711821BB00346006DA166 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Faith PrototyperTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ph.Faith-PrototyperTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Faith Prototyper.app/Contents/MacOS/Faith Prototyper";
+			};
+			name = Debug;
+		};
+		BF9711831BB00346006DA166 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Faith PrototyperTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ph.Faith-PrototyperTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Faith Prototyper.app/Contents/MacOS/Faith Prototyper";
+			};
+			name = Release;
+		};
+		BF9711851BB00346006DA166 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Faith PrototyperUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ph.Faith-PrototyperUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Faith Prototyper";
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		BF9711861BB00346006DA166 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Faith PrototyperUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "ph.Faith-PrototyperUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Faith Prototyper";
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BF9711541BB00345006DA166 /* Build configuration list for PBXProject "Faith Prototyper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF97117C1BB00346006DA166 /* Debug */,
+				BF97117D1BB00346006DA166 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF97117E1BB00346006DA166 /* Build configuration list for PBXNativeTarget "Faith Prototyper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF97117F1BB00346006DA166 /* Debug */,
+				BF9711801BB00346006DA166 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF9711811BB00346006DA166 /* Build configuration list for PBXNativeTarget "Faith PrototyperTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF9711821BB00346006DA166 /* Debug */,
+				BF9711831BB00346006DA166 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF9711841BB00346006DA166 /* Build configuration list for PBXNativeTarget "Faith PrototyperUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF9711851BB00346006DA166 /* Debug */,
+				BF9711861BB00346006DA166 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BF9711511BB00345006DA166 /* Project object */;
+}
