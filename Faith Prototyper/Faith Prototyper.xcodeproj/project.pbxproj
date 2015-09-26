@@ -13,11 +13,13 @@
 		BF9711641BB00346006DA166 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF9711621BB00346006DA166 /* Main.storyboard */; };
 		BF97116F1BB00346006DA166 /* Faith_PrototyperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97116E1BB00346006DA166 /* Faith_PrototyperTests.swift */; };
 		BF97117A1BB00346006DA166 /* Faith_PrototyperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9711791BB00346006DA166 /* Faith_PrototyperUITests.swift */; };
-		BF9711D91BB1F1D4006DA166 /* libZipZap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711D61BB1F1A5006DA166 /* libZipZap.a */; };
 		BF9711DB1BB1F246006DA166 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711DA1BB1F246006DA166 /* ApplicationServices.framework */; };
 		BF9711DD1BB1F250006DA166 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711DC1BB1F250006DA166 /* Foundation.framework */; };
-		BF9711DF1BB1F263006DA166 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711DE1BB1F263006DA166 /* libz.tbd */; };
+		BFA171861BB569AD00EE90CA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711DE1BB1F263006DA166 /* libz.tbd */; };
+		BFA171991BB56C5000EE90CA /* libZipZap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA171961BB56BD500EE90CA /* libZipZap.a */; };
+		BFA1719D1BB57C4D00EE90CA /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA1719C1BB57C4D00EE90CA /* CardType.swift */; settings = {ASSET_TAGS = (); }; };
 		BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */; settings = {ASSET_TAGS = (); }; };
+		BFF6400E1BB68198001166A9 /* cardTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF6400D1BB68198001166A9 /* cardTableDelegate.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,37 +37,37 @@
 			remoteGlobalIDString = BF9711581BB00345006DA166;
 			remoteInfo = "Faith Prototyper";
 		};
-		BF9711CF1BB1F1A5006DA166 /* PBXContainerItemProxy */ = {
+		BFA1718F1BB56BD500EE90CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+			containerPortal = BFA171871BB56BD500EE90CA /* ZipZap.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D87BA1F81B3D6DEA00ED7EB3;
 			remoteInfo = "ZipZap (iOS Framework)";
 		};
-		BF9711D11BB1F1A5006DA166 /* PBXContainerItemProxy */ = {
+		BFA171911BB56BD500EE90CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+			containerPortal = BFA171871BB56BD500EE90CA /* ZipZap.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D899CFB0162C5EEB00112F49;
 			remoteInfo = "ZipZap (iOS Static Library)";
 		};
-		BF9711D31BB1F1A5006DA166 /* PBXContainerItemProxy */ = {
+		BFA171931BB56BD500EE90CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+			containerPortal = BFA171871BB56BD500EE90CA /* ZipZap.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D8D140D31B423B1100C411B0;
 			remoteInfo = "ZipZap (OS X Framework)";
 		};
-		BF9711D51BB1F1A5006DA166 /* PBXContainerItemProxy */ = {
+		BFA171951BB56BD500EE90CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+			containerPortal = BFA171871BB56BD500EE90CA /* ZipZap.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D899CF82162C5EC100112F49;
 			remoteInfo = "ZipZap (OS X Static Library)";
 		};
-		BF9711D71BB1F1A5006DA166 /* PBXContainerItemProxy */ = {
+		BFA171971BB56BD500EE90CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+			containerPortal = BFA171871BB56BD500EE90CA /* ZipZap.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D899CF96162C5EC100112F49;
 			remoteInfo = ZipZapTests;
@@ -86,11 +88,13 @@
 		BF9711791BB00346006DA166 /* Faith_PrototyperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Faith_PrototyperUITests.swift; sourceTree = "<group>"; };
 		BF97117B1BB00346006DA166 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF97119A1BB1A607006DA166 /* ObjectiveCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveCBridge.h; sourceTree = "<group>"; };
-		BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZipZap.xcodeproj; path = ZipZap/ZipZap.xcodeproj; sourceTree = "<group>"; };
 		BF9711DA1BB1F246006DA166 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		BF9711DC1BB1F250006DA166 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BF9711DE1BB1F263006DA166 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		BFA171871BB56BD500EE90CA /* ZipZap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZipZap.xcodeproj; path = ZipZap/ZipZap.xcodeproj; sourceTree = "<group>"; };
+		BFA1719C1BB57C4D00EE90CA /* CardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
 		BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SWXMLHash.swift; path = SWXMLHash/Source/SWXMLHash.swift; sourceTree = "<group>"; };
+		BFF6400D1BB68198001166A9 /* cardTableDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cardTableDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,10 +102,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF9711DF1BB1F263006DA166 /* libz.tbd in Frameworks */,
+				BFA171991BB56C5000EE90CA /* libZipZap.a in Frameworks */,
 				BF9711DD1BB1F250006DA166 /* Foundation.framework in Frameworks */,
 				BF9711DB1BB1F246006DA166 /* ApplicationServices.framework in Frameworks */,
-				BF9711D91BB1F1D4006DA166 /* libZipZap.a in Frameworks */,
+				BFA171861BB569AD00EE90CA /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +137,7 @@
 				BF97116D1BB00346006DA166 /* Faith PrototyperTests */,
 				BF9711781BB00346006DA166 /* Faith PrototyperUITests */,
 				BF97115A1BB00345006DA166 /* Products */,
-				BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */,
+				BFA171871BB56BD500EE90CA /* ZipZap.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -156,6 +160,8 @@
 				BF9711621BB00346006DA166 /* Main.storyboard */,
 				BF9711651BB00346006DA166 /* Info.plist */,
 				BF97119A1BB1A607006DA166 /* ObjectiveCBridge.h */,
+				BFA1719C1BB57C4D00EE90CA /* CardType.swift */,
+				BFF6400D1BB68198001166A9 /* cardTableDelegate.swift */,
 			);
 			path = "Faith Prototyper";
 			sourceTree = "<group>";
@@ -178,14 +184,14 @@
 			path = "Faith PrototyperUITests";
 			sourceTree = "<group>";
 		};
-		BF9711C81BB1F1A4006DA166 /* Products */ = {
+		BFA171881BB56BD500EE90CA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BF9711D01BB1F1A5006DA166 /* ZipZap.framework */,
-				BF9711D21BB1F1A5006DA166 /* libZipZap.a */,
-				BF9711D41BB1F1A5006DA166 /* ZipZap.framework */,
-				BF9711D61BB1F1A5006DA166 /* libZipZap.a */,
-				BF9711D81BB1F1A5006DA166 /* ZipZapTests.xctest */,
+				BFA171901BB56BD500EE90CA /* ZipZap.framework */,
+				BFA171921BB56BD500EE90CA /* libZipZap.a */,
+				BFA171941BB56BD500EE90CA /* ZipZap.framework */,
+				BFA171961BB56BD500EE90CA /* libZipZap.a */,
+				BFA171981BB56BD500EE90CA /* ZipZapTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -281,8 +287,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = BF9711C81BB1F1A4006DA166 /* Products */;
-					ProjectRef = BF9711C71BB1F1A4006DA166 /* ZipZap.xcodeproj */;
+					ProductGroup = BFA171881BB56BD500EE90CA /* Products */;
+					ProjectRef = BFA171871BB56BD500EE90CA /* ZipZap.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -295,39 +301,39 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		BF9711D01BB1F1A5006DA166 /* ZipZap.framework */ = {
+		BFA171901BB56BD500EE90CA /* ZipZap.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = ZipZap.framework;
-			remoteRef = BF9711CF1BB1F1A5006DA166 /* PBXContainerItemProxy */;
+			remoteRef = BFA1718F1BB56BD500EE90CA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		BF9711D21BB1F1A5006DA166 /* libZipZap.a */ = {
+		BFA171921BB56BD500EE90CA /* libZipZap.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libZipZap.a;
-			remoteRef = BF9711D11BB1F1A5006DA166 /* PBXContainerItemProxy */;
+			remoteRef = BFA171911BB56BD500EE90CA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		BF9711D41BB1F1A5006DA166 /* ZipZap.framework */ = {
+		BFA171941BB56BD500EE90CA /* ZipZap.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = ZipZap.framework;
-			remoteRef = BF9711D31BB1F1A5006DA166 /* PBXContainerItemProxy */;
+			remoteRef = BFA171931BB56BD500EE90CA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		BF9711D61BB1F1A5006DA166 /* libZipZap.a */ = {
+		BFA171961BB56BD500EE90CA /* libZipZap.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libZipZap.a;
-			remoteRef = BF9711D51BB1F1A5006DA166 /* PBXContainerItemProxy */;
+			remoteRef = BFA171951BB56BD500EE90CA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		BF9711D81BB1F1A5006DA166 /* ZipZapTests.xctest */ = {
+		BFA171981BB56BD500EE90CA /* ZipZapTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = ZipZapTests.xctest;
-			remoteRef = BF9711D71BB1F1A5006DA166 /* PBXContainerItemProxy */;
+			remoteRef = BFA171971BB56BD500EE90CA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -363,6 +369,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFA1719D1BB57C4D00EE90CA /* CardType.swift in Sources */,
+				BFF6400E1BB68198001166A9 /* cardTableDelegate.swift in Sources */,
 				BF97115F1BB00346006DA166 /* ViewController.swift in Sources */,
 				BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */,
 				BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */,

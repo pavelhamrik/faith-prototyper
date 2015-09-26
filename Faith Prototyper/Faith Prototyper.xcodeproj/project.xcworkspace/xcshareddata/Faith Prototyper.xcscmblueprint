@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "50D8859C5868881D08725EA6CAC96EFC7EF04AE2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "50D8859C5868881D08725EA6CAC96EFC7EF04AE2" : 0,
+    "82DF43EF5CA016D15C41E0AF1AF686E9973475B7" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CBF5BCD5-E84F-4CB6-9C04-88A38779E493",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "50D8859C5868881D08725EA6CAC96EFC7EF04AE2" : "faith-prototyper\/",
+    "82DF43EF5CA016D15C41E0AF1AF686E9973475B7" : "faith-prototyper\/ZipZap\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Faith Prototyper",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Faith Prototyper\/Faith Prototyper.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/pavelhamrik\/faith-prototyper.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "50D8859C5868881D08725EA6CAC96EFC7EF04AE2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/pixelglow\/ZipZap.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "82DF43EF5CA016D15C41E0AF1AF686E9973475B7"
+    }
+  ]
+}

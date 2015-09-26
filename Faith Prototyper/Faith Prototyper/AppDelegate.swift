@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTable
     }
     
     
-    func numberOfRowsInTableView(aTableView: NSTableView) -> Int
+    /*func numberOfRowsInTableView(aTableView: NSTableView) -> Int
     {
         let numberOfRows:Int = getDataArray().count
         return numberOfRows
@@ -34,15 +34,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTable
     
     func getDataArray () -> NSArray{
         let dataArray:[NSDictionary] = [
-            ["FirstName": "Debasis",    "LastName": "Das"],
-            ["FirstName": "Nishant",    "LastName": "Singh"],
-            ["FirstName": "John",       "LastName": "Doe"],
-            ["FirstName": "Jane",       "LastName": "Doe"],
-            ["FirstName": "Mary",       "LastName": "Jane"]
+            ["Name": "This shouldn't be here", "LastName": "Exactly right"]
         ];
-        //print(dataArray);
         return dataArray;
-    }
+    }*/
     
     
 }

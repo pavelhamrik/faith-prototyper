@@ -8,17 +8,43 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+protocol cardTableViewDelegate {
+    func updateCardTableView()
+    var rows: [NSMutableDictionary]{get set}
+}
+
+class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, cardTableViewDelegate {
     
     //let sysTmpDirURL = NSURL(fileURLWithPath: NSTemporaryDirectory())
     var tmpDirURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("faithprototyper")
+    var rows = [NSMutableDictionary]()
+//    var delegate: cardTableViewDelegate = cardTableDelegate
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
         print(tmpDirURL)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshList:", name:"refreshMyTableView", object: nil)
+
+        //tableView.setDelegate(self.tableView.delegate())
+        //self.tableView.setDataSource(self)
+        
+    }
+    
+    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
+        //if let controller = segue.destinationController as? NSTableView {
+            //controller.setDelegate(self.tableView.delegate())
+            //print(self.tableView.delegate())
+        //}
+    }
+    
+    func updateCardTableView() {
+        
+    }
+    
+    func refreshList(notification: NSNotification){
+        print("pressed-notified")
+        //delegate.updateCardTableView()
     }
 
     override var representedObject: AnyObject? {
@@ -27,6 +53,24 @@ class ViewController: NSViewController {
         }
     }
     
+    // handle the main table
+    
+    func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
+        let numberOfRows:Int = getDataArray().count
+        return numberOfRows
+    }
+    
+    func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+        let newString = getDataArray().objectAtIndex(row).objectForKey(tableColumn!.identifier)
+        return newString;
+    }
+    
+    func getDataArray () -> NSArray {
+        return self.rows;
+    }
+    
+    
+    // load the xlsx
     
     @IBAction func loadData(sender : AnyObject) {
         let openPanel = NSOpenPanel()
@@ -51,39 +95,121 @@ class ViewController: NSViewController {
                     }
                     
                     // parsing
-                    let fileURL = self.tmpDirURL.URLByAppendingPathComponent("xl/worksheets/sheet10.xml")
-                    let xmlToParse = try! NSString(contentsOfURL: fileURL, encoding: NSUTF8StringEncoding)
-                    //print(xmlToParse)
-                    let xml = SWXMLHash.parse(xmlToParse as String)
-                    
-                    for row in xml["worksheet"]["sheetData"]["row"] {
-                        for cell in row["c"] {
-                            //print(cell)
-                            print(cell["v"].element?.text)
-                        }
-                        print("----------")
-                    }
-                    
-                    //print(xml["worksheet"]["sheetData"])
-                    
-                    
                     // https://github.com/drmohundro/SWXMLHash
                     
-                    // https://github.com/nicklockwood/XMLDictionary
-                    // JS XLSX parser http://bl.ocks.org/lancejpollard/3808517
-                    // http://blogs.msdn.com/b/brian_jones/archive/2007/05/29/simple-spreadsheetml-file-part-3-formatting.aspx
+                    let cardTypes =  ["Myths", "Schemes", "Events", "Attachments"]  // redo dynamically from an editable UI element
                     
+                    // xl/_rels/workbook.xml.rels
+                    var xmlURL = self.tmpDirURL.URLByAppendingPathComponent("xl/_rels/workbook.xml.rels")
+                    var xmlToParse = try! NSString(contentsOfURL: xmlURL, encoding: NSUTF8StringEncoding)
+                    let workbookRelsXML = SWXMLHash.parse(xmlToParse as String)
+                    var workbookRels = [String: String]()
+                    for xmlRow in workbookRelsXML["Relationships"]["Relationship"] {
+                        workbookRels[(xmlRow.element?.attributes["Id"])!] = xmlRow.element?.attributes["Target"]
+                    }
                     
-                    
-                    
-                } catch {
-                    print("Failed to create the file.")
-                }
-                
-                // Rest
+                    // xl/workbook.xml leading to sheet name: url nsdictionary
+                    xmlURL = self.tmpDirURL.URLByAppendingPathComponent("xl/workbook.xml")
+                    xmlToParse = try! NSString(contentsOfURL: xmlURL, encoding: NSUTF8StringEncoding)
+                    let workbookXML = SWXMLHash.parse(xmlToParse as String)
+                    var sheets = [String: String]()
+                    for xmlRow in workbookXML["workbook"]["sheets"]["sheet"] {
+                        let sheetAttrName = xmlRow.element?.attributes["name"]
+                        if cardTypes.contains(sheetAttrName!) {
+                            let rid = xmlRow.element?.attributes["r:id"]
+                            sheets[sheetAttrName!] = workbookRels[rid!]
+                        }
+                    }
+                    //print(sheets)
 
+                    // xl/sharedStrings.xml
+                    xmlURL = self.tmpDirURL.URLByAppendingPathComponent("xl/sharedStrings.xml")
+                    xmlToParse = try! NSString(contentsOfURL: xmlURL, encoding: NSUTF8StringEncoding)
+                    let sharedStringsXML = SWXMLHash.parse(xmlToParse as String)
+                    var sharedStrings = [String]()
+                    for xmlRow in sharedStringsXML["sst"]["si"] {
+                        sharedStrings.append((xmlRow["t"].element?.text)!)
+                    }
+                    
+                    // get all keys to create a NSDictionary from them later
+                    var allColsSet = Set<String>()
+                    for (_, value) in sheets {
+                        xmlURL = self.tmpDirURL.URLByAppendingPathComponent("xl/" + value)
+                        xmlToParse = try! NSString(contentsOfURL: xmlURL, encoding: NSUTF8StringEncoding)
+                        let colXML = SWXMLHash.parse(xmlToParse as String)
+                        let rows = colXML["worksheet"]["sheetData"]["row"]
+                        var cols = Set<String>()
+                        let row = rows[0]
+                        for col in row["c"] {
+                            if col["v"].element?.text != nil {
+                                let index = Int((col["v"].element?.text)!)
+                                cols.insert(sharedStrings[index!])
+                            }
+                        }
+                        allColsSet = allColsSet.union(cols)
+                    }
+                    let keys = Array(allColsSet)
+                    let keyset = NSDictionary.sharedKeySetForKeys(keys)
+                    
+                    //print(keys)
+                    
+                    // the full stack of cards
+                    for (_, value) in sheets {
+                        // first worksheet, redo dynamically
+                        xmlURL = self.tmpDirURL.URLByAppendingPathComponent("xl/" + value)
+                        xmlToParse = try! NSString(contentsOfURL: xmlURL, encoding: NSUTF8StringEncoding)
+                        let xml = SWXMLHash.parse(xmlToParse as String)
+                        let row = xml["worksheet"]["sheetData"]["row"][0]
+                        var localKeys = [String]()
+                        for col in row["c"] {
+                            if col["v"].element?.text != nil {
+                                let index = Int((col["v"].element?.text)!)
+                                localKeys.append(sharedStrings[index!])
+                            }
+                        }
+                        //print(localKeys)
+                        for xmlRow in xml["worksheet"]["sheetData"]["row"] {
+                            let cell = NSMutableDictionary(sharedKeySet: keyset)
+                            var colNum = 0
+                            let colCount = localKeys.count
+                            //print(colCount)
+                            var empty = true
+                            for xmlCell in xmlRow["c"] {
+                                //print(colNum)
+                                if colNum >= colCount {
+                                    break
+                                }
+                                // <c r="D4" s="15" t="s">, <c r="E4" s="77" t="str"> (formula)
+                                if xmlCell.element?.attributes["t"] == "s" {
+                                    // fetch the referenced s
+                                    let index = Int((xmlCell["v"].element?.text)!)
+                                    cell.setObject(sharedStrings[index!], forKey: localKeys[colNum])
+                                    empty = false
+                                } else if xmlCell.element?.attributes["t"] == "str" {
+                                    // here we just use the value
+                                    cell.setObject((xmlCell["v"].element?.text)!, forKey: localKeys[colNum])
+                                    empty = false
+                                } else {
+                                    cell.setObject("--", forKey: localKeys[colNum])
+                                }
+                                colNum += 1
+                            }
+                            if !empty {
+                                self.rows.append(cell)
+                            }
+                        }
+                    }
+                    //self.cardTableView.reloadData()
+                } catch {
+                    print("Failed to unpack the XLSX.")
+                }
             }
         }
+    }
+    
+    @IBAction func printVar(sender: AnyObject) {
+        print("pressed")
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshMyTableView", object: nil)
     }
     
     
