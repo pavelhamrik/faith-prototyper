@@ -9,16 +9,18 @@
 import Cocoa
 
 protocol cardTableViewDelegate {
-    func updateCardTableView()
+    func updateCardTableView(sender: AnyObject)
     var rows: [NSMutableDictionary]{get set}
 }
 
-class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, cardTableViewDelegate {
+class ViewController: NSViewController {
     
-    //let sysTmpDirURL = NSURL(fileURLWithPath: NSTemporaryDirectory())
+    var delegate: cardTableViewDelegate?
+    
+    //@IBOutlet weak var test: cardTableDelegate!
+    //@IBOutlet var test: cardTableDelegate!
     var tmpDirURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("faithprototyper")
     var rows = [NSMutableDictionary]()
-//    var delegate: cardTableViewDelegate = cardTableDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,41 +40,23 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         //}
     }
     
-    func updateCardTableView() {
-        
-    }
-    
     func refreshList(notification: NSNotification){
         print("pressed-notified")
-        //delegate.updateCardTableView()
+        print(rows)
+        delegate?.updateCardTableView(self)
     }
 
     override var representedObject: AnyObject? {
         didSet {
-        // Update the view, if already loaded. 
+            // Update the view, if already loaded.
         }
-    }
-    
-    // handle the main table
-    
-    func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
-        let numberOfRows:Int = getDataArray().count
-        return numberOfRows
-    }
-    
-    func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
-        let newString = getDataArray().objectAtIndex(row).objectForKey(tableColumn!.identifier)
-        return newString;
-    }
-    
-    func getDataArray () -> NSArray {
-        return self.rows;
     }
     
     
     // load the xlsx
     
     @IBAction func loadData(sender : AnyObject) {
+        let notAvailable = "" // formerly "--"
         let openPanel = NSOpenPanel()
         openPanel.canChooseDirectories = false
         openPanel.allowsMultipleSelection = false
@@ -81,7 +65,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
             if result == NSFileHandlingPanelOKButton {
                 let importFileURL = openPanel.URL
                 
-                // Unzip the shit out of it
+                // unzip the shit out of it
                 do {
                     let archive: ZZArchive = try ZZArchive(URL: importFileURL)
                     let fileManager = NSFileManager.defaultManager()
@@ -94,7 +78,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
                         try! entry.newData().writeToURL(entryURL, atomically: false)
                     }
                     
-                    // parsing
+                    // then parsing
                     // https://github.com/drmohundro/SWXMLHash
                     
                     let cardTypes =  ["Myths", "Schemes", "Events", "Attachments"]  // redo dynamically from an editable UI element
@@ -120,7 +104,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
                             sheets[sheetAttrName!] = workbookRels[rid!]
                         }
                     }
-                    //print(sheets)
+                    print(sheets)
 
                     // xl/sharedStrings.xml
                     xmlURL = self.tmpDirURL.URLByAppendingPathComponent("xl/sharedStrings.xml")
@@ -155,44 +139,48 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
                     
                     // the full stack of cards
                     for (_, value) in sheets {
-                        // first worksheet, redo dynamically
                         xmlURL = self.tmpDirURL.URLByAppendingPathComponent("xl/" + value)
                         xmlToParse = try! NSString(contentsOfURL: xmlURL, encoding: NSUTF8StringEncoding)
                         let xml = SWXMLHash.parse(xmlToParse as String)
-                        let row = xml["worksheet"]["sheetData"]["row"][0]
+                        let firstRow = xml["worksheet"]["sheetData"]["row"][0]
                         var localKeys = [String]()
-                        for col in row["c"] {
+                        for col in firstRow["c"] {
                             if col["v"].element?.text != nil {
                                 let index = Int((col["v"].element?.text)!)
                                 localKeys.append(sharedStrings[index!])
                             }
                         }
-                        //print(localKeys)
+                        print(value)
+                        var xmlRowNum = 0
                         for xmlRow in xml["worksheet"]["sheetData"]["row"] {
+                            xmlRowNum += 1
                             let cell = NSMutableDictionary(sharedKeySet: keyset)
-                            var colNum = 0
-                            let colCount = localKeys.count
-                            //print(colCount)
                             var empty = true
-                            for xmlCell in xmlRow["c"] {
-                                //print(colNum)
-                                if colNum >= colCount {
-                                    break
-                                }
-                                // <c r="D4" s="15" t="s">, <c r="E4" s="77" t="str"> (formula)
-                                if xmlCell.element?.attributes["t"] == "s" {
-                                    // fetch the referenced s
-                                    let index = Int((xmlCell["v"].element?.text)!)
-                                    cell.setObject(sharedStrings[index!], forKey: localKeys[colNum])
-                                    empty = false
-                                } else if xmlCell.element?.attributes["t"] == "str" {
-                                    // here we just use the value
-                                    cell.setObject((xmlCell["v"].element?.text)!, forKey: localKeys[colNum])
-                                    empty = false
+                            for key in keys {
+                                // look into local keys for index by value
+                                let localKeyIndex = localKeys.indexOf(key)
+                                if localKeyIndex == nil {
+                                    cell.setObject(notAvailable, forKey: key)
                                 } else {
-                                    cell.setObject("--", forKey: localKeys[colNum])
+                                    let excelCol = self.toExcelCol(localKeyIndex!) + String(xmlRowNum)
+                                    do {
+                                        let xmlCell = try xmlRow["c"].withAttr("r", excelCol)
+                                        if xmlCell.element?.attributes["t"] == "s" {
+                                            // fetch the referenced s
+                                            let index = Int((xmlCell["v"].element?.text)!)
+                                            cell.setObject(sharedStrings[index!], forKey: key)
+                                            empty = false
+                                        } else if xmlCell.element?.attributes["t"] == "str" {
+                                            // here we just use the value
+                                            cell.setObject((xmlCell["v"].element?.text)!, forKey: key)
+                                            empty = false
+                                        } else {
+                                            cell.setObject(notAvailable, forKey: key)
+                                        }
+                                    } catch {
+                                        cell.setObject(notAvailable, forKey: key)
+                                    }
                                 }
-                                colNum += 1
                             }
                             if !empty {
                                 self.rows.append(cell)
@@ -252,5 +240,17 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         }
         
     }
+    
+    // helper function translating col number to excel column index
+    func toExcelCol(colNum: Int) -> String {
+        let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        if colNum < 26 {
+            return letters[colNum]
+        }
+        else {
+            return toExcelCol(colNum / 26 - 1) + toExcelCol(colNum % 26)
+        }
+    }
+    
 }
 

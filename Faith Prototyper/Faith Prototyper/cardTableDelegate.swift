@@ -14,12 +14,11 @@ class cardTableDelegate: NSViewController, NSTableViewDelegate, NSTableViewDataS
     
     var rows = [NSMutableDictionary]()
     
-    var delegate = cardTableDelegate.self
-    
-    func updateCardTableView() {
-        print("sadf")
+    func updateCardTableView(sender: AnyObject) {
+        print("delegate very much pinged")
         self.tableView.reloadData()
     }
+    
     
     /*override func viewDidLoad() {
         super.viewDidLoad()
