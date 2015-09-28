@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF8B57351BB9D2B800FEBD4F /* CardTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8B57341BB9D2B800FEBD4F /* CardTable.swift */; settings = {ASSET_TAGS = (); }; };
 		BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97115C1BB00346006DA166 /* AppDelegate.swift */; };
 		BF97115F1BB00346006DA166 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97115E1BB00346006DA166 /* ViewController.swift */; };
 		BF9711611BB00346006DA166 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9711601BB00346006DA166 /* Assets.xcassets */; };
@@ -19,7 +20,6 @@
 		BFA171991BB56C5000EE90CA /* libZipZap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA171961BB56BD500EE90CA /* libZipZap.a */; };
 		BFA1719D1BB57C4D00EE90CA /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA1719C1BB57C4D00EE90CA /* CardType.swift */; settings = {ASSET_TAGS = (); }; };
 		BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */; settings = {ASSET_TAGS = (); }; };
-		BFF6400E1BB68198001166A9 /* cardTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF6400D1BB68198001166A9 /* cardTableDelegate.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +75,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BF8B57341BB9D2B800FEBD4F /* CardTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTable.swift; sourceTree = "<group>"; };
 		BF9711591BB00345006DA166 /* Faith Prototyper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Faith Prototyper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF97115C1BB00346006DA166 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF97115E1BB00346006DA166 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,7 +95,6 @@
 		BFA171871BB56BD500EE90CA /* ZipZap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZipZap.xcodeproj; path = ZipZap/ZipZap.xcodeproj; sourceTree = "<group>"; };
 		BFA1719C1BB57C4D00EE90CA /* CardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
 		BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SWXMLHash.swift; path = SWXMLHash/Source/SWXMLHash.swift; sourceTree = "<group>"; };
-		BFF6400D1BB68198001166A9 /* cardTableDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cardTableDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,7 +161,7 @@
 				BF9711651BB00346006DA166 /* Info.plist */,
 				BF97119A1BB1A607006DA166 /* ObjectiveCBridge.h */,
 				BFA1719C1BB57C4D00EE90CA /* CardType.swift */,
-				BFF6400D1BB68198001166A9 /* cardTableDelegate.swift */,
+				BF8B57341BB9D2B800FEBD4F /* CardTable.swift */,
 			);
 			path = "Faith Prototyper";
 			sourceTree = "<group>";
@@ -370,9 +370,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFA1719D1BB57C4D00EE90CA /* CardType.swift in Sources */,
-				BFF6400E1BB68198001166A9 /* cardTableDelegate.swift in Sources */,
 				BF97115F1BB00346006DA166 /* ViewController.swift in Sources */,
 				BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */,
+				BF8B57351BB9D2B800FEBD4F /* CardTable.swift in Sources */,
 				BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

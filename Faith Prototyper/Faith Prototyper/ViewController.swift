@@ -8,42 +8,32 @@
 
 import Cocoa
 
-protocol cardTableViewDelegate {
-    func updateCardTableView(sender: AnyObject)
+protocol cardTableViewProtocol {
+    func updateCardTableView(sender: AnyObject, value: AnyObject)
     var rows: [NSMutableDictionary]{get set}
 }
 
 class ViewController: NSViewController {
     
-    var delegate: cardTableViewDelegate?
+    var delegate: CardTable?
     
-    //@IBOutlet weak var test: cardTableDelegate!
-    //@IBOutlet var test: cardTableDelegate!
     var tmpDirURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("faithprototyper")
-    var rows = [NSMutableDictionary]()
+    var rows: [NSMutableDictionary] = [
+        ["Name": "Ayyaa!"]
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         print(tmpDirURL)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshList:", name:"refreshMyTableView", object: nil)
-
-        //tableView.setDelegate(self.tableView.delegate())
-        //self.tableView.setDataSource(self)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshList:", name:"refreshCardTableView", object: nil)
     }
-    
-    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
-        //if let controller = segue.destinationController as? NSTableView {
-            //controller.setDelegate(self.tableView.delegate())
-            //print(self.tableView.delegate())
-        //}
-    }
-    
+       
     func refreshList(notification: NSNotification){
-        print("pressed-notified")
-        print(rows)
-        delegate?.updateCardTableView(self)
+        delegate?.updateCardTableView(self, value: rows)
+    }
+    
+    @IBAction func printVar(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshCardTableView", object: nil)
     }
 
     override var representedObject: AnyObject? {
@@ -193,11 +183,6 @@ class ViewController: NSViewController {
                 }
             }
         }
-    }
-    
-    @IBAction func printVar(sender: AnyObject) {
-        print("pressed")
-        NSNotificationCenter.defaultCenter().postNotificationName("refreshMyTableView", object: nil)
     }
     
     
