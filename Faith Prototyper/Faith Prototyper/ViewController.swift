@@ -8,32 +8,14 @@
 
 import Cocoa
 
-protocol cardTableViewProtocol {
-    func updateCardTableView(sender: AnyObject, value: AnyObject)
-    var rows: [NSMutableDictionary]{get set}
-}
-
 class ViewController: NSViewController {
     
-    var delegate: CardTable?
-    
     var tmpDirURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("faithprototyper")
-    var rows: [NSMutableDictionary] = [
-        ["Name": "Ayyaa!"]
-    ]
+    var rows: [NSMutableDictionary] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print(tmpDirURL)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshList:", name:"refreshCardTableView", object: nil)
-    }
-       
-    func refreshList(notification: NSNotification){
-        delegate?.updateCardTableView(self, value: rows)
-    }
-    
-    @IBAction func printVar(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName("refreshCardTableView", object: nil)
     }
 
     override var representedObject: AnyObject? {
@@ -94,7 +76,6 @@ class ViewController: NSViewController {
                             sheets[sheetAttrName!] = workbookRels[rid!]
                         }
                     }
-                    print(sheets)
 
                     // xl/sharedStrings.xml
                     xmlURL = self.tmpDirURL.URLByAppendingPathComponent("xl/sharedStrings.xml")
@@ -125,8 +106,6 @@ class ViewController: NSViewController {
                     let keys = Array(allColsSet)
                     let keyset = NSDictionary.sharedKeySetForKeys(keys)
                     
-                    //print(keys)
-                    
                     // the full stack of cards
                     for (_, value) in sheets {
                         xmlURL = self.tmpDirURL.URLByAppendingPathComponent("xl/" + value)
@@ -140,7 +119,6 @@ class ViewController: NSViewController {
                                 localKeys.append(sharedStrings[index!])
                             }
                         }
-                        print(value)
                         var xmlRowNum = 0
                         for xmlRow in xml["worksheet"]["sheetData"]["row"] {
                             xmlRowNum += 1
@@ -177,7 +155,7 @@ class ViewController: NSViewController {
                             }
                         }
                     }
-                    //self.cardTableView.reloadData()
+                    NSNotificationCenter.defaultCenter().postNotificationName("refreshCardTableView", object: nil, userInfo:["rows": self.rows])
                 } catch {
                     print("Failed to unpack the XLSX.")
                 }

@@ -8,13 +8,13 @@
 
 import Cocoa
 
-class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource, cardTableViewProtocol {
+class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     
     var rows: [NSMutableDictionary] = [
-        ["Name": "Many Hellos!"]
+        ["Name": "Load some cards..."]
     ]
     
-    @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet var tableView: NSTableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,22 +22,22 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource, c
     }
     
     func act(notification: NSNotification) {
-        print("I'm here")
-        print(rows)
-    }
-    
-    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "cardTableSubview" {
-            let target = segue.destinationController as? ViewController
-            print(segue.sourceController)
-            print(target)
-            target!.delegate = self;
+        let userinfo = notification.userInfo
+        self.rows = userinfo?["rows"] as! [NSMutableDictionary]
+        
+        // store for lates
+        let tableCols = self.tableView.tableColumns
+        for col in tableCols {
+            self.tableView.removeTableColumn(col)
         }
-    }
-    
-    func updateCardTableView(update: AnyObject, value: AnyObject) {
-        print("I'm here")
-        print(update)
+        
+        for (key, _) in self.rows[0] {
+            let column = NSTableColumn()
+            column.title = key as! String
+            column.identifier = key as! String
+            self.tableView.addTableColumn(column)
+        }
+        
         self.tableView.reloadData()
     }
 
@@ -52,7 +52,9 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource, c
     }
     
     func getDataArray() -> NSArray {
-        return rows;
+        var regularRows = self.rows
+        regularRows.removeAtIndex(0)
+        return regularRows;
     }
     
 }
