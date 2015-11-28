@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BF8B57351BB9D2B800FEBD4F /* CardTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8B57341BB9D2B800FEBD4F /* CardTable.swift */; settings = {ASSET_TAGS = (); }; };
+		BF2C2E6E1C086C0D006D25F6 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2C2E6D1C086C0C006D25F6 /* CoreText.framework */; };
+		BF8B57351BB9D2B800FEBD4F /* CardTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8B57341BB9D2B800FEBD4F /* CardTable.swift */; };
 		BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97115C1BB00346006DA166 /* AppDelegate.swift */; };
 		BF97115F1BB00346006DA166 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97115E1BB00346006DA166 /* ViewController.swift */; };
 		BF9711611BB00346006DA166 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9711601BB00346006DA166 /* Assets.xcassets */; };
@@ -18,8 +19,8 @@
 		BF9711DD1BB1F250006DA166 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711DC1BB1F250006DA166 /* Foundation.framework */; };
 		BFA171861BB569AD00EE90CA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711DE1BB1F263006DA166 /* libz.tbd */; };
 		BFA171991BB56C5000EE90CA /* libZipZap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA171961BB56BD500EE90CA /* libZipZap.a */; };
-		BFA1719D1BB57C4D00EE90CA /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA1719C1BB57C4D00EE90CA /* CardType.swift */; settings = {ASSET_TAGS = (); }; };
-		BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */; settings = {ASSET_TAGS = (); }; };
+		BFA1719D1BB57C4D00EE90CA /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA1719C1BB57C4D00EE90CA /* CardType.swift */; };
+		BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BF2C2E6D1C086C0C006D25F6 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		BF8B57341BB9D2B800FEBD4F /* CardTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTable.swift; sourceTree = "<group>"; };
 		BF9711591BB00345006DA166 /* Faith Prototyper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Faith Prototyper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF97115C1BB00346006DA166 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF2C2E6E1C086C0D006D25F6 /* CoreText.framework in Frameworks */,
 				BFA171991BB56C5000EE90CA /* libZipZap.a in Frameworks */,
 				BF9711DD1BB1F250006DA166 /* Foundation.framework in Frameworks */,
 				BF9711DB1BB1F246006DA166 /* ApplicationServices.framework in Frameworks */,
@@ -129,6 +132,7 @@
 		BF9711501BB00345006DA166 = {
 			isa = PBXGroup;
 			children = (
+				BF2C2E6D1C086C0C006D25F6 /* CoreText.framework */,
 				BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */,
 				BF9711DE1BB1F263006DA166 /* libz.tbd */,
 				BF9711DC1BB1F250006DA166 /* Foundation.framework */,
