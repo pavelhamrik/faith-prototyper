@@ -70,8 +70,8 @@ class ShapeDrawer {
             let textColor = NSColor.blackColor()
             
             if (textattributes["lineSpacing"] != nil) {
-                //textStyle.lineSpacing(textattributes["lineSpacing"] as Float)
-                //hello
+                let lineSpacing = textattributes["lineSpacing"]! as NSString
+                textStyle.lineSpacing = CGFloat(lineSpacing.intValue)
             }
             
             let textFontAttributes = [

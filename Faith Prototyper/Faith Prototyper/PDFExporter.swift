@@ -107,7 +107,11 @@ class PDFExporter {
                     
                     // typeset text
                     // TODO: attributed string, icons, etc.
-                    frame = [CGFloat(31.5), CGFloat(137.5), CGFloat(138.0), CGFloat(70.0)]
+                    frame = [CGFloat(31.5), CGFloat(164.0), CGFloat(138.0), CGFloat(70.0)]
+                    
+                    var abilities = (rows[Int(cardindex)]["Achieved Ability Cost"] as! String)
+                    abilities += (rows[Int(cardindex)]["Achieved Ability"] as! String)
+                    
                     ShapeDrawer.drawShape(
                         "textframe",
                         context: context!,
@@ -115,8 +119,8 @@ class PDFExporter {
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
                         ysize: frame[3],
-                        text: rows[Int(cardindex)]["Text"] as! String,
-                        textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]
+                        text: abilities,
+                        textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black", "lineSpacing": "0.0"]
                     )
                     
                     
