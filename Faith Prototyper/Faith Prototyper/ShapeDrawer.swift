@@ -71,6 +71,7 @@ class ShapeDrawer {
             
             if (textattributes["lineSpacing"] != nil) {
                 //textStyle.lineSpacing(textattributes["lineSpacing"] as Float)
+                //hello
             }
             
             let textFontAttributes = [
