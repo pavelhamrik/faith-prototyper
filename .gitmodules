@@ -1,1 +1,4 @@
 
+[submodule "Faith Prototyper/ZipZap"]
+	path = Faith Prototyper/ZipZap
+	url = https://github.com/pixelglow/ZipZap.git
