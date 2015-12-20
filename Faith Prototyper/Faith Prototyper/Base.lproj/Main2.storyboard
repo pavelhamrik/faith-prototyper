@@ -232,16 +232,8 @@
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <toolbar key="toolbar" implicitIdentifier="27BE8F14-79A1-42FC-B1CD-8FC790A053FC" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="NoE-dn-k3h">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="53D6662E-61C6-4266-9C98-8627965F3402" label="Load XLSX" paletteLabel="Load XLSX" tag="-1" image="NSFolder" id="ZRi-Ej-2V5">
-                                    <connections>
-                                        <action selector="loadData:" target="Oky-zY-oP4" id="h4w-mh-nfT"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="7C62DD6E-841C-43AE-A493-01E183893E81" label="Generate PDF" paletteLabel="Generate PDF" tag="-1" image="NSMultipleDocuments" id="fG2-fX-HMg">
-                                    <connections>
-                                        <action selector="generatePDF:" target="Oky-zY-oP4" id="lKS-14-vSS"/>
-                                    </connections>
-                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="53D6662E-61C6-4266-9C98-8627965F3402" label="Load XLSX" paletteLabel="Load XLSX" tag="-1" image="NSFolder" id="ZRi-Ej-2V5"/>
+                                <toolbarItem implicitItemIdentifier="7C62DD6E-841C-43AE-A493-01E183893E81" label="Generate PDF" paletteLabel="Generate PDF" tag="-1" image="NSMultipleDocuments" id="fG2-fX-HMg"/>
                                 <toolbarItem implicitItemIdentifier="928098FF-CC6D-448F-8F36-0AAF2D994E6C" label="Settings" paletteLabel="Settings" tag="-1" image="NSPreferencesGeneral" id="kcF-CD-Irs"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="O6H-Xm-bxT"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="5HN-bM-rTl"/>
@@ -255,7 +247,7 @@
                         </toolbar>
                     </window>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="a9b-e6-P7R"/>
+                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -270,39 +262,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="800" height="450"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView id="vbB-kl-Zqk">
-                                <rect key="frame" x="0.0" y="0.0" width="800" height="450"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <animations/>
-                                <connections>
-                                    <segue destination="OXE-Mg-DzL" kind="embed" id="hfu-39-c7M"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <animations/>
-                    </view>
-                </viewController>
-                <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="75" y="1167"/>
-        </scene>
-        <!--Card Table-->
-        <scene sceneID="dfb-Yt-aVI">
-            <objects>
-                <viewController id="OXE-Mg-DzL" customClass="CardTable" customModule="Faith_Prototyper" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="j6c-s9-RAL">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="6iz-ud-cic">
-                                <rect key="frame" x="0.0" y="-1" width="450" height="301"/>
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="450"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="20I-v6-TN7">
-                                    <rect key="frame" x="0.0" y="0.0" width="450" height="301"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="800" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="cpy-34-SvX" id="0Ah-V4-CyB">
-                                            <rect key="frame" x="0.0" y="0.0" width="450" height="284"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="800" height="433"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -324,8 +292,8 @@
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
-                                                <outlet property="dataSource" destination="OXE-Mg-DzL" id="DHq-lH-KJW"/>
-                                                <outlet property="delegate" destination="OXE-Mg-DzL" id="U7Q-iH-o1k"/>
+                                                <outlet property="dataSource" destination="W8H-eQ-iJZ" id="YD3-zi-kM9"/>
+                                                <outlet property="delegate" destination="W8H-eQ-iJZ" id="Kd6-4b-QaP"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -344,7 +312,7 @@
                                     <animations/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="cpy-34-SvX">
-                                    <rect key="frame" x="0.0" y="0.0" width="450" height="17"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="800" height="17"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableHeaderView>
@@ -352,13 +320,15 @@
                         </subviews>
                         <animations/>
                     </view>
-                    <connections>
-                        <outlet property="tableView" destination="0Ah-V4-CyB" id="aOu-kx-wE6"/>
-                    </connections>
                 </viewController>
-                <customObject id="ewe-CN-Z8l" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="W8H-eQ-iJZ" customClass="CardTable" customModule="Faith_Prototyper" customModuleProvider="target">
+                    <connections>
+                        <outlet property="tableView" destination="0Ah-V4-CyB" id="2zx-tF-cTv"/>
+                    </connections>
+                </customObject>
             </objects>
-            <point key="canvasLocation" x="859" y="1242"/>
+            <point key="canvasLocation" x="75" y="1167"/>
         </scene>
     </scenes>
     <resources>

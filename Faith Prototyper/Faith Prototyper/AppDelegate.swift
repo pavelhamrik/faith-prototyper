@@ -9,7 +9,7 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTableViewDataSource {
+class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
 
@@ -19,26 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDelegate, NSTable
         // Insert code here to tear down your application
     }
     
-    
-    /*func numberOfRowsInTableView(aTableView: NSTableView) -> Int
-    {
-        let numberOfRows:Int = getDataArray().count
-        return numberOfRows
-    }
-    
-    func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject?
-    {
-        let newString = getDataArray().objectAtIndex(row).objectForKey(tableColumn!.identifier)
-        return newString;
-    }
-    
-    func getDataArray () -> NSArray{
-        let dataArray:[NSDictionary] = [
-            ["Name": "This shouldn't be here", "LastName": "Exactly right"]
-        ];
-        return dataArray;
-    }*/
-    
+
     
 }
 
