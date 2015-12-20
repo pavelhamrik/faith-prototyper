@@ -50,6 +50,8 @@ class PDFExporter {
             for var pgrow = CGFloat(0.0); pgrow < cardsperx; pgrow += 1 {
                 for var pgcol = CGFloat(0.0); pgcol < cardspery; pgcol += 1 {
                     
+                    var frame = [CGFloat(0.0), CGFloat(0.0), CGFloat(50.0), CGFloat(10.0)]
+                    
                     var cardxbound = CGFloat(cardxsize * pgcol + pgxmargin)
                     if (pgcol >= CGFloat(1)) {
                         cardxbound += cardxgutter * pgcol
@@ -67,20 +69,59 @@ class PDFExporter {
                         break
                     }
                     
-                    ShapeDrawer.drawShape("linerect", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
-                    
-                    if (pgrow == CGFloat(0) && pgcol == CGFloat(0)) {
-                        ShapeDrawer.drawShape("fillrect", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
-                    }
-                    
-                    let textAttributes = ["font": "Lato", "size": "18", "weight": "Light", "color": "black"]
-                    ShapeDrawer.drawShape("textframe", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize, text: rows[Int(cardindex)]["Name"] as! String, textattributes: textAttributes)
-                    
                     // draw backgrounds from previously downloaded CFImageSource
                     ShapeDrawer.drawImageFromSource(cardBackSource!, context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
+                    
+                    // TODO: Draw a card image if found
+                    //ShapeDrawer.drawImageFromURL(NSURL(string: "file:///Users/pavelhamrik/Dropbox/Public/faith/mac/background_Grey.png")!, context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
+
+                    // draw the card frame
+                    ShapeDrawer.drawShape("linerect", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
+                    
+                    // typeset card name
+                    frame = [CGFloat(31.5), CGFloat(11.5), CGFloat(138.0), CGFloat(30.0)]
+                    ShapeDrawer.drawShape(
+                        "textframe",
+                        context: context!,
+                        xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                        yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                        xsize: frame[2],
+                        ysize: frame[3],
+                        text: rows[Int(cardindex)]["Name"] as! String,
+                        textattributes: ["font": "Adelle", "size": "9", "weight": "Bold", "color": "black"]
+                    )
+                    
+                    // typeset card type
+                    // TODO: classes, attributed string, bullet as connector, font weights for classes
+                    frame = [CGFloat(31.5), CGFloat(22.5), CGFloat(138.0), CGFloat(30.0)]
+                    ShapeDrawer.drawShape(
+                        "textframe",
+                        context: context!,
+                        xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                        yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                        xsize: frame[2],
+                        ysize: frame[3],
+                        text: rows[Int(cardindex)]["Type"] as! String,
+                        textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]
+                    )
+                    
+                    // typeset text
+                    // TODO: attributed string, icons, etc.
+                    frame = [CGFloat(31.5), CGFloat(137.5), CGFloat(138.0), CGFloat(70.0)]
+                    ShapeDrawer.drawShape(
+                        "textframe",
+                        context: context!,
+                        xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                        yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                        xsize: frame[2],
+                        ysize: frame[3],
+                        text: rows[Int(cardindex)]["Text"] as! String,
+                        textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]
+                    )
+                    
+                    
 
                     
-                    //ShapeDrawer.drawImageFromURL(NSURL(string: "file:///Users/pavelhamrik/Dropbox/Public/faith/mac/background_Grey.png")!, context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
                     
                     
                 } // pgrows

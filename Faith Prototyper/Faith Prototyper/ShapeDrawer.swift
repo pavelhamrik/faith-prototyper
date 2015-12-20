@@ -16,6 +16,15 @@ class ShapeDrawer {
     }
     
     
+    static func calculateXBound(baseCoord: CGFloat, baseSize: CGFloat, itemCoord: CGFloat, itemSize: CGFloat) -> CGFloat {
+        return baseCoord + itemCoord
+    }
+    
+    static func calculateYBound(baseCoord: CGFloat, baseSize: CGFloat, itemCoord: CGFloat, itemSize: CGFloat) -> CGFloat {
+        return baseCoord + baseSize - (itemCoord + itemSize)
+    }
+    
+    
     static func drawShape(shape: String, context: CGContextRef, xfrom: CGFloat, yfrom: CGFloat, xsize: CGFloat, ysize: CGFloat) {
         self.drawShape(shape, context: context, xfrom: xfrom, yfrom: yfrom, xsize: xsize, ysize: ysize, text: "", textattributes: ["": ""])
     }
@@ -59,6 +68,10 @@ class ShapeDrawer {
             
             let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
             let textColor = NSColor.blackColor()
+            
+            if (textattributes["lineSpacing"] != nil) {
+                //textStyle.lineSpacing(textattributes["lineSpacing"] as Float)
+            }
             
             let textFontAttributes = [
                 NSFontAttributeName : font!,
