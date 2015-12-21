@@ -69,17 +69,21 @@ class PDFExporter {
                         break
                     }
                     
+                    
                     // draw backgrounds from previously downloaded CFImageSource
                     ShapeDrawer.drawImageFromSource(cardBackSource!, context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
+                    
                     
                     // TODO: Draw a card image if found
                     //ShapeDrawer.drawImageFromURL(NSURL(string: "file:///Users/pavelhamrik/Dropbox/Public/faith/mac/background_Grey.png")!, context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
 
+                    
                     // draw the card frame
                     ShapeDrawer.drawShape("linerect", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
                     
+                    
                     // typeset card name
-                    frame = [CGFloat(31.5), CGFloat(11.0), CGFloat(138.0), CGFloat(30.0)]
+                    frame = [CGFloat(31.5), CGFloat(10.5), CGFloat(138.0), CGFloat(30.0)]
                     ShapeDrawer.drawShape(
                         "textframe",
                         context: context!,
@@ -91,9 +95,18 @@ class PDFExporter {
                         textattributes: ["font": "Adelle", "size": "9", "weight": "Bold", "color": "black"]
                     )
                     
-                    // typeset card type
+                    // typeset card type, descent and class
                     // TODO: classes, attributed string, bullet as connector, font weights for classes
                     frame = [CGFloat(31.5), CGFloat(22.5), CGFloat(138.0), CGFloat(30.0)]
+                    
+                    var typeAndClasses = rows[Int(cardindex)]["Type"] as! String
+                    if (!(String(rows[Int(cardindex)]["Descent"]) ?? "").isEmpty) {
+                        typeAndClasses += " \u{2022} " + (rows[Int(cardindex)]["Descent"] as! String)
+                    }
+                    if (!(String(rows[Int(cardindex)]["Class"]) ?? "").isEmpty) {
+                        typeAndClasses += " " + (rows[Int(cardindex)]["Class"] as! String)
+                    }
+                    
                     ShapeDrawer.drawShape(
                         "textframe",
                         context: context!,
@@ -101,11 +114,12 @@ class PDFExporter {
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
                         ysize: frame[3],
-                        text: rows[Int(cardindex)]["Type"] as! String,
+                        text: typeAndClasses,
                         textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]
                     )
                     
-                    // typeset text
+                    
+                    // typeset card text
                     // TODO: attributed string, icons, etc.
                     frame = [CGFloat(31.5), CGFloat(164.0), CGFloat(138.0), CGFloat(70.0)]
                     
@@ -129,8 +143,9 @@ class PDFExporter {
                         textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black", "lineSpacing": "0.0"]
                     )
                     
-                    // typeset text
-                    frame = [CGFloat(11.0), CGFloat(11.0), CGFloat(16.0), CGFloat(140.0)]
+                    
+                    // typeset card claim
+                    frame = [CGFloat(10.5), CGFloat(11.0), CGFloat(16.0), CGFloat(140.0)]
                     ShapeDrawer.drawShape(
                         "textframe",
                         context: context!,
@@ -138,8 +153,18 @@ class PDFExporter {
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
                         ysize: frame[3],
-                        text: ShapeDrawer.iconize(rows[Int(cardindex)]["Type"] as! String),
-                        textattributes: ["font": "Faith\-Icons", "size": "10", "weight": "Regular", "color": "black", "lineSpacing": "0.25"]
+                        text: ShapeDrawer.iconize(rows[Int(cardindex)]["Claim"] as! String, purpose: "generalMasking"),
+                        textattributes: ["font": "FaithIcons", "size": "11", "color": "white", "lineSpacing": "1"] // do not include weight as the custom font apparently doesn't have one
+                    )
+                    ShapeDrawer.drawShape(
+                        "textframe",
+                        context: context!,
+                        xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                        yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                        xsize: frame[2],
+                        ysize: frame[3],
+                        text: ShapeDrawer.iconize(rows[Int(cardindex)]["Claim"] as! String, purpose: "general"),
+                        textattributes: ["font": "FaithIcons", "size": "11", "color": "black", "lineSpacing": "1"] // do not include weight as the custom font apparently doesn't have one
                     )
 
                     

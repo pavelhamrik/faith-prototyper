@@ -19,6 +19,8 @@
 		BF9711DD1BB1F250006DA166 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711DC1BB1F250006DA166 /* Foundation.framework */; };
 		BFA171861BB569AD00EE90CA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9711DE1BB1F263006DA166 /* libz.tbd */; };
 		BFA171991BB56C5000EE90CA /* libZipZap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA171961BB56BD500EE90CA /* libZipZap.a */; };
+		BFB3ABFB1C2831A300C540D6 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFB3ABFA1C2831A300C540D6 /* Preferences.storyboard */; };
+		BFB3ABFD1C2833FF00C540D6 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB3ABFC1C2833FF00C540D6 /* Preferences.swift */; };
 		BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */; };
 		BFF8EF5B1C24487B008C965E /* ShapeDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8EF5A1C24487B008C965E /* ShapeDrawer.swift */; };
 		BFF8EF5D1C245484008C965E /* XLSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8EF5C1C245484008C965E /* XLSX.swift */; };
@@ -92,6 +94,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BF0153DF1C28488B009C1550 /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		BF2C2E6D1C086C0C006D25F6 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		BF8B57341BB9D2B800FEBD4F /* CardTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTable.swift; sourceTree = "<group>"; };
 		BF9711591BB00345006DA166 /* Faith Prototyper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Faith Prototyper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,11 +109,12 @@
 		BF9711751BB00346006DA166 /* Faith PrototyperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Faith PrototyperUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF9711791BB00346006DA166 /* Faith_PrototyperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Faith_PrototyperUITests.swift; sourceTree = "<group>"; };
 		BF97117B1BB00346006DA166 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF97119A1BB1A607006DA166 /* ObjectiveCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveCBridge.h; sourceTree = "<group>"; };
 		BF9711DA1BB1F246006DA166 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		BF9711DC1BB1F250006DA166 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BF9711DE1BB1F263006DA166 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		BFA171871BB56BD500EE90CA /* ZipZap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZipZap.xcodeproj; path = ZipZap/ZipZap.xcodeproj; sourceTree = "<group>"; };
+		BFB3ABFA1C2831A300C540D6 /* Preferences.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
+		BFB3ABFC1C2833FF00C540D6 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SWXMLHash.swift; path = SWXMLHash/Source/SWXMLHash.swift; sourceTree = "<group>"; };
 		BFF8EF5A1C24487B008C965E /* ShapeDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeDrawer.swift; sourceTree = "<group>"; };
 		BFF8EF5C1C245484008C965E /* XLSX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLSX.swift; sourceTree = "<group>"; };
@@ -182,8 +186,10 @@
 				BF9711601BB00346006DA166 /* Assets.xcassets */,
 				BF9711621BB00346006DA166 /* Main.storyboard */,
 				BF9711651BB00346006DA166 /* Info.plist */,
-				BF97119A1BB1A607006DA166 /* ObjectiveCBridge.h */,
 				BF8B57341BB9D2B800FEBD4F /* CardTable.swift */,
+				BFB3ABFA1C2831A300C540D6 /* Preferences.storyboard */,
+				BFB3ABFC1C2833FF00C540D6 /* Preferences.swift */,
+				BF0153DF1C28488B009C1550 /* Bridge.h */,
 			);
 			path = "Faith Prototyper";
 			sourceTree = "<group>";
@@ -393,6 +399,7 @@
 			files = (
 				BF9711611BB00346006DA166 /* Assets.xcassets in Resources */,
 				BF9711641BB00346006DA166 /* Main.storyboard in Resources */,
+				BFB3ABFB1C2831A300C540D6 /* Preferences.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +430,7 @@
 				BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */,
 				BF8B57351BB9D2B800FEBD4F /* CardTable.swift in Sources */,
 				BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */,
+				BFB3ABFD1C2833FF00C540D6 /* Preferences.swift in Sources */,
 				BFF8EF651C2470F1008C965E /* PDFExporter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -561,7 +569,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = "ph.Faith-Prototyper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Faith Prototyper/ObjectiveCBridge.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Faith Prototyper/Bridge.h";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -577,7 +585,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = "ph.Faith-Prototyper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Faith Prototyper/ObjectiveCBridge.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Faith Prototyper/Bridge.h";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;

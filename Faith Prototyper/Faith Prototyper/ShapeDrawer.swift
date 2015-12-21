@@ -10,6 +10,17 @@ import Cocoa
 
 class ShapeDrawer {
     
+    
+    static func maskIcons(string: String, mask: String) -> String {
+        let iconsCount = string.characters.count
+        var output = ""
+        for var count = 0; count < iconsCount; count += 1 {
+            output += mask
+        }
+        return output
+    }
+
+    
     static func mm2pt(mm: CGFloat) -> CGFloat {
         let ratio = 2.8333
         return CGFloat(mm * CGFloat(ratio))
@@ -57,17 +68,35 @@ class ShapeDrawer {
             if (textattributes["font"] != nil) {
                 font = NSFont(name: textattributes["font"]!, size: 10.0)
             }
+            
             if (textattributes["weight"] != nil) {
                 let fontNameWithWeight = font!.fontName.componentsSeparatedByString("-").first! + "-" + textattributes["weight"]!
                 font = NSFont(name: fontNameWithWeight, size: 10.0)
             }
+            
             if (textattributes["size"] != nil) {
                 let customsize = textattributes["size"]! as NSString
                 font = NSFont(name: font!.fontName, size: CGFloat(customsize.intValue))
             }
             
             let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-            let textColor = NSColor.blackColor()
+            
+            var textColor = NSColor.blackColor()
+            if (textattributes["color"] != nil) {
+                let color = textattributes["color"]!
+                switch color {
+                case "black":
+                    textColor = NSColor.blackColor()
+                case "white":
+                    textColor = NSColor.whiteColor()
+                case "red":
+                    textColor = NSColor.redColor()
+                case "gray":
+                    textColor = NSColor.grayColor()
+                default:
+                    textColor = NSColor.blackColor()
+                }
+            }
             
             if (textattributes["lineSpacing"] != nil) {
                 let lineSpacing = textattributes["lineSpacing"]! as NSString
@@ -123,61 +152,109 @@ class ShapeDrawer {
 
 
     static func iconize(string: String) -> String {
-        return self.iconize(string, intent: "general")
+        return self.iconize(string, purpose: "general")
     }
     
-    static func iconize(string: String, intent: String) -> String {
+    static func iconize(string: String, purpose: String) -> String {
         
         var output = string.lowercaseString
         
-        var icons: NSMutableDictionary = [
-            "0": "\u{e900}",
-            "1": "\u{e901}",
-            "2": "\u{e901}",
-            "3": "\u{e901}",
-            "4": "\u{e901}",
-            "5": "\u{e901}",
-            "6": "\u{e901}",
-            "7": "\u{e901}",
-            "8": "\u{e901}",
-            "9": "\u{e901}",
+        let icons: NSMutableDictionary = [
+            "circle": "\u{e91b}",
+            "diamond": "\u{e91c}",
+            "pentagon": "\u{e91d}",
+            "lock": "\u{e919}",
+            "pencil": "\u{e91a}"
         ]
-        if (intent == "general") {
+        
+        switch purpose {
+            
+        case "belief":
             icons.addEntriesFromDictionary([
-                "c": "\u{e90a}",
-                "f": "\u{e90b}",
-                "m": "\u{e90c}",
-                "r": "\u{e90d}",
-                "v": "\u{e90e}"
-            ])
-        }
-        else if (intent == "belief") {
-            icons.addEntriesFromDictionary([
+                "0": "\u{e928}",
+                "1": "\u{e929}",
+                "2": "\u{e92a}",
+                "3": "\u{e92b}",
+                "4": "\u{e92c}",
+                "5": "\u{e92d}",
+                "6": "\u{e92e}",
+                "7": "\u{e92f}",
+                "8": "\u{e930}",
+                "9": "\u{e931}",
+                
                 "c": "\u{e914}",
                 "f": "\u{e915}",
                 "m": "\u{e916}",
                 "r": "\u{e917}",
-                "v": "\u{e918}"
+                "v": "\u{e918}",
+                
+                "i": "\u{e915}",
             ])
-        }
-        else if (intent == "backing") {
-            icons = [
-                "circle": "\u{e91b}",
-                "diamond": "\u{e91c}",
-                "pentagon": "\u{e91d}",
-            ]
-        }
-        else if (intent == "pictograms") {
-            icons = [
-                "lock": "\u{e919}",
-                "pencil": "\u{e91a}"
-            ]
+            
+        case "difficulty":
+            icons.addEntriesFromDictionary([
+                "0": "\u{e91e}",
+                "1": "\u{e91f}",
+                "2": "\u{e920}",
+                "3": "\u{e921}",
+                "4": "\u{e922}",
+                "5": "\u{e923}",
+                "6": "\u{e924}",
+                "7": "\u{e925}",
+                "8": "\u{e926}",
+                "9": "\u{e927}",
+                
+                "c": "\u{e914}",
+                "f": "\u{e915}",
+                "m": "\u{e916}",
+                "r": "\u{e917}",
+                "v": "\u{e918}",
+                
+                "i": "\u{e915}"
+            ])
+            
+        default:
+            icons.addEntriesFromDictionary([
+                "0": "\u{e900}",
+                "1": "\u{e901}",
+                "2": "\u{e901}",
+                "3": "\u{e901}",
+                "4": "\u{e901}",
+                "5": "\u{e901}",
+                "6": "\u{e901}",
+                "7": "\u{e901}",
+                "8": "\u{e901}",
+                "9": "\u{e901}",
+                
+                "c": "\u{e90a}",
+                "f": "\u{e90b}",
+                "m": "\u{e90c}",
+                "r": "\u{e90d}",
+                "v": "\u{e90e}",
+                
+                "i": "\u{e90b}"
+                ])
         }
         
-        for (key, value) in icons {
-            output = output.stringByReplacingOccurrencesOfString("{\(key)}", withString: value as! String)
-        }
         
+        switch purpose {
+        
+        case "generalMasking":
+            output = maskIcons(output, mask: "\u{e91b}")
+            
+        case "beliefMasking":
+            output = maskIcons(output, mask: "\u{e91d}")
+            
+        case "difficultyMasking":
+            output = maskIcons(output, mask: "\u{e91c}")
+
+        default:
+            for (key, value) in icons {
+                output = output.stringByReplacingOccurrencesOfString(key as! String, withString: value as! String)
+            }
+        
+        }
+
         return output
 
     }
