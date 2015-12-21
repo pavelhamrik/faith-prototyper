@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         print("showPreferences")
         if (preferencesController == nil) {
             let storyboard = NSStoryboard(name: "Preferences", bundle: nil)
-            preferencesController = storyboard.instantiateControllerWithIdentifier("PreferencesWindow") as? NSWindowController
+            preferencesController = storyboard.instantiateInitialController() as? NSWindowController
             print("preferencesController == nil")
         }
         print(preferencesController)
