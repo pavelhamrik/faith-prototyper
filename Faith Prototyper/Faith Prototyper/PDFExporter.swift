@@ -79,7 +79,7 @@ class PDFExporter {
                     ShapeDrawer.drawShape("linerect", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
                     
                     // typeset card name
-                    frame = [CGFloat(31.5), CGFloat(11.5), CGFloat(138.0), CGFloat(30.0)]
+                    frame = [CGFloat(31.5), CGFloat(11.0), CGFloat(138.0), CGFloat(30.0)]
                     ShapeDrawer.drawShape(
                         "textframe",
                         context: context!,
@@ -109,7 +109,13 @@ class PDFExporter {
                     // TODO: attributed string, icons, etc.
                     frame = [CGFloat(31.5), CGFloat(164.0), CGFloat(138.0), CGFloat(70.0)]
                     
-                    var abilities = (rows[Int(cardindex)]["Achieved Ability Cost"] as! String)
+                    var abilities = (rows[Int(cardindex)]["Ability 1 Cost"] as! String) + ": "
+                    abilities += (rows[Int(cardindex)]["Ability 1"] as! String)
+                    abilities += (rows[Int(cardindex)]["Ability 2 Cost"] as! String) + ": "
+                    abilities += (rows[Int(cardindex)]["Ability 2"] as! String)
+                    abilities += (rows[Int(cardindex)]["Ability 3 Cost"] as! String) + ": "
+                    abilities += (rows[Int(cardindex)]["Ability 3"] as! String)
+                    abilities += "Achieved \r\n" + (rows[Int(cardindex)]["Achieved Ability Cost"] as! String) + ": "
                     abilities += (rows[Int(cardindex)]["Achieved Ability"] as! String)
                     
                     ShapeDrawer.drawShape(
@@ -123,7 +129,18 @@ class PDFExporter {
                         textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black", "lineSpacing": "0.0"]
                     )
                     
-                    
+                    // typeset text
+                    frame = [CGFloat(11.0), CGFloat(11.0), CGFloat(16.0), CGFloat(140.0)]
+                    ShapeDrawer.drawShape(
+                        "textframe",
+                        context: context!,
+                        xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                        yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                        xsize: frame[2],
+                        ysize: frame[3],
+                        text: ShapeDrawer.iconize(rows[Int(cardindex)]["Type"] as! String),
+                        textattributes: ["font": "Faith\-Icons", "size": "10", "weight": "Regular", "color": "black", "lineSpacing": "0.25"]
+                    )
 
                     
                     

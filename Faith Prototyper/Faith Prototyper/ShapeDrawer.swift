@@ -122,4 +122,65 @@ class ShapeDrawer {
     }
 
 
+    static func iconize(string: String) -> String {
+        return self.iconize(string, intent: "general")
+    }
+    
+    static func iconize(string: String, intent: String) -> String {
+        
+        var output = string.lowercaseString
+        
+        var icons: NSMutableDictionary = [
+            "0": "\u{e900}",
+            "1": "\u{e901}",
+            "2": "\u{e901}",
+            "3": "\u{e901}",
+            "4": "\u{e901}",
+            "5": "\u{e901}",
+            "6": "\u{e901}",
+            "7": "\u{e901}",
+            "8": "\u{e901}",
+            "9": "\u{e901}",
+        ]
+        if (intent == "general") {
+            icons.addEntriesFromDictionary([
+                "c": "\u{e90a}",
+                "f": "\u{e90b}",
+                "m": "\u{e90c}",
+                "r": "\u{e90d}",
+                "v": "\u{e90e}"
+            ])
+        }
+        else if (intent == "belief") {
+            icons.addEntriesFromDictionary([
+                "c": "\u{e914}",
+                "f": "\u{e915}",
+                "m": "\u{e916}",
+                "r": "\u{e917}",
+                "v": "\u{e918}"
+            ])
+        }
+        else if (intent == "backing") {
+            icons = [
+                "circle": "\u{e91b}",
+                "diamond": "\u{e91c}",
+                "pentagon": "\u{e91d}",
+            ]
+        }
+        else if (intent == "pictograms") {
+            icons = [
+                "lock": "\u{e919}",
+                "pencil": "\u{e91a}"
+            ]
+        }
+        
+        for (key, value) in icons {
+            output = output.stringByReplacingOccurrencesOfString("{\(key)}", withString: value as! String)
+        }
+        
+        return output
+
+    }
+    
+    
 }
