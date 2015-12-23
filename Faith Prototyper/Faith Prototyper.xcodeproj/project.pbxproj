@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BF2C2E6E1C086C0D006D25F6 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2C2E6D1C086C0C006D25F6 /* CoreText.framework */; };
+		BF87B9E61C28C14600194F8B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF87B9E51C28C14600194F8B /* Helpers.swift */; };
 		BF8B57351BB9D2B800FEBD4F /* CardTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8B57341BB9D2B800FEBD4F /* CardTable.swift */; };
 		BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97115C1BB00346006DA166 /* AppDelegate.swift */; };
 		BF97115F1BB00346006DA166 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97115E1BB00346006DA166 /* ViewController.swift */; };
@@ -97,6 +98,7 @@
 /* Begin PBXFileReference section */
 		BF0153DF1C28488B009C1550 /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		BF2C2E6D1C086C0C006D25F6 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		BF87B9E51C28C14600194F8B /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		BF8B57341BB9D2B800FEBD4F /* CardTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTable.swift; sourceTree = "<group>"; };
 		BF9711591BB00345006DA166 /* Faith Prototyper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Faith Prototyper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF97115C1BB00346006DA166 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -234,7 +236,11 @@
 				BFF8EF5A1C24487B008C965E /* ShapeDrawer.swift */,
 				BFF8EF5C1C245484008C965E /* XLSX.swift */,
 				BFF8EF641C2470F1008C965E /* PDFExporter.swift */,
+<<<<<<< HEAD
 				DAEA3F8A1C2AC18F0095A4C2 /* AttributeString.swift */,
+=======
+				BF87B9E51C28C14600194F8B /* Helpers.swift */,
+>>>>>>> master
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -432,6 +438,7 @@
 				BFF8EF5B1C24487B008C965E /* ShapeDrawer.swift in Sources */,
 				BF97115F1BB00346006DA166 /* ViewController.swift in Sources */,
 				BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */,
+				BF87B9E61C28C14600194F8B /* Helpers.swift in Sources */,
 				BF8B57351BB9D2B800FEBD4F /* CardTable.swift in Sources */,
 				BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */,
 				BFB3ABFD1C2833FF00C540D6 /* Preferences.swift in Sources */,
