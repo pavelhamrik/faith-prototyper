@@ -16,6 +16,10 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     
     @IBOutlet weak var statuses: NSComboBox!
     
+    @IBOutlet weak var printings: NSTextField!
+    
+    @IBOutlet weak var factions: NSComboBox!
+    
     @IBOutlet weak var useImages: NSButton!
 
 
@@ -26,6 +30,8 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
         self.types.setDelegate(self)
         self.groups.delegate = self
         self.statuses.setDelegate(self)
+        self.printings.delegate = self
+        self.factions.setDelegate(self)
         
         let defaultTypes = Helpers.loadDefaults("prefsExportTypes")
         if (!(defaultTypes ?? "").isEmpty) {
@@ -40,6 +46,16 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
         let defaultStatuses = Helpers.loadDefaults("prefsExportStatuses")
         if (!(defaultStatuses ?? "").isEmpty) {
             statuses.stringValue = defaultStatuses
+        }
+        
+        let defaultPrintings = Helpers.loadDefaults("prefsExportPrintings")
+        if (!(defaultPrintings ?? "").isEmpty) {
+            printings.stringValue = defaultPrintings
+        }
+        
+        let defaultFactions = Helpers.loadDefaults("prefsExportFactions")
+        if (!(defaultFactions ?? "").isEmpty) {
+            factions.stringValue = defaultFactions
         }
         
         // TODO: useImages
@@ -58,6 +74,14 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
         
         if notification?.object as? NSComboBox == self.statuses {
             Helpers.saveDefaults("prefsExportStatuses", value: self.statuses.stringValue)
+        }
+        
+        if notification?.object as? NSTextField == self.printings {
+            Helpers.saveDefaults("prefsExportPrintings", value: self.printings.stringValue)
+        }
+        
+        if notification?.object as? NSComboBox == self.factions {
+            Helpers.saveDefaults("prefsExportFactions", value: self.factions.stringValue)
         }
         
     }

@@ -31,7 +31,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dyN-Mg-cKW">
-                                <rect key="frame" x="54" y="48" width="127" height="20"/>
+                                <rect key="frame" x="54" y="18" width="127" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Images:" id="7CJ-ic-kwX">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -39,7 +39,7 @@
                                 </textFieldCell>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oi8-0w-EJW">
-                                <rect key="frame" x="190" y="49" width="126" height="18"/>
+                                <rect key="frame" x="190" y="19" width="126" height="18"/>
                                 <buttonCell key="cell" type="check" title="Use Card Images" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="zhQ-fh-bdE">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -67,8 +67,31 @@
                                     </objectValues>
                                 </comboBoxCell>
                             </comboBox>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rhb-3l-R6I">
+                                <rect key="frame" x="47" y="200" width="134" height="20"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Export Only Factions:" id="ZxH-vx-Vew">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Chg-Yh-e7N">
+                                <rect key="frame" x="192" y="196" width="271" height="26"/>
+                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="KEH-ZG-QSm">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <objectValues>
+                                        <string>Fascination</string>
+                                        <string>Corruption</string>
+                                        <string>Violence</string>
+                                        <string>Resonance</string>
+                                        <string>Machinery</string>
+                                    </objectValues>
+                                </comboBoxCell>
+                            </comboBox>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QnI-6n-xR2">
-                                <rect key="frame" x="45" y="170" width="136" height="20"/>
+                                <rect key="frame" x="45" y="140" width="136" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Export Only Statuses:" id="cD0-0p-psq">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -76,7 +99,7 @@
                                 </textFieldCell>
                             </textField>
                             <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TAX-fM-UKp">
-                                <rect key="frame" x="192" y="166" width="271" height="26"/>
+                                <rect key="frame" x="192" y="136" width="271" height="26"/>
                                 <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="Zw0-Gc-ujy">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -89,8 +112,16 @@
                                     </objectValues>
                                 </comboBoxCell>
                             </comboBox>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q2D-GD-nXd">
+                                <rect key="frame" x="44" y="110" width="137" height="20"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Export Only Printings:" id="HY6-VC-9Nq">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MrO-Qu-CKI">
-                                <rect key="frame" x="54" y="200" width="127" height="20"/>
+                                <rect key="frame" x="54" y="170" width="127" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Export Only Groups:" id="9TG-Du-eBD">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -98,7 +129,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a2Y-gm-UNF">
-                                <rect key="frame" x="192" y="199" width="268" height="22"/>
+                                <rect key="frame" x="192" y="169" width="268" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="ROx-rY-4Lb">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -108,10 +139,23 @@
                                     <outlet property="delegate" destination="Utb-3i-41b" id="PfR-r1-DA1"/>
                                 </connections>
                             </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e8x-If-zl3">
+                                <rect key="frame" x="192" y="109" width="268" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="X7Q-LT-YmC">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="Utb-3i-41b" id="mbj-b4-E5X"/>
+                                </connections>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="factions" destination="Chg-Yh-e7N" id="1jb-yD-isS"/>
                         <outlet property="groups" destination="a2Y-gm-UNF" id="ayJ-Kc-phG"/>
+                        <outlet property="printings" destination="e8x-If-zl3" id="87x-c9-DN4"/>
                         <outlet property="statuses" destination="TAX-fM-UKp" id="OW4-Ls-4uF"/>
                         <outlet property="types" destination="YBJ-fk-sYo" id="sk0-0V-NIr"/>
                         <outlet property="useImages" destination="Oi8-0w-EJW" id="DzZ-dm-5ES"/>

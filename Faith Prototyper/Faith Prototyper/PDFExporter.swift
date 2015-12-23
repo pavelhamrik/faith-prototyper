@@ -11,19 +11,22 @@ import Cocoa
 class PDFExporter {
     
     
-    static func generate(fileURL: NSURL, rows: [NSMutableDictionary]) {
+    static func generate(fileURL: NSURL, var rows: [NSMutableDictionary]) {
         
         // page size
+        
         let pgxsize = CGFloat(595.0)
         let pgysize = CGFloat(842.0)
         
         
         // card size
+        
         let cardxsize = CGFloat(ShapeDrawer.mm2pt(63))
         let cardysize = CGFloat(ShapeDrawer.mm2pt(88))
         
         
         // page layout
+        
         let cardxgutter = CGFloat(ShapeDrawer.mm2pt(3))
         let cardygutter = CGFloat(ShapeDrawer.mm2pt(3))
         let minpgxmargin = CGFloat(ShapeDrawer.mm2pt(5))
@@ -39,14 +42,41 @@ class PDFExporter {
         
         
         // context, static image sources
+        
         let context = CGPDFContextCreateWithURL(fileURL, &pageSize, nil)
         let cardBackSource = CGImageSourceCreateWithURL(NSURL(string: "file:///Users/pavelhamrik/Dropbox/Public/faith/mac/background_Grey.png")! as CFURL, nil)
         var frame = [CGFloat(0.0), CGFloat(0.0), CGFloat(50.0), CGFloat(10.0)]
         
         
-        // TODO: Filtering by preferences
-        // ...
+        // filtering by preferences
         
+        let defaultTypes = Helpers.loadDefaults("prefsExportTypes")
+        if (!(defaultTypes ?? "").isEmpty) {
+            rows = Helpers.filterByArray(rows, filter: defaultTypes, column: "Type")
+        }
+        
+        let defaultGroups = Helpers.loadDefaults("prefsExportGroups")
+        if (!(defaultGroups ?? "").isEmpty) {
+            rows = Helpers.filterByArray(rows, filter: defaultGroups, column: "Group")
+        }
+        
+        let defaultStatuses = Helpers.loadDefaults("prefsExportStatuses")
+        if (!(defaultStatuses ?? "").isEmpty) {
+            rows = Helpers.filterByArray(rows, filter: defaultStatuses, column: "Status")
+        }
+        
+        let defaultPrintings = Helpers.loadDefaults("prefsExportPrintings")
+        if (!(defaultPrintings ?? "").isEmpty) {
+            rows = Helpers.filterByArray(rows, filter: defaultPrintings, column: "Printing")
+        }
+        
+        let defaultFactions = Helpers.loadDefaults("prefsExportFactions")
+        if (!(defaultFactions ?? "").isEmpty) {
+            rows = Helpers.filterByArray(rows, filter: defaultFactions, column: "Factions")
+        }
+        
+        
+        // card by card output
         
         let pgnums = Int(ceil(CGFloat(rows.count) / (cardsperx * cardspery)))
         for var pgnum = 0; pgnum < pgnums; pgnum += 1 {
@@ -104,11 +134,19 @@ class PDFExporter {
                     frame = [CGFloat(31.5), CGFloat(22.5), CGFloat(138.0), CGFloat(30.0)]
                     
                     var typeAndClasses = rows[Int(cardindex)]["Type"] as! String
-                    if (!(String(rows[Int(cardindex)]["Descent"]) ?? "").isEmpty) {
-                        typeAndClasses += " \u{2022} " + (rows[Int(cardindex)]["Descent"] as! String)
+                    
+                    let descent = String(rows[Int(cardindex)]["Descent"])
+                    if (!(descent ?? "").isEmpty) {
+                        if (descent != "None") {
+                            typeAndClasses += " \u{2022} " + (rows[Int(cardindex)]["Descent"] as! String)
+                        }
                     }
-                    if (!(String(rows[Int(cardindex)]["Class"]) ?? "").isEmpty) {
-                        typeAndClasses += " " + (rows[Int(cardindex)]["Class"] as! String)
+                    
+                    let classCol = String(rows[Int(cardindex)]["Descent"])
+                    if (!(classCol ?? "").isEmpty) {
+                        if (classCol != "None") {
+                            typeAndClasses += " " + (rows[Int(cardindex)]["Class"] as! String)
+                        }
                     }
                     
                     ShapeDrawer.drawShape(
@@ -171,7 +209,20 @@ class PDFExporter {
                         textattributes: ["font": "FaithIcons", "size": "11", "color": "black", "lineSpacing": "1"] // do not include weight as the custom font apparently doesn't have one
                     )
 
+                    // typeset scheme difficulty
+                    // ...
                     
+                    
+                    // typeset card belief
+                    // ...
+                    
+                    
+                    // typeset meta information incl. icon
+                    // ...
+                    
+                    
+                    // typeset artist incl. icon
+                    // ...
                     
                     
                 } // pgrows

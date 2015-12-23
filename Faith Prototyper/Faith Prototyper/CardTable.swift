@@ -10,6 +10,7 @@ import Cocoa
 
 class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     
+    
     var rows: [NSMutableDictionary] = [
         ["Name": "Load some cards..."]
     ]
@@ -18,6 +19,7 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "act:", name:"refreshCardTableView", object: nil)
         
@@ -27,16 +29,7 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
             self.rows = storedDictionary!.mutableCopy() as! [NSMutableDictionary]
             fillTable()
         }
-        
-        
-        // WIP: filtering rows
-        let statusesSplit = ["OK", "New"]
-        let filteredRows = self.rows.filter({
-            statusesSplit.contains(String($0["Status"]!))
-        })
-        print(filteredRows)
 
-        
     }
     
     
@@ -55,6 +48,7 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     
     
     func fillTable() {
+        
         let tableCols = self.tableView.tableColumns
         for col in tableCols {
             self.tableView.removeTableColumn(col)
@@ -68,25 +62,32 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
         }
         
         self.tableView.reloadData()
+        
     }
     
 
     func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
+        
         let numberOfRows:Int = getDataArray().count
         return numberOfRows
     }
     
     
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+        
         let newString = getDataArray().objectAtIndex(row).objectForKey(tableColumn!.identifier)
         return newString;
+        
     }
     
     
     func getDataArray() -> NSArray {
+        
         var regularRows = self.rows
         regularRows.removeAtIndex(0)
         return regularRows;
+        
     }
+ 
     
 }

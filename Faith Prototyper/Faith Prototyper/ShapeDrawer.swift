@@ -260,12 +260,26 @@ class ShapeDrawer {
     }
     
     
-    static func attributedCompose (inputString: String) -> NSAttributedString {
-        // changes font of the provided string to FaithIcons, returns NSAttributedString object
+    // changes font of the provided string to FaithIcons, returns NSAttributedString object
+    static func attributedCompose (inputString: String, textattributes: [String: String]) -> NSAttributedString {
         
         var attributes: [String: AnyObject] = [NSFontAttributeName: NSNull()]
+        
+        if (!(textattributes["font"] ?? "").isEmpty) {
+            attributes[NSFontAttributeName] = NSFont(name: textattributes["font"]!, size: 10.0)
+        }
+        
+        if (!(textattributes["weight"] ?? "").isEmpty) {
+            let fontNameWithWeight = attributes[NSFontAttributeName]!.fontName.componentsSeparatedByString("-").first! + "-" + textattributes["weight"]!
+            attributes[NSFontAttributeName] = NSFont(name: fontNameWithWeight, size: 10.0)
+        }
+        
+        if (!(textattributes["size"] ?? "").isEmpty) {
+            let customsize = textattributes["size"]! as NSString
+            attributes[NSFontAttributeName] = NSFont(name: font!.fontName, size: CGFloat(customsize.intValue))
+        }
+        
         attributes[NSFontAttributeName] = NSFont(name: "FaithIcons", size: 12.0)
-        // Don't forget to adjust size
         
         return NSAttributedString(string: "\(inputString)", attributes: attributes)
     }

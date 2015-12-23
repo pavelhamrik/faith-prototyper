@@ -32,4 +32,19 @@ class Helpers {
         
     }
     
+    
+    static func filterByArray(items: [NSMutableDictionary], var filter: String, column: String) -> [NSMutableDictionary] {
+        
+        filter = filter.stringByReplacingOccurrencesOfString(", ", withString: ",")
+        
+        var filterSplit = [String]()
+        filterSplit = filter.characters.split{$0 == ","}.map(String.init)
+        
+        return items.filter({
+            filterSplit.contains(String($0[column]!))
+        })
+        
+    }
+    
+    
 }
