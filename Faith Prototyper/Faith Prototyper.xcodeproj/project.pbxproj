@@ -25,7 +25,7 @@
 		BFF8EF5B1C24487B008C965E /* ShapeDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8EF5A1C24487B008C965E /* ShapeDrawer.swift */; };
 		BFF8EF5D1C245484008C965E /* XLSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8EF5C1C245484008C965E /* XLSX.swift */; };
 		BFF8EF651C2470F1008C965E /* PDFExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8EF641C2470F1008C965E /* PDFExporter.swift */; };
-		DAC7E5361C29C17400EC8A72 /* AttributeString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC7E5351C29C17400EC8A72 /* AttributeString.swift */; };
+		DAEA3F8B1C2AC18F0095A4C2 /* AttributeString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA3F8A1C2AC18F0095A4C2 /* AttributeString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,7 +120,7 @@
 		BFF8EF5A1C24487B008C965E /* ShapeDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeDrawer.swift; sourceTree = "<group>"; };
 		BFF8EF5C1C245484008C965E /* XLSX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLSX.swift; sourceTree = "<group>"; };
 		BFF8EF641C2470F1008C965E /* PDFExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFExporter.swift; sourceTree = "<group>"; };
-		DAC7E5351C29C17400EC8A72 /* AttributeString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttributeString.swift; path = ../../../../Desktop/AttributeString.swift; sourceTree = "<group>"; };
+		DAEA3F8A1C2AC18F0095A4C2 /* AttributeString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeString.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,8 +233,8 @@
 			children = (
 				BFF8EF5A1C24487B008C965E /* ShapeDrawer.swift */,
 				BFF8EF5C1C245484008C965E /* XLSX.swift */,
-				DAC7E5351C29C17400EC8A72 /* AttributeString.swift */,
 				BFF8EF641C2470F1008C965E /* PDFExporter.swift */,
+				DAEA3F8A1C2AC18F0095A4C2 /* AttributeString.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -428,7 +428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFF8EF5D1C245484008C965E /* XLSX.swift in Sources */,
-				DAC7E5361C29C17400EC8A72 /* AttributeString.swift in Sources */,
+				DAEA3F8B1C2AC18F0095A4C2 /* AttributeString.swift in Sources */,
 				BFF8EF5B1C24487B008C965E /* ShapeDrawer.swift in Sources */,
 				BF97115F1BB00346006DA166 /* ViewController.swift in Sources */,
 				BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */,
