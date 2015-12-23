@@ -276,7 +276,7 @@ class ShapeDrawer {
         
         if (!(textattributes["size"] ?? "").isEmpty) {
             let customsize = textattributes["size"]! as NSString
-            attributes[NSFontAttributeName] = NSFont(name: font!.fontName, size: CGFloat(customsize.intValue))
+            attributes[NSFontAttributeName] = NSFont(name: attributes[NSFontAttributeName]!.fontName, size: CGFloat(customsize.intValue))
         }
         
         attributes[NSFontAttributeName] = NSFont(name: "FaithIcons", size: 12.0)
