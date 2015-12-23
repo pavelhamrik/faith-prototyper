@@ -27,6 +27,16 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
             self.rows = storedDictionary!.mutableCopy() as! [NSMutableDictionary]
             fillTable()
         }
+        
+        
+        // WIP: filtering rows
+        let statusesSplit = ["OK", "New"]
+        let filteredRows = self.rows.filter({
+            statusesSplit.contains(String($0["Status"]!))
+        })
+        print(filteredRows)
+
+        
     }
     
     

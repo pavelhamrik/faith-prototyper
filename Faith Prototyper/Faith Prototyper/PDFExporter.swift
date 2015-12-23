@@ -10,6 +10,7 @@ import Cocoa
 
 class PDFExporter {
     
+    
     static func generate(fileURL: NSURL, rows: [NSMutableDictionary]) {
         
         // page size
@@ -40,6 +41,11 @@ class PDFExporter {
         // context, static image sources
         let context = CGPDFContextCreateWithURL(fileURL, &pageSize, nil)
         let cardBackSource = CGImageSourceCreateWithURL(NSURL(string: "file:///Users/pavelhamrik/Dropbox/Public/faith/mac/background_Grey.png")! as CFURL, nil)
+        var frame = [CGFloat(0.0), CGFloat(0.0), CGFloat(50.0), CGFloat(10.0)]
+        
+        
+        // TODO: Filtering by preferences
+        // ...
         
         
         let pgnums = Int(ceil(CGFloat(rows.count) / (cardsperx * cardspery)))
@@ -49,8 +55,6 @@ class PDFExporter {
             
             for var pgrow = CGFloat(0.0); pgrow < cardsperx; pgrow += 1 {
                 for var pgcol = CGFloat(0.0); pgcol < cardspery; pgcol += 1 {
-                    
-                    var frame = [CGFloat(0.0), CGFloat(0.0), CGFloat(50.0), CGFloat(10.0)]
                     
                     var cardxbound = CGFloat(cardxsize * pgcol + pgxmargin)
                     if (pgcol >= CGFloat(1)) {
@@ -182,6 +186,3 @@ class PDFExporter {
     }
     
 }
-
-
-
