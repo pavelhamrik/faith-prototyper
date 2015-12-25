@@ -113,15 +113,24 @@ class ShapeDrawer {
             
             let attributedString = NSMutableAttributedString(string: text, attributes: textFontAttributes)
             
-            let framesetter =  CTFramesetterCreateWithAttributedString(attributedString);
-            let path = CGPathCreateWithRect(CGRectMake(xfrom, yfrom, xsize, ysize), nil);
-            let frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), path, nil);
-            CTFrameDraw(frame, context);
+            self.drawAttributedString(attributedString, context: context, xfrom: xfrom, yfrom: yfrom, xsize: xsize, ysize: ysize)
             
         default:
             break
         }
         
+    }
+    
+    
+    static func drawAttributedString(text: NSMutableAttributedString, context: CGContextRef, xfrom: CGFloat, yfrom: CGFloat, xsize: CGFloat, ysize: CGFloat) {
+        
+        CGContextSetTextMatrix(context, CGAffineTransformIdentity)
+        
+        let framesetter =  CTFramesetterCreateWithAttributedString(text);
+        let path = CGPathCreateWithRect(CGRectMake(xfrom, yfrom, xsize, ysize), nil);
+        let frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), path, nil);
+        CTFrameDraw(frame, context);
+    
     }
     
     
@@ -261,7 +270,7 @@ class ShapeDrawer {
     
     
     // changes font of the provided string to FaithIcons, returns NSAttributedString object
-    static func attributedCompose (inputString: String, textattributes: [String: String]) -> NSAttributedString {
+    static func attributedCompose(inputString: String, textattributes: [String: String]) -> NSMutableAttributedString {
         
         var attributes: [String: AnyObject] = [NSFontAttributeName: NSNull()]
         
@@ -279,9 +288,7 @@ class ShapeDrawer {
             attributes[NSFontAttributeName] = NSFont(name: attributes[NSFontAttributeName]!.fontName, size: CGFloat(customsize.intValue))
         }
         
-        attributes[NSFontAttributeName] = NSFont(name: "FaithIcons", size: 12.0)
-        
-        return NSAttributedString(string: "\(inputString)", attributes: attributes)
+        return NSMutableAttributedString(string: "\(inputString)", attributes: attributes)
     }
     
     

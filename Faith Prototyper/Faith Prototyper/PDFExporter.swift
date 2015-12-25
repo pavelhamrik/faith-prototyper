@@ -44,7 +44,7 @@ class PDFExporter {
         // context, static image sources
         
         let context = CGPDFContextCreateWithURL(fileURL, &pageSize, nil)
-        let cardBackSource = CGImageSourceCreateWithURL(NSURL(string: "file:///Users/pavelhamrik/Dropbox/Public/faith/mac/background_Grey.png")! as CFURL, nil)
+        let cardBackSource = CGImageSourceCreateWithURL(NSURL(string: "https://dl.dropboxusercontent.com/u/20268932/faith/mac/background_Grey.png")! as CFURL, nil)
         var frame = [CGFloat(0.0), CGFloat(0.0), CGFloat(50.0), CGFloat(10.0)]
         
         
@@ -104,6 +104,8 @@ class PDFExporter {
                     }
                     
                     
+                    let row = rows[Int(cardindex)]
+                    
                     // draw backgrounds from previously downloaded CFImageSource
                     ShapeDrawer.drawImageFromSource(cardBackSource!, context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
                     
@@ -125,39 +127,46 @@ class PDFExporter {
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
                         ysize: frame[3],
-                        text: rows[Int(cardindex)]["Name"] as! String,
+                        text: row["Name"] as! String,
                         textattributes: ["font": "Adelle", "size": "9", "weight": "Bold", "color": "black"]
                     )
                     
+                    
                     // typeset card type, descent and class
-                    // TODO: classes, attributed string, bullet as connector, font weights for classes
+                    
                     frame = [CGFloat(31.5), CGFloat(22.5), CGFloat(138.0), CGFloat(30.0)]
                     
-                    var typeAndClasses = rows[Int(cardindex)]["Type"] as! String
+                    let typeAndClasses = ShapeDrawer.attributedCompose("", textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"])
                     
-                    let descent = String(rows[Int(cardindex)]["Descent"])
-                    if (!(descent ?? "").isEmpty) {
-                        if (descent != "None") {
-                            typeAndClasses += " \u{2022} " + (rows[Int(cardindex)]["Descent"] as! String)
+                    if (!(String(row["Type"]) ?? "").isEmpty) {
+                        typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(String(row["Type"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]))
+                    }
+                    
+                    if (!(String(row["Descent"]) ?? "").isEmpty || !(String(row["Class"]) ?? "").isEmpty) {
+                        if (String(row["Descent"]) != "None" || String(row["Class"]) != "None") {
+                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" \u{2022} ", textattributes: ["font": "Lato", "size": "7", "weight": "Light", "color": "black"]))
                         }
                     }
                     
-                    let classCol = String(rows[Int(cardindex)]["Descent"])
-                    if (!(classCol ?? "").isEmpty) {
-                        if (classCol != "None") {
-                            typeAndClasses += " " + (rows[Int(cardindex)]["Class"] as! String)
+                    if (!(String(row["Descent"]) ?? "").isEmpty) {
+                        if (String(row["Descent"]) != "None") {
+                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(String(row["Descent"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
                         }
                     }
                     
-                    ShapeDrawer.drawShape(
-                        "textframe",
+                    if (!(String(row["Class"]) ?? "").isEmpty) {
+                        if (String(row["Class"]) != "None") {
+                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" " + String(row["Class"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
+                        }
+                    }
+                    
+                    ShapeDrawer.drawAttributedString(
+                        typeAndClasses,
                         context: context!,
                         xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
-                        ysize: frame[3],
-                        text: typeAndClasses,
-                        textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]
+                        ysize: frame[3]
                     )
                     
                     
