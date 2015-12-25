@@ -8,4 +8,4 @@ OSX prototype exporter for Faith CCG.
 
 [Roboto Slab](https://www.google.com/fonts/specimen/Roboto+Slab) font licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
 
-[Lato] font licensed under the [SIL Open Font License 1.1](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL)
+[Lato](http://www.latofonts.com/) font licensed under the [SIL Open Font License 1.1](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL)
