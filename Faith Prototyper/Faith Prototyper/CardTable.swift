@@ -65,7 +65,6 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
         
         // TMP
         print(self.tableView.numberOfRows)
-        
     }
     
 

@@ -128,34 +128,52 @@ class PDFExporter {
                         xsize: frame[2],
                         ysize: frame[3],
                         text: row["Name"] as! String,
-                        textattributes: ["font": "Adelle", "size": "9", "weight": "Bold", "color": "black"]
+                        textattributes: ["font": "Roboto Slab", "size": "9", "weight": "Bold", "color": "black"]
                     )
                     
                     
                     // typeset card type, descent and class
                     
-                    frame = [CGFloat(31.5), CGFloat(22.5), CGFloat(138.0), CGFloat(30.0)]
+                    frame = [CGFloat(31.5), CGFloat(22.0), CGFloat(138.0), CGFloat(30.0)]
                     
                     let typeAndClasses = ShapeDrawer.attributedCompose("", textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"])
                     
-                    if (!(String(row["Type"]) ?? "").isEmpty) {
-                        typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(String(row["Type"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]))
-                    }
-                    
-                    if (!(String(row["Descent"]) ?? "").isEmpty || !(String(row["Class"]) ?? "").isEmpty) {
-                        if (String(row["Descent"]) != "None" || String(row["Class"]) != "None") {
-                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" \u{2022} ", textattributes: ["font": "Lato", "size": "7", "weight": "Light", "color": "black"]))
+                    if (String(row["Playtype"]) != nil) {
+                        if (String(row["Playtype"]!) != "None" && !String(row["Playtype"]!).isEmpty) {
+                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(String(row["Playtype"]!) + " ", textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]))
                         }
                     }
                     
-                    if (!(String(row["Descent"]) ?? "").isEmpty) {
-                        if (String(row["Descent"]) != "None") {
-                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(String(row["Descent"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
+                    if (String(row["Type"]) != nil) {
+                        if (String(row["Type"]!) != "None" && !String(row["Type"]!).isEmpty) {
+                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(String(row["Type"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]))
                         }
                     }
                     
-                    if (!(String(row["Class"]) ?? "").isEmpty) {
-                        if (String(row["Class"]) != "None") {
+                    if (String(row["Subtype"]) != nil) {
+                        if (String(row["Subtype"]!) != "None" && !String(row["Subtype"]!).isEmpty) {
+                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose("\u{2014}" + String(row["Subtype"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]))
+                        }
+                    }
+                    
+                    if (String(row["Descent"]) != nil) {
+                        if (String(row["Descent"]!) != "None" && !String(row["Descent"]!).isEmpty) {
+                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" \u{2022}", textattributes: ["font": "Lato", "size": "7", "weight": "Thin", "color": "black"]))
+                        }
+                    } else if (String(row["Class"]) != nil) {
+                        if (String(row["Class"]!) != "None" && !String(row["Class"]!).isEmpty) {
+                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" \u{2022}", textattributes: ["font": "Lato", "size": "7", "weight": "Thin", "color": "black"]))
+                        }
+                    }
+                    
+                    if (String(row["Descent"]) != nil) {
+                        if (String(row["Descent"]!) != "None" && !String(row["Descent"]!).isEmpty) {
+                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" " + String(row["Descent"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
+                        }
+                    }
+                    
+                    if (String(row["Class"]) != nil) {
+                        if (String(row["Class"]!) != "None" && !String(row["Class"]!).isEmpty) {
                             typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" " + String(row["Class"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
                         }
                     }

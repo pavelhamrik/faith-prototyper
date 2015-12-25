@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ATSApplicationFontsPath</key>
+	<string></string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FaithIcons.ttf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -27,7 +33,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2015 Pavel Hamřík. All rights reserved.</string>
+	<string>Copyright © 2015 Pavel Hamrik. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
 	<key>NSPrincipalClass</key>

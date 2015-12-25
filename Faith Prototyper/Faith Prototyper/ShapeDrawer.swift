@@ -65,25 +65,18 @@ class ShapeDrawer {
             
         case "textframe":
             var font = NSFont(name: "Lato-Regular", size: 10.0)
-            print(font)
             
-            if (textattributes["font"] != nil) {
+            if (textattributes["font"] != nil && font != nil) {
                 textattributes["font"]
                 font = NSFont(name: textattributes["font"]!, size: 10.0)
             }
             
-            // TMP: Check for a font problem
-            print(font)
-            if (font == nil) {
-                print(text)
-            }
-            
-            if (textattributes["weight"] != nil) {
+            if (textattributes["weight"] != nil && font != nil) {
                 let fontNameWithWeight = font!.fontName.componentsSeparatedByString("-").first! + "-" + textattributes["weight"]!
                 font = NSFont(name: fontNameWithWeight, size: 10.0)
             }
             
-            if (textattributes["size"] != nil) {
+            if (textattributes["size"] != nil && font != nil) {
                 let customsize = textattributes["size"]! as NSString
                 font = NSFont(name: font!.fontName, size: CGFloat(customsize.intValue))
             }
@@ -112,17 +105,21 @@ class ShapeDrawer {
                 textStyle.lineSpacing = CGFloat(lineSpacing.intValue)
             }
             
-            let textFontAttributes = [
-                NSFontAttributeName : font!,
-                NSForegroundColorAttributeName: textColor,
-                NSParagraphStyleAttributeName: textStyle
-            ]
+            if (font != nil) {
+                let textFontAttributes = [
+                    NSFontAttributeName : font!,
+                    NSForegroundColorAttributeName: textColor,
+                    NSParagraphStyleAttributeName: textStyle
+                ]
+                
+                CGContextSetTextMatrix(context, CGAffineTransformIdentity)
+                
+                let attributedString = NSMutableAttributedString(string: text, attributes: textFontAttributes)
+                
+                self.drawAttributedString(attributedString, context: context, xfrom: xfrom, yfrom: yfrom, xsize: xsize, ysize: ysize)
+            }
             
-            CGContextSetTextMatrix(context, CGAffineTransformIdentity)
             
-            let attributedString = NSMutableAttributedString(string: text, attributes: textFontAttributes)
-            
-            self.drawAttributedString(attributedString, context: context, xfrom: xfrom, yfrom: yfrom, xsize: xsize, ysize: ysize)
             
         default:
             break
