@@ -63,6 +63,9 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
         
         self.tableView.reloadData()
         
+        // TMP
+        print(self.tableView.numberOfRows)
+        
     }
     
 

@@ -64,9 +64,18 @@ class ShapeDrawer {
             
             
         case "textframe":
-            var font = NSFont(name: "Lato", size: 10.0)
+            var font = NSFont(name: "Lato-Regular", size: 10.0)
+            print(font)
+            
             if (textattributes["font"] != nil) {
+                textattributes["font"]
                 font = NSFont(name: textattributes["font"]!, size: 10.0)
+            }
+            
+            // TMP: Check for a font problem
+            print(font)
+            if (font == nil) {
+                print(text)
             }
             
             if (textattributes["weight"] != nil) {
