@@ -47,4 +47,29 @@ class Helpers {
     }
     
     
+    static func saveDefaultsDictionary(key: String, dictionary: [NSMutableDictionary]) {
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let rowsAsData = NSKeyedArchiver.archivedDataWithRootObject(dictionary)
+        defaults.setObject(rowsAsData, forKey: key)
+        defaults.synchronize()
+
+    }
+    
+    
+    static func loadDefaultsDictionary(key: String) -> [NSMutableDictionary] {
+        
+        let defaultsData = NSUserDefaults.standardUserDefaults().dataForKey(key)
+        var returnDictionary: [NSMutableDictionary] = [["": ""]]
+        
+        if (defaultsData != nil) {
+            let storedDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(defaultsData!)
+            returnDictionary = storedDictionary!.mutableCopy() as! [NSMutableDictionary]
+        }
+        
+        return returnDictionary
+    
+    }
+    
+    
 }

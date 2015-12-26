@@ -7,8 +7,10 @@
 //
 
 import Cocoa
+import AppKit
 
 class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
+    
     
     @IBOutlet weak var types: NSComboBox!
     
@@ -62,28 +64,44 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
         
     }
     
+    
     override func controlTextDidChange(notification: NSNotification?) {
         
-        if notification?.object as? NSComboBox == self.types {
+        self.processFieldChange(notification!)
+        
+    }
+    
+    
+    override func controlTextDidEndEditing(notification: NSNotification?) {
+        
+        self.processFieldChange(notification!)
+        
+    }
+    
+    
+    func processFieldChange(notification: NSNotification) {
+    
+        if notification.object as? NSComboBox == self.types {
             Helpers.saveDefaults("prefsExportTypes", value: self.types.stringValue)
         }
         
-        if notification?.object as? NSTextField == self.groups {
+        if notification.object as? NSTextField == self.groups {
             Helpers.saveDefaults("prefsExportGroups", value: self.groups.stringValue)
         }
         
-        if notification?.object as? NSComboBox == self.statuses {
+        if notification.object as? NSComboBox == self.statuses {
             Helpers.saveDefaults("prefsExportStatuses", value: self.statuses.stringValue)
         }
         
-        if notification?.object as? NSTextField == self.printings {
+        if notification.object as? NSTextField == self.printings {
             Helpers.saveDefaults("prefsExportPrintings", value: self.printings.stringValue)
         }
         
-        if notification?.object as? NSComboBox == self.factions {
+        if notification.object as? NSComboBox == self.factions {
             Helpers.saveDefaults("prefsExportFactions", value: self.factions.stringValue)
         }
-        
+    
     }
+
 
 }

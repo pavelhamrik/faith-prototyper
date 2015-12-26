@@ -21,14 +21,11 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "act:", name:"refreshCardTableView", object: nil)
         
-        let defaultsData = NSUserDefaults.standardUserDefaults().dataForKey("DefaultCards")
-        if (defaultsData != nil) {
-            let storedDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(defaultsData!)
-            self.rows = storedDictionary!.mutableCopy() as! [NSMutableDictionary]
-            fillTable()
-        }
+        self.rows = Helpers.loadDefaultsDictionary("DefaultCards")
+        fillTable()
 
     }
     
@@ -38,10 +35,7 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
         let userinfo = notification.userInfo
         self.rows = userinfo?["rows"] as! [NSMutableDictionary]
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let rowsAsData = NSKeyedArchiver.archivedDataWithRootObject(self.rows)
-        defaults.setObject(rowsAsData, forKey: "DefaultCards")
-        defaults.synchronize()
+        Helpers.saveDefaultsDictionary("DefaultCards", dictionary: self.rows)
         
         fillTable()
     }
