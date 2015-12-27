@@ -15,6 +15,8 @@ class XLSX2 {
     
     static var sharedStrings = [String]()
     
+    static var sharedKeys = [String]()
+    
     
     static func parse(importFileURL: NSURL) -> [NSMutableDictionary] {
         
@@ -36,10 +38,12 @@ class XLSX2 {
                 }
             }
             
-            
             for (_, value) in sheets {
-                XLSX2.getColsWithIndexes(String(value))
+                let colsWithIndexes = XLSX2.getColsWithIndexes(String(value))
+                print(colsWithIndexes)
             }
+            
+            print(sharedKeys)
             
         }
         
@@ -72,12 +76,14 @@ class XLSX2 {
         
         let rows = XLSX2.parseBranchInFile(["worksheet", "sheetData", "row"], path: "xl/" + path)
         
-        for cell in (rows["0"] as! XMLElement).children {
+        for (index, cell) in (rows["0"] as! XMLElement).children.enumerate() {
             let sharedString = getElementValue(cell)
-            print(sharedString)
+            results.setObject(sharedString, forKey: String(index))
+            
+            if !sharedKeys.contains(getElementValue(cell)) {
+                sharedKeys.append(getElementValue(cell))
+            }
         }
-        
-        // RESUME
     
         return results
         
@@ -113,6 +119,9 @@ class XLSX2 {
                 return sharedStrings[Int(element.children.first!.text!)!]
             }
         }
+        else if element.children.first != nil {
+            return element.children.first!.text!
+        }
     
         return ""
         
@@ -138,7 +147,6 @@ class XLSX2 {
         
         var xmlParsedTarget = xmlParsed
         
-        
         switch branch.count {
             
         case 1:
@@ -160,7 +168,6 @@ class XLSX2 {
             print ("parseBranchInFile: Requested XML branch nesting too deep.")
         
         }
-        
         
         switch returnType {
             

@@ -81,8 +81,8 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     
     func getDataArray() -> NSArray {
         
-        var regularRows = self.rows
-        regularRows.removeAtIndex(0)
+        let regularRows = self.rows
+        //regularRows.removeAtIndex(0)
         return regularRows;
         
     }
