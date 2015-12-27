@@ -11,23 +11,30 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
 
     }
+    
     
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
     }
     
+    
     var preferencesController: NSWindowController?
+    
     @IBAction func showPreferences(sender : AnyObject) {
+        
         if (preferencesController == nil) {
             let storyboard = NSStoryboard(name: "Preferences", bundle: nil)
             preferencesController = storyboard.instantiateInitialController() as? NSWindowController
         }
+        
         if (preferencesController != nil) {
             preferencesController!.showWindow(sender)
         }
+        
     }
     
 }

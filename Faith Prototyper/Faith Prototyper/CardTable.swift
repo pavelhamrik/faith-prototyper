@@ -43,6 +43,7 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     
     func fillTable() {
         
+        /*
         let tableCols = self.tableView.tableColumns
         for col in tableCols {
             self.tableView.removeTableColumn(col)
@@ -56,9 +57,10 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
         }
         
         self.tableView.reloadData()
+        */
         
         // TMP
-        print(self.tableView.numberOfRows)
+        //print(self.tableView.numberOfRows)
     }
     
 

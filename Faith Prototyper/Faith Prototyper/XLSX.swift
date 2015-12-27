@@ -21,7 +21,9 @@ class XLSX {
     
     static func parse(importFileURL: NSURL) -> [NSMutableDictionary] {
         
+        // TODO: remember to delete the temp folder at the end
         let tmpDirURL = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("faithprototyper")
+        
         let notAvailable = "" // formerly "--"
         var rows: [NSMutableDictionary] = [["": ""]]
         
@@ -41,8 +43,6 @@ class XLSX {
             // then parsing
             // https://github.com/drmohundro/SWXMLHash
             
-            let cardTypes =  ["Myths", "Schemes", "Events", "Attachments"]  // TODO: redo dynamically from an editable UI element
-            
             // xl/_rels/workbook.xml.rels
             var xmlURL = tmpDirURL.URLByAppendingPathComponent("xl/_rels/workbook.xml.rels")
             var xmlToParse = try! NSString(contentsOfURL: xmlURL, encoding: NSUTF8StringEncoding)
@@ -53,6 +53,7 @@ class XLSX {
             }
             
             // xl/workbook.xml leading to sheet name: url nsdictionary
+            let cardTypes =  ["Myths", "Schemes", "Events", "Attachments"]  // TODO: redo dynamically from an editable UI element
             xmlURL = tmpDirURL.URLByAppendingPathComponent("xl/workbook.xml")
             xmlToParse = try! NSString(contentsOfURL: xmlURL, encoding: NSUTF8StringEncoding)
             let workbookXML = SWXMLHash.parse(xmlToParse as String)

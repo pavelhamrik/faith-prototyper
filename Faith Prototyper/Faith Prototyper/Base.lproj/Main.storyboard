@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -80,7 +80,7 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Generate PDF" keyEquivalent="s" id="rJf-P8-TMf">
+                                        <menuItem title="Generate PDF" keyEquivalent="g" id="rJf-P8-TMf">
                                             <connections>
                                                 <action selector="loadData:" target="Ady-hI-5gd" id="Pe6-dl-Vaj"/>
                                             </connections>
@@ -230,7 +230,7 @@
                                         <action selector="generatePDF:" target="Oky-zY-oP4" id="lKS-14-vSS"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="928098FF-CC6D-448F-8F36-0AAF2D994E6C" label="Settings" paletteLabel="Settings" tag="-1" image="NSPreferencesGeneral" id="kcF-CD-Irs">
+                                <toolbarItem implicitItemIdentifier="928098FF-CC6D-448F-8F36-0AAF2D994E6C" label="Preferences" paletteLabel="Preferences" tag="-1" image="NSPreferencesGeneral" id="kcF-CD-Irs">
                                     <connections>
                                         <action selector="showPreferences:" target="Oky-zY-oP4" id="yoL-10-9V0"/>
                                     </connections>
@@ -265,13 +265,11 @@
                             <containerView id="vbB-kl-Zqk">
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="450"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <animations/>
                                 <connections>
                                     <segue destination="OXE-Mg-DzL" kind="embed" id="hfu-39-c7M"/>
                                 </connections>
                             </containerView>
                         </subviews>
-                        <animations/>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -296,7 +294,6 @@
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="cpy-34-SvX" id="0Ah-V4-CyB">
                                             <rect key="frame" x="0.0" y="0.0" width="119" height="19"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <animations/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -321,28 +318,22 @@
                                             </connections>
                                         </tableView>
                                     </subviews>
-                                    <animations/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <animations/>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="6sm-kg-dIE">
                                     <rect key="frame" x="1" y="119" width="223" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <animations/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="9id-39-6jf">
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <animations/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="cpy-34-SvX">
                                     <rect key="frame" x="0.0" y="0.0" width="450" height="17"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <animations/>
                                 </tableHeaderView>
                             </scrollView>
                         </subviews>
-                        <animations/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="0Ah-V4-CyB" id="aOu-kx-wE6"/>

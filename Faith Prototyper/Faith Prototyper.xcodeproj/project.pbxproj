@@ -31,6 +31,8 @@
 		BF331E2E1C2DE7050095ACD6 /* RobotoSlab-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF331E2A1C2DE7050095ACD6 /* RobotoSlab-Light.ttf */; };
 		BF331E2F1C2DE7050095ACD6 /* RobotoSlab-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF331E2B1C2DE7050095ACD6 /* RobotoSlab-Regular.ttf */; };
 		BF331E301C2DE7050095ACD6 /* RobotoSlab-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF331E2C1C2DE7050095ACD6 /* RobotoSlab-Thin.ttf */; };
+		BF331E341C2F38E30095ACD6 /* XLSX2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF331E331C2F38E30095ACD6 /* XLSX2.swift */; };
+		BF331E3D1C2F39B60095ACD6 /* ZipZapHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF331E3C1C2F39B60095ACD6 /* ZipZapHelpers.swift */; };
 		BF87B9E61C28C14600194F8B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF87B9E51C28C14600194F8B /* Helpers.swift */; };
 		BF8B57351BB9D2B800FEBD4F /* CardTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8B57341BB9D2B800FEBD4F /* CardTable.swift */; };
 		BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97115C1BB00346006DA166 /* AppDelegate.swift */; };
@@ -143,6 +145,8 @@
 		BF331E2A1C2DE7050095ACD6 /* RobotoSlab-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Light.ttf"; path = "Resources/Fonts/Roboto_Slab/RobotoSlab-Light.ttf"; sourceTree = "<group>"; };
 		BF331E2B1C2DE7050095ACD6 /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Regular.ttf"; path = "Resources/Fonts/Roboto_Slab/RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
 		BF331E2C1C2DE7050095ACD6 /* RobotoSlab-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoSlab-Thin.ttf"; path = "Resources/Fonts/Roboto_Slab/RobotoSlab-Thin.ttf"; sourceTree = "<group>"; };
+		BF331E331C2F38E30095ACD6 /* XLSX2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLSX2.swift; sourceTree = "<group>"; };
+		BF331E3C1C2F39B60095ACD6 /* ZipZapHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipZapHelpers.swift; sourceTree = "<group>"; };
 		BF87B9E51C28C14600194F8B /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		BF8B57341BB9D2B800FEBD4F /* CardTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTable.swift; sourceTree = "<group>"; };
 		BF9711591BB00345006DA166 /* Faith Prototyper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Faith Prototyper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -318,8 +322,10 @@
 			children = (
 				BFF8EF5A1C24487B008C965E /* ShapeDrawer.swift */,
 				BFF8EF5C1C245484008C965E /* XLSX.swift */,
+				BF331E331C2F38E30095ACD6 /* XLSX2.swift */,
 				BFF8EF641C2470F1008C965E /* PDFExporter.swift */,
 				BF87B9E51C28C14600194F8B /* Helpers.swift */,
+				BF331E3C1C2F39B60095ACD6 /* ZipZapHelpers.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -542,8 +548,10 @@
 				BF87B9E61C28C14600194F8B /* Helpers.swift in Sources */,
 				BF8B57351BB9D2B800FEBD4F /* CardTable.swift in Sources */,
 				BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */,
+				BF331E3D1C2F39B60095ACD6 /* ZipZapHelpers.swift in Sources */,
 				BFB3ABFD1C2833FF00C540D6 /* Preferences.swift in Sources */,
 				BFF8EF651C2470F1008C965E /* PDFExporter.swift in Sources */,
+				BF331E341C2F38E30095ACD6 /* XLSX2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

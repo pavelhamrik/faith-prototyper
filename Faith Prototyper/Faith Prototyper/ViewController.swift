@@ -31,7 +31,7 @@ class ViewController: NSViewController, NSWindowDelegate {
 
     
     // load the xlsx
-    // TODO: remember to delete the temp folder at the end
+    
     @IBAction func loadData(sender: AnyObject) {
         
         let openPanel = NSOpenPanel()
@@ -42,7 +42,7 @@ class ViewController: NSViewController, NSWindowDelegate {
 
             if result == NSFileHandlingPanelOKButton {
                 if openPanel.URL != nil {
-                    let rows = XLSX.parse(openPanel.URL!)
+                    let rows = XLSX2.parse(openPanel.URL!)
                     NSNotificationCenter.defaultCenter().postNotificationName("refreshCardTableView", object: nil, userInfo:["rows": rows])
                 }
             }
