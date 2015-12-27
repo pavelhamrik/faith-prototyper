@@ -264,7 +264,7 @@
                         <subviews>
                             <containerView id="vbB-kl-Zqk">
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="450"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <connections>
                                     <segue destination="OXE-Mg-DzL" kind="embed" id="hfu-39-c7M"/>
                                 </connections>

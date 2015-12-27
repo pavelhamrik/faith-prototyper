@@ -17,37 +17,111 @@ class XLSX2 {
     
     static var sharedKeys = [String]()
     
+    static var rows = [NSMutableDictionary]()
+    
     
     static func parse(importFileURL: NSURL) -> [NSMutableDictionary] {
         
-        //let notAvailable = "" // formerly "--"
-        let rows = [NSMutableDictionary]()
-        
+        // initialize the strings shared across all sheets
         XLSX2.loadSharedStrings()
         
         if ZipZapHelpers.unzip(importFileURL, tmpDirURL: tmpDirURL) {
             
-            let sheets = XLSX2.sheetNameToPath()
+            let sheetNames = XLSX2.sheetNameToPath()
+            
+            let colsWithIndexes = NSMutableDictionary()
 
             // remove all irrelevant sheets
             // TODO: Types in Preferences
             let supportedCardTypes = ["Myths", "Schemes", "Events", "Attachments"]
-            for (key, _) in sheets {
-                if !supportedCardTypes.contains(key as! String) {
-                    sheets.removeObjectForKey(key)
+            for (name, path) in sheetNames {
+                if !supportedCardTypes.contains(name as! String) {
+                    sheetNames.removeObjectForKey(name)
+                }
+                else {
+                    // needs to run in a separate loop from the main one to fill the sharedKeys array properly
+                    colsWithIndexes.setObject(XLSX2.getColsWithIndexes(String(path)), forKey: String(name))
                 }
             }
             
-            for (_, value) in sheets {
-                let colsWithIndexes = XLSX2.getColsWithIndexes(String(value))
-                print(colsWithIndexes)
+            // simple sorting of shared keys for more legible output in tableView
+            sharedKeys.sortInPlace({ $0 < $1 })
+
+            print("sharedKeys.count: " + String(sharedKeys.count))
+            for (key, value) in colsWithIndexes {
+                print("colsWithIndexes.count – " + String(key) + ": " + String(value.count))
             }
-            
             print(sharedKeys)
+            print(colsWithIndexes)
+            
+            
+            if colsWithIndexes.count > 0 {
+                
+                // get a sheet and parse it
+                for (name, path) in sheetNames {
+                    
+                    self.parseSheet(String(path), type: String(name), colsWithIndexes: colsWithIndexes)
+                    
+                }
+            
+            }
             
         }
         
-        return rows
+        return self.rows
+        
+    }
+    
+    
+    // the sheet parsing itself, after all the prepwork by other functions around
+    
+    static func parseSheet(path: String, type: String, colsWithIndexes: NSMutableDictionary) {
+        
+        let xmlRows = self.parseBranchInFile(["worksheet", "sheetData", "row"], path: "xl/" + path)
+        
+        for (rowindex, _) in xmlRows.enumerate() {
+            
+            if rowindex == 0 {
+                continue
+            }
+            
+            let row = NSMutableDictionary(sharedKeySet: NSDictionary.sharedKeySetForKeys(sharedKeys))
+            
+            let xmlRow = (xmlRows[String(rowindex)] as! XMLElement).children
+            var empty = true
+            
+            for sharedKey in self.sharedKeys {
+                
+                if colsWithIndexes[type]![sharedKey]! != nil {
+                    let index = colsWithIndexes[type]![sharedKey] as! Int
+                    
+                    if xmlRow.count > index {
+                        let value = getElementValue(xmlRow[index])
+                        if value != "" && value != " " {
+                            empty = false
+                            row.setObject(value, forKey: sharedKey)
+                        }
+                        else {
+                            row.setObject("–  –", forKey: sharedKey)
+                        }
+                    }
+                    else {
+                        row.setObject("–x–", forKey: sharedKey)
+                    }
+                    
+                }
+                else {
+                    row.setObject("n/a", forKey: sharedKey)
+                }
+                
+            }
+
+            if !empty {
+                print(row)
+                self.rows.append(row)
+            }
+            
+        }
         
     }
     
@@ -60,10 +134,10 @@ class XLSX2 {
         let xmlParsed = SWXMLHash.parse(xmlToParse as String)
         
         for xmlRow in xmlParsed["sst"]["si"] {
-            sharedStrings.append((xmlRow["t"].element?.text)!)
+            self.sharedStrings.append((xmlRow["t"].element?.text)!)
         }
     
-        return sharedStrings.count
+        return self.sharedStrings.count
     
     }
     
@@ -77,12 +151,16 @@ class XLSX2 {
         let rows = XLSX2.parseBranchInFile(["worksheet", "sheetData", "row"], path: "xl/" + path)
         
         for (index, cell) in (rows["0"] as! XMLElement).children.enumerate() {
-            let sharedString = getElementValue(cell)
-            results.setObject(sharedString, forKey: String(index))
             
-            if !sharedKeys.contains(getElementValue(cell)) {
+            let sharedString = getElementValue(cell)
+            if sharedString != "" && sharedString != " " {
+                results.setObject(index, forKey: sharedString)
+            }
+            
+            if !sharedKeys.contains(getElementValue(cell)) && sharedString != "" && sharedString != " " {
                 sharedKeys.append(getElementValue(cell))
             }
+            
         }
     
         return results
@@ -116,7 +194,12 @@ class XLSX2 {
         
         if element.attributes.keys.contains("t") {
             if element.attributes["t"]! == "s" {
-                return sharedStrings[Int(element.children.first!.text!)!]
+                return self.sharedStrings[Int(element.children.first!.text!)!]
+            }
+        }
+        else if element.attributes.keys.contains("t") {
+            if element.attributes["t"]! == "str" {
+                return element.children.first!.text!
             }
         }
         else if element.children.first != nil {
@@ -177,10 +260,8 @@ class XLSX2 {
             }
             
         case "elements":
-            var i = 0
-            for row in xmlParsedTarget {
-                results.setObject((row.element)!, forKey: String(i))
-                i += 1
+            for (index, row) in xmlParsedTarget.enumerate() {
+                results.setObject((row.element)!, forKey: String(index))
             }
             
         default:

@@ -25,6 +25,7 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "act:", name:"refreshCardTableView", object: nil)
         
         self.rows = Helpers.loadDefaultsDictionary("DefaultCards")
+        
         fillTable()
 
     }
@@ -38,12 +39,12 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
         Helpers.saveDefaultsDictionary("DefaultCards", dictionary: self.rows)
         
         fillTable()
+        
     }
     
     
     func fillTable() {
         
-        /*
         let tableCols = self.tableView.tableColumns
         for col in tableCols {
             self.tableView.removeTableColumn(col)
@@ -57,10 +58,9 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
         }
         
         self.tableView.reloadData()
-        */
         
-        // TMP
-        //print(self.tableView.numberOfRows)
+        print("Number of rows: " + String(self.tableView.numberOfRows))
+        
     }
     
 
@@ -68,6 +68,7 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
         
         let numberOfRows:Int = getDataArray().count
         return numberOfRows
+        
     }
     
     
@@ -81,10 +82,14 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     
     func getDataArray() -> NSArray {
         
-        let regularRows = self.rows
-        //regularRows.removeAtIndex(0)
+        /*
+        var regularRows = self.rows
+        regularRows.removeAtIndex(0)
         return regularRows;
+        */
         
+        return self.rows
+
     }
  
     

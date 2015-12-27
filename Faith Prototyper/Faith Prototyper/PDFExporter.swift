@@ -150,7 +150,7 @@ class PDFExporter {
                         }
                     }
                     
-                    if (String(row["Subtype"]) != nil) {
+                    if (String(row["Subtype"]!) != nil) {
                         if (String(row["Subtype"]!) != "None" && !String(row["Subtype"]!).isEmpty) {
                             typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose("\u{2014}" + String(row["Subtype"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]))
                         }

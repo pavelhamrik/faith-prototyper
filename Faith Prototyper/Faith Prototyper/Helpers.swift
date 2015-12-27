@@ -72,4 +72,24 @@ class Helpers {
     }
     
     
+    static func resetDefaults() {
+        
+        let defaultsData = NSUserDefaults.standardUserDefaults()
+        
+        let defaults = [
+            "DefaultCards",
+            "prefsExportTypes",
+            "prefsExportGroups",
+            "prefsExportStatuses",
+            "prefsExportPrintings",
+            "prefsExportFactions"
+        ]
+        
+        for item in defaults {
+            defaultsData.removeObjectForKey(item)
+        }
+    
+    }
+    
+    
 }

@@ -21,6 +21,9 @@ class ViewController: NSViewController, NSWindowDelegate {
         window = NSApplication.sharedApplication().windows[0] as NSWindow
         window.delegate = self;
         
+        // TMP: use to clear all the writted defaults
+        //Helpers.resetDefaults()
+        
     }
     
     override var representedObject: AnyObject? {
@@ -43,6 +46,7 @@ class ViewController: NSViewController, NSWindowDelegate {
             if result == NSFileHandlingPanelOKButton {
                 if openPanel.URL != nil {
                     let rows = XLSX2.parse(openPanel.URL!)
+                    print(rows.count)
                     NSNotificationCenter.defaultCenter().postNotificationName("refreshCardTableView", object: nil, userInfo:["rows": rows])
                 }
             }
