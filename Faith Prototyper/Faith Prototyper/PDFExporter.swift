@@ -11,7 +11,39 @@ import Cocoa
 class PDFExporter {
     
     
-    static func generate(fileURL: NSURL, var rows: [NSMutableDictionary]) {
+    static func preformatCost(cost: String) -> NSAttributedString {
+        
+        let output = ShapeDrawer.attributedCompose("", textattributes: ["": ""])
+        
+        if !(cost ?? "").isEmpty {
+            if String(cost) != "None" {
+                output.appendAttributedString(ShapeDrawer.attributedCompose(cost, textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]))
+                output.appendAttributedString(ShapeDrawer.attributedCompose(": ", textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
+            }
+        }
+        
+        return output
+        
+    }
+    
+    
+    static func preformatEffect(effect: String) -> NSAttributedString {
+        
+        let output = ShapeDrawer.attributedCompose("", textattributes: ["": ""])
+        
+        if !(effect ?? "").isEmpty {
+            if String(effect) != "None" {
+                output.appendAttributedString(ShapeDrawer.attributedCompose(effect, textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
+                output.appendAttributedString(ShapeDrawer.attributedCompose("\u{2029}", textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
+            }
+        }
+        
+        return output
+        
+    }
+    
+    
+    static func generate(fileURL: NSURL, var rows: [[String: String]]) {
         
         // page size
         
@@ -44,7 +76,6 @@ class PDFExporter {
         // context, static image sources
         
         let context = CGPDFContextCreateWithURL(fileURL, &pageSize, nil)
-        let cardBackSource = CGImageSourceCreateWithURL(NSURL(string: "https://dl.dropboxusercontent.com/u/20268932/faith/mac/background_Grey.png")! as CFURL, nil)
         var frame = [CGFloat(0.0), CGFloat(0.0), CGFloat(50.0), CGFloat(10.0)]
         
         
@@ -106,8 +137,8 @@ class PDFExporter {
                     
                     let row = rows[Int(cardindex)]
                     
-                    // draw backgrounds from previously downloaded CFImageSource
-                    ShapeDrawer.drawImageFromSource(cardBackSource!, context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
+                    // draw backgrounds from asset catalog
+                    ShapeDrawer.drawImageFromAssetCatalog("background_Grey", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
                     
                     
                     // TODO: Draw a card image if found
@@ -127,7 +158,7 @@ class PDFExporter {
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
                         ysize: frame[3],
-                        text: row["Name"] as! String,
+                        text: row["Name"]!,
                         textattributes: ["font": "Roboto Slab", "size": "9", "weight": "Bold", "color": "black"]
                     )
                     
@@ -138,42 +169,47 @@ class PDFExporter {
                     
                     let typeAndClasses = ShapeDrawer.attributedCompose("", textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"])
                     
-                    if (String(row["Playtype"]) != nil) {
+                    if (!(String(row["Playtype"]) ?? "").isEmpty) {
                         if (String(row["Playtype"]!) != "None" && !String(row["Playtype"]!).isEmpty) {
                             typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(String(row["Playtype"]!) + " ", textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]))
                         }
                     }
                     
-                    if (String(row["Type"]) != nil) {
-                        if (String(row["Type"]!) != "None" && !String(row["Type"]!).isEmpty) {
+                    if !(row["Type"] ?? "").isEmpty {
+                        if String(row["Type"]!) != "None" {
                             typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(String(row["Type"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]))
                         }
                     }
                     
-                    if (String(row["Subtype"]!) != nil) {
-                        if (String(row["Subtype"]!) != "None" && !String(row["Subtype"]!).isEmpty) {
+                    if !(row["Subtype"] ?? "").isEmpty {
+                        if String(row["Subtype"]!) != "None" {
                             typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose("\u{2014}" + String(row["Subtype"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]))
                         }
                     }
                     
-                    if (String(row["Descent"]) != nil) {
-                        if (String(row["Descent"]!) != "None" && !String(row["Descent"]!).isEmpty) {
-                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" \u{2022}", textattributes: ["font": "Lato", "size": "7", "weight": "Thin", "color": "black"]))
-                        }
-                    } else if (String(row["Class"]) != nil) {
-                        if (String(row["Class"]!) != "None" && !String(row["Class"]!).isEmpty) {
-                            typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" \u{2022}", textattributes: ["font": "Lato", "size": "7", "weight": "Thin", "color": "black"]))
+                    var printBullet = false
+                    if !(row["Descent"] ?? "").isEmpty {
+                        if String(row["Descent"]!) != "None" {
+                            printBullet = true
                         }
                     }
+                    if !(row["Class"] ?? "").isEmpty {
+                        if String(row["Class"]!) != "None" {
+                            printBullet = true
+                        }
+                    }
+                    if printBullet {
+                        typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" \u{2022}", textattributes: ["font": "Lato", "size": "7", "weight": "Thin", "color": "black"]))
+                    }
                     
-                    if (String(row["Descent"]) != nil) {
-                        if (String(row["Descent"]!) != "None" && !String(row["Descent"]!).isEmpty) {
+                    if !(row["Descent"] ?? "").isEmpty {
+                        if String(row["Descent"]!) != "None" {
                             typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" " + String(row["Descent"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
                         }
                     }
                     
-                    if (String(row["Class"]) != nil) {
-                        if (String(row["Class"]!) != "None" && !String(row["Class"]!).isEmpty) {
+                    if !(row["Class"] ?? "").isEmpty {
+                        if String(row["Class"]!) != "None" {
                             typeAndClasses.appendAttributedString(ShapeDrawer.attributedCompose(" " + String(row["Class"]!), textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
                         }
                     }
@@ -192,29 +228,51 @@ class PDFExporter {
                     // TODO: attributed string, icons, etc.
                     frame = [CGFloat(31.5), CGFloat(164.0), CGFloat(138.0), CGFloat(70.0)]
                     
-                    var abilities = (rows[Int(cardindex)]["Ability 1 Cost"] as! String) + ": "
-                    abilities += (rows[Int(cardindex)]["Ability 1"] as! String)
-                    abilities += (rows[Int(cardindex)]["Ability 2 Cost"] as! String) + ": "
-                    abilities += (rows[Int(cardindex)]["Ability 2"] as! String)
-                    abilities += (rows[Int(cardindex)]["Ability 3 Cost"] as! String) + ": "
-                    abilities += (rows[Int(cardindex)]["Ability 3"] as! String)
-                    abilities += "Achieved \r\n" + (rows[Int(cardindex)]["Achieved Ability Cost"] as! String) + ": "
-                    abilities += (rows[Int(cardindex)]["Achieved Ability"] as! String)
+                    let abilities = ShapeDrawer.attributedCompose("", textattributes: ["": ""])
                     
-                    ShapeDrawer.drawShape(
-                        "textframe",
+                    if !(row["Ability 1 Cost"] ?? "").isEmpty {
+                        abilities.appendAttributedString(self.preformatCost(row["Ability 1 Cost"]!))
+                    }
+                    if !(row["Ability 1"] ?? "").isEmpty {
+                        abilities.appendAttributedString(self.preformatEffect(row["Ability 1"]!))
+                    }
+                    if !(row["Ability 2 Cost"] ?? "").isEmpty {
+                        abilities.appendAttributedString(self.preformatCost(row["Ability 2 Cost"]!))
+                    }
+                    if !(row["Ability 2"] ?? "").isEmpty {
+                        abilities.appendAttributedString(self.preformatEffect(row["Ability 2"]!))
+                    }
+                    if !(row["Ability 3 Cost"] ?? "").isEmpty {
+                        abilities.appendAttributedString(self.preformatCost(row["Ability 3 Cost"]!))
+                    }
+                    if !(row["Ability 3"] ?? "").isEmpty {
+                        abilities.appendAttributedString(self.preformatEffect(row["Ability 3"]!))
+                    }
+                    if !(row["Achieved Ability"] ?? "").isEmpty {
+                        if String(row["Achieved Ability"]) != "None" {
+                            abilities.appendAttributedString(ShapeDrawer.attributedCompose("ACHIEVED\u{000a}", textattributes: ["font": "Lato", "size": "5", "weight": "Regular", "color": "grey"]))
+                        }
+                    }
+                    if !(row["Achieved Ability Cost"] ?? "").isEmpty {
+                        abilities.appendAttributedString(self.preformatCost(row["Achieved Ability Cost"]!))
+                    }
+                    if !(row["Achieved Ability"] ?? "").isEmpty {
+                        abilities.appendAttributedString(self.preformatEffect(row["Achieved Ability"]!))
+                    }
+                    
+                    ShapeDrawer.drawAttributedString(
+                        abilities,
                         context: context!,
                         xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
                         ysize: frame[3],
-                        text: abilities,
-                        textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black", "lineSpacing": "0.0"]
+                        paragraphAttributes: ["paragraphSpacingAfter": "3.0"]
                     )
                     
                     
                     // typeset card claim
-                    frame = [CGFloat(10.5), CGFloat(11.0), CGFloat(16.0), CGFloat(140.0)]
+                    frame = [CGFloat(10.5), CGFloat(11.5), CGFloat(16.0), CGFloat(140.0)]
                     ShapeDrawer.drawShape(
                         "textframe",
                         context: context!,
@@ -222,8 +280,8 @@ class PDFExporter {
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
                         ysize: frame[3],
-                        text: ShapeDrawer.iconize(rows[Int(cardindex)]["Claim"] as! String, purpose: "generalMasking"),
-                        textattributes: ["font": "FaithIcons", "size": "11", "color": "white", "lineSpacing": "1"] // do not include weight as the custom font apparently doesn't have one
+                        text: ShapeDrawer.iconize(rows[Int(cardindex)]["Claim"]!, purpose: "generalMasking"),
+                        textattributes: ["font": "FaithIcons", "size": "11", "color": "white", "lineSpacing": "1.1"] // do not include weight as the custom font apparently doesn't have one
                     )
                     ShapeDrawer.drawShape(
                         "textframe",
@@ -232,10 +290,11 @@ class PDFExporter {
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
                         ysize: frame[3],
-                        text: ShapeDrawer.iconize(rows[Int(cardindex)]["Claim"] as! String, purpose: "general"),
-                        textattributes: ["font": "FaithIcons", "size": "11", "color": "black", "lineSpacing": "1"] // do not include weight as the custom font apparently doesn't have one
+                        text: ShapeDrawer.iconize(rows[Int(cardindex)]["Claim"]!, purpose: "general"),
+                        textattributes: ["font": "FaithIcons", "size": "11", "color": "black", "lineSpacing": "1.1"] // do not include weight as the custom font apparently doesn't have one
                     )
 
+                    
                     // typeset scheme difficulty
                     // ...
                     

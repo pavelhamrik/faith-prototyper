@@ -17,43 +17,44 @@ class XLSX2 {
     
     static var sharedKeys = [String]()
     
-    static var rows = [NSMutableDictionary]()
+    static var rows = [[String: String]]()
     
-    
-    static func parse(importFileURL: NSURL) -> [NSMutableDictionary] {
+
+    static func parse(importFileURL: NSURL) -> [[String: String]] {
         
         // initialize the strings shared across all sheets
         XLSX2.loadSharedStrings()
         
+        // empty rows
+        self.rows.removeAll()
+        
         if ZipZapHelpers.unzip(importFileURL, tmpDirURL: tmpDirURL) {
             
-            let sheetNames = XLSX2.sheetNameToPath()
+            var sheetNames = XLSX2.sheetNameToPath()
             
-            let colsWithIndexes = NSMutableDictionary()
+            var colsWithIndexes = [String: [String: String]]()
 
             // remove all irrelevant sheets
             // TODO: Types in Preferences
             let supportedCardTypes = ["Myths", "Schemes", "Events", "Attachments"]
             for (name, path) in sheetNames {
-                if !supportedCardTypes.contains(name as! String) {
-                    sheetNames.removeObjectForKey(name)
+                if !supportedCardTypes.contains(name) {
+                    sheetNames.removeValueForKey(name)
                 }
                 else {
                     // needs to run in a separate loop from the main one to fill the sharedKeys array properly
-                    colsWithIndexes.setObject(XLSX2.getColsWithIndexes(String(path)), forKey: String(name))
+                    colsWithIndexes.updateValue(XLSX2.getColsWithIndexes(String(path)), forKey: String(name))
                 }
             }
             
             // simple sorting of shared keys for more legible output in tableView
-            sharedKeys.sortInPlace({ $0 < $1 })
+            //sharedKeys.sortInPlace({ $0 < $1 })
 
-            print("sharedKeys.count: " + String(sharedKeys.count))
+            // info
             for (key, value) in colsWithIndexes {
                 print("colsWithIndexes.count – " + String(key) + ": " + String(value.count))
             }
             print(sharedKeys)
-            print(colsWithIndexes)
-            
             
             if colsWithIndexes.count > 0 {
                 
@@ -75,49 +76,56 @@ class XLSX2 {
     
     // the sheet parsing itself, after all the prepwork by other functions around
     
-    static func parseSheet(path: String, type: String, colsWithIndexes: NSMutableDictionary) {
+    static func parseSheet(path: String, type: String, colsWithIndexes: [String: [String: String]]) {
         
-        let xmlRows = self.parseBranchInFile(["worksheet", "sheetData", "row"], path: "xl/" + path)
+        let xmlRows = self.parseIndexersBranchInFile(["worksheet", "sheetData", "row"], path: "xl/" + path)
         
-        for (rowindex, _) in xmlRows.enumerate() {
+        for (rowIndex, xmlRow) in xmlRows.enumerate() {
             
-            if rowindex == 0 {
+            if rowIndex == 0 {
                 continue
             }
             
-            let row = NSMutableDictionary(sharedKeySet: NSDictionary.sharedKeySetForKeys(sharedKeys))
+            var row = [String: String]()
             
-            let xmlRow = (xmlRows[String(rowindex)] as! XMLElement).children
+            //let xmlRow = xmlRows[String(rowindex)]!.children
+            //let xmlRow = xmlRows.withAttr("r", rowindex)
             var empty = true
             
-            for sharedKey in self.sharedKeys {
+            for (_, sharedKey) in self.sharedKeys.enumerate() {
                 
-                if colsWithIndexes[type]![sharedKey]! != nil {
-                    let index = colsWithIndexes[type]![sharedKey] as! Int
+                if colsWithIndexes[type]![sharedKey] != nil {
                     
-                    if xmlRow.count > index {
-                        let value = getElementValue(xmlRow[index])
+                    let index = Int(colsWithIndexes[type]![sharedKey]!)
+
+                    // xlsx col index, e.g. P9
+                    do {
+                        
+                        let coords = String(self.toExcelCol(index!)) + String(rowIndex + 1)
+                        let element = try xmlRow["c"].withAttr("r", coords).element
+                        
+                        let value = getElementValue(element!)
                         if value != "" && value != " " {
                             empty = false
-                            row.setObject(value, forKey: sharedKey)
+                            row.updateValue(value, forKey: sharedKey)
                         }
                         else {
-                            row.setObject("–  –", forKey: sharedKey)
+                            row.updateValue("", forKey: sharedKey)
                         }
+                        
                     }
-                    else {
-                        row.setObject("–x–", forKey: sharedKey)
+                    catch {
+                        row.updateValue("", forKey: sharedKey)
                     }
                     
                 }
                 else {
-                    row.setObject("n/a", forKey: sharedKey)
+                    row.updateValue("", forKey: sharedKey)
                 }
                 
             }
 
             if !empty {
-                print(row)
                 self.rows.append(row)
             }
             
@@ -144,17 +152,17 @@ class XLSX2 {
     
     // returns the first row of a sheet (to be used e.g. as keys)
     
-    static func getColsWithIndexes(path: String) -> NSMutableDictionary {
+    static func getColsWithIndexes(path: String) -> [String: String] {
         
-        let results = NSMutableDictionary()
+        var results = [String: String]()
         
-        let rows = XLSX2.parseBranchInFile(["worksheet", "sheetData", "row"], path: "xl/" + path)
+        let rows = XLSX2.parseElementsBranchInFile(["worksheet", "sheetData", "row"], path: "xl/" + path)
         
-        for (index, cell) in (rows["0"] as! XMLElement).children.enumerate() {
+        for (index, cell) in rows["0"]!.children.enumerate() {
             
             let sharedString = getElementValue(cell)
             if sharedString != "" && sharedString != " " {
-                results.setObject(index, forKey: sharedString)
+                results.updateValue(String(index), forKey: sharedString)
             }
             
             if !sharedKeys.contains(getElementValue(cell)) && sharedString != "" && sharedString != " " {
@@ -170,16 +178,16 @@ class XLSX2 {
     
     // returns a dictionary of a sheet name and its path in the XLSX archive
     
-    static func sheetNameToPath() -> NSMutableDictionary {
+    static func sheetNameToPath() -> [String: String] {
         
-        let results = NSMutableDictionary()
+        var results = [String: String]()
         
-        let sheetIDs = XLSX2.parseBranchInFile(["Relationships", "Relationship"], keyAttr: "Id", valueAttr: "Target", path: "xl/_rels/workbook.xml.rels", returnType: "attributes")
-        let sheetNames = XLSX2.parseBranchInFile(["workbook", "sheets", "sheet"], keyAttr: "r:id", valueAttr: "name", path: "xl/workbook.xml", returnType: "attributes")
+        let sheetIDs = XLSX2.parseAttributesBranchInFile(["Relationships", "Relationship"], keyAttr: "Id", valueAttr: "Target", path: "xl/_rels/workbook.xml.rels")
+        let sheetNames = XLSX2.parseAttributesBranchInFile(["workbook", "sheets", "sheet"], keyAttr: "r:id", valueAttr: "name", path: "xl/workbook.xml")
 
         for (key, value) in sheetIDs {
             if sheetNames[String(key)] != nil {
-                results.setObject(value, forKey: String(sheetNames[String(key)]!))
+                results.updateValue(String(value), forKey: String(sheetNames[String(key)]!))
             }
         }
         
@@ -192,38 +200,91 @@ class XLSX2 {
     
     static func getElementValue(element: XMLElement) -> String {
         
+        var output = ""
+        
         if element.attributes.keys.contains("t") {
             if element.attributes["t"]! == "s" {
-                return self.sharedStrings[Int(element.children.first!.text!)!]
+                output = self.sharedStrings[Int(element.children.first!.text!)!]
             }
         }
         else if element.attributes.keys.contains("t") {
             if element.attributes["t"]! == "str" {
-                return element.children.first!.text!
+                output = element.children.first!.text!
             }
         }
         else if element.children.first != nil {
-            return element.children.first!.text!
+            output = element.children.first!.text!
+        }
+        
+        // handling numeric values
+        if Float(output) != nil {
+            if Float(output)! == round(Float(output)!) {
+                output = String(Int(Float(output)!))
+            }
+            else {
+                output = String(Float(output)!)
+            }
         }
     
-        return ""
+        return output
         
     }
 
     
     // helper to get selected attributes of a target branch of a xml tree
     
-    static func parseBranchInFile(branch: [String], path: String) -> NSMutableDictionary {
-        return XLSX2.parseBranchInFile(branch, keyAttr: "", valueAttr: "", path: path, returnType: "elements")
-    }
-    
-    static func parseBranchInFile(branch: [String], keyAttr: String, valueAttr: String, path: String) -> NSMutableDictionary {
-        return XLSX2.parseBranchInFile(branch, keyAttr: keyAttr, valueAttr: valueAttr, path: path, returnType: "attributes")
-    }
-    
-    static func parseBranchInFile(branch: [String], keyAttr: String, valueAttr: String, path: String, returnType: String) -> NSMutableDictionary {
+    static func parseAttributesBranchInFile(branch: [String], keyAttr: String, valueAttr: String, path: String) -> [String: String] {
         
-        let results = NSMutableDictionary()
+        var results = [String: String]()
+        
+        let xmlParsedTarget = parseBranchHelper(branch, path: path)
+
+        for row in xmlParsedTarget {
+            results.updateValue((row.element?.attributes[valueAttr])!, forKey: (row.element?.attributes[keyAttr])!)
+        }
+        
+        return results
+        
+    }
+    
+    
+    // helper to get selected elements of a target branch of a xml tree
+    
+    static func parseElementsBranchInFile(branch: [String], path: String) -> [String: XMLElement] {
+        
+        let xmlParsedTarget = parseBranchHelper(branch, path: path)
+        
+        var results = [String: XMLElement]()
+        
+        for (index, row) in xmlParsedTarget.enumerate() {
+            results.updateValue((row.element)!, forKey: String(index))
+        }
+        
+        return results
+        
+    }
+    
+    
+    // helper to get selected elements of a target branch of a xml tree
+    
+    static func parseIndexersBranchInFile(branch: [String], path: String) -> [XMLIndexer] {
+        
+        let xmlParsedTarget = parseBranchHelper(branch, path: path)
+        
+        var results = [XMLIndexer]()
+        
+        for row in xmlParsedTarget {
+            results.append(row)
+        }
+        
+        return results
+        
+    }
+    
+    
+    // helper to address the xml tree branch
+    
+    static func parseBranchHelper(branch: [String], path: String) -> XMLIndexer {
         
         let xmlToParse = try! NSString(contentsOfURL: tmpDirURL.URLByAppendingPathComponent(path), encoding: NSUTF8StringEncoding)
         let xmlParsed = SWXMLHash.parse(xmlToParse as String)
@@ -249,28 +310,11 @@ class XLSX2 {
             
         default:
             print ("parseBranchInFile: Requested XML branch nesting too deep.")
-        
-        }
-        
-        switch returnType {
-            
-        case "attributes":
-            for row in xmlParsedTarget {
-                results.setObject((row.element?.attributes[valueAttr])!, forKey: (row.element?.attributes[keyAttr])!)
-            }
-            
-        case "elements":
-            for (index, row) in xmlParsedTarget.enumerate() {
-                results.setObject((row.element)!, forKey: String(index))
-            }
-            
-        default:
-            break
             
         }
         
-        return results
-        
+        return xmlParsedTarget
+    
     }
     
     

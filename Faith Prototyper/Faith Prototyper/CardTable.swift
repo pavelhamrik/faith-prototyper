@@ -11,9 +11,7 @@ import Cocoa
 class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     
     
-    var rows: [NSMutableDictionary] = [
-        ["Name": "Load some cards..."]
-    ]
+    var rows: [[String: String]] = [["Name": "Load some cards..."]]
     
     @IBOutlet var tableView: NSTableView!
     
@@ -34,7 +32,7 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     func act(notification: NSNotification) {
         
         let userinfo = notification.userInfo
-        self.rows = userinfo?["rows"] as! [NSMutableDictionary]
+        self.rows = userinfo?["rows"] as! [[String: String]]
         
         Helpers.saveDefaultsDictionary("DefaultCards", dictionary: self.rows)
         
@@ -50,11 +48,15 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
             self.tableView.removeTableColumn(col)
         }
         
-        for (key, _) in self.rows[0] {
-            let column = NSTableColumn()
-            column.title = key as! String
-            column.identifier = key as! String
-            self.tableView.addTableColumn(column)
+        // TODO: try sorting here
+        // sharedKeys.sortInPlace({ $0 < $1 })
+        if self.rows.count > 0 {
+            for (key, _) in self.rows[0] {
+                let column = NSTableColumn()
+                column.title = key
+                column.identifier = key
+                self.tableView.addTableColumn(column)
+            }
         }
         
         self.tableView.reloadData()

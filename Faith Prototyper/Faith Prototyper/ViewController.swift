@@ -46,7 +46,6 @@ class ViewController: NSViewController, NSWindowDelegate {
             if result == NSFileHandlingPanelOKButton {
                 if openPanel.URL != nil {
                     let rows = XLSX2.parse(openPanel.URL!)
-                    print(rows.count)
                     NSNotificationCenter.defaultCenter().postNotificationName("refreshCardTableView", object: nil, userInfo:["rows": rows])
                 }
             }

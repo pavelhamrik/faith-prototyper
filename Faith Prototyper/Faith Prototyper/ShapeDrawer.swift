@@ -81,7 +81,7 @@ class ShapeDrawer {
                 font = NSFont(name: font!.fontName, size: CGFloat(customsize.intValue))
             }
             
-            let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+            let paragraphStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
             
             var textColor = NSColor.blackColor()
             if (textattributes["color"] != nil) {
@@ -102,14 +102,25 @@ class ShapeDrawer {
             
             if (textattributes["lineSpacing"] != nil) {
                 let lineSpacing = textattributes["lineSpacing"]! as NSString
-                textStyle.lineSpacing = CGFloat(lineSpacing.intValue)
+                paragraphStyle.lineSpacing = CGFloat(lineSpacing.floatValue)
             }
+            
+            if (textattributes["paragraphSpacingAfter"] != nil) {
+                let paragraphSpacingAfter = textattributes["paragraphSpacingAfter"]! as NSString
+                paragraphStyle.paragraphSpacing = CGFloat(paragraphSpacingAfter.floatValue)
+            }
+            
+            if (textattributes["paragraphSpacingBefore"] != nil) {
+                let paragraphSpacingBefore = textattributes["paragraphSpacingBefore"]! as NSString
+                paragraphStyle.paragraphSpacingBefore = CGFloat(paragraphSpacingBefore.floatValue)
+            }
+            
             
             if (font != nil) {
                 let textFontAttributes = [
                     NSFontAttributeName : font!,
                     NSForegroundColorAttributeName: textColor,
-                    NSParagraphStyleAttributeName: textStyle
+                    NSParagraphStyleAttributeName: paragraphStyle
                 ]
                 
                 CGContextSetTextMatrix(context, CGAffineTransformIdentity)
@@ -120,7 +131,6 @@ class ShapeDrawer {
             }
             
             
-            
         default:
             break
         }
@@ -129,8 +139,21 @@ class ShapeDrawer {
     
     
     static func drawAttributedString(text: NSMutableAttributedString, context: CGContextRef, xfrom: CGFloat, yfrom: CGFloat, xsize: CGFloat, ysize: CGFloat) {
+        self.drawAttributedString(text, context: context, xfrom: xfrom, yfrom: yfrom, xsize: xsize, ysize: ysize, paragraphAttributes: ["": ""])
+    }
+    
+    static func drawAttributedString(text: NSMutableAttributedString, context: CGContextRef, xfrom: CGFloat, yfrom: CGFloat, xsize: CGFloat, ysize: CGFloat, paragraphAttributes: [String: String]) {
         
         CGContextSetTextMatrix(context, CGAffineTransformIdentity)
+        
+        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+        
+        if (paragraphAttributes["paragraphSpacingAfter"] != nil) {
+            let range = NSRange(location: 0, length: text.length)
+            let paragraphSpacingAfter = paragraphAttributes["paragraphSpacingAfter"]! as NSString
+            textStyle.paragraphSpacing = CGFloat(paragraphSpacingAfter.floatValue)
+            text.addAttribute("NSParagraphStyle", value: textStyle, range: range)
+        }
         
         let framesetter =  CTFramesetterCreateWithAttributedString(text);
         let path = CGPathCreateWithRect(CGRectMake(xfrom, yfrom, xsize, ysize), nil);
@@ -163,6 +186,14 @@ class ShapeDrawer {
         let image = CGImageSourceCreateImageAtIndex(imageSource, 0, nil)
         CGContextDrawImage(context, CGRectMake(xfrom, yfrom, xsize, ysize), image);
         
+    }
+
+    
+    static func drawImageFromAssetCatalog(imageName: String, context: CGContextRef, xfrom: CGFloat, yfrom: CGFloat, xsize: CGFloat, ysize: CGFloat) {
+        
+        let image = NSImage(named: imageName)?.CGImageForProposedRect(nil, context: nil, hints: nil)
+        CGContextDrawImage(context, CGRectMake(xfrom, yfrom, xsize, ysize), image);
+    
     }
 
 
@@ -276,23 +307,46 @@ class ShapeDrawer {
     
     
     // changes font of the provided string to FaithIcons, returns NSAttributedString object
+    
     static func attributedCompose(inputString: String, textattributes: [String: String]) -> NSMutableAttributedString {
         
         var attributes: [String: AnyObject] = [NSFontAttributeName: NSNull()]
         
-        if (!(textattributes["font"] ?? "").isEmpty) {
+        if !(textattributes["font"] ?? "").isEmpty {
             attributes[NSFontAttributeName] = NSFont(name: textattributes["font"]!, size: 10.0)
         }
         
-        if (!(textattributes["weight"] ?? "").isEmpty) {
+        if !(textattributes["weight"] ?? "").isEmpty {
             let fontNameWithWeight = attributes[NSFontAttributeName]!.fontName.componentsSeparatedByString("-").first! + "-" + textattributes["weight"]!
             attributes[NSFontAttributeName] = NSFont(name: fontNameWithWeight, size: 10.0)
         }
         
-        if (!(textattributes["size"] ?? "").isEmpty) {
+        if !(textattributes["size"] ?? "").isEmpty {
             let customsize = textattributes["size"]! as NSString
             attributes[NSFontAttributeName] = NSFont(name: attributes[NSFontAttributeName]!.fontName, size: CGFloat(customsize.intValue))
         }
+        
+        let paragraphStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+        
+        if !(textattributes["lineSpacing"] ?? "").isEmpty {
+            let lineSpacing = textattributes["lineSpacing"]! as NSString
+            paragraphStyle.lineSpacing = CGFloat(lineSpacing.floatValue)
+        }
+        
+        if !(textattributes["paragraphSpacingAfter"] ?? "").isEmpty {
+            let paragraphSpacingAfter = textattributes["paragraphSpacingAfter"]! as NSString
+            paragraphStyle.paragraphSpacing = CGFloat(paragraphSpacingAfter.floatValue)
+        }
+        
+        if !(textattributes["paragraphSpacingBefore"] ?? "").isEmpty {
+            let paragraphSpacingBefore = textattributes["paragraphSpacingBefore"]! as NSString
+            paragraphStyle.paragraphSpacingBefore = CGFloat(paragraphSpacingBefore.floatValue)
+        }
+        
+        // TODO: Support custom colors
+        attributes[NSForegroundColorAttributeName] = NSColor.blackColor()
+        
+        attributes[NSParagraphStyleAttributeName] = paragraphStyle
         
         return NSMutableAttributedString(string: "\(inputString)", attributes: attributes)
     }

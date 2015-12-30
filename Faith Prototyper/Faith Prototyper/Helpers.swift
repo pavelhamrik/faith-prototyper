@@ -10,6 +10,7 @@ import Cocoa
 
 class Helpers {
     
+    
     static func saveDefaults(key: String, value: String) {
         
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -33,7 +34,8 @@ class Helpers {
     }
     
     
-    static func filterByArray(items: [NSMutableDictionary], var filter: String, column: String) -> [NSMutableDictionary] {
+    // TODO: Move from NSMutableDictionary to Swift value dictionary
+    static func filterByArray(items: [[String: String]], var filter: String, column: String) -> [[String: String]] {
         
         filter = filter.stringByReplacingOccurrencesOfString(", ", withString: ",")
         
@@ -47,7 +49,7 @@ class Helpers {
     }
     
     
-    static func saveDefaultsDictionary(key: String, dictionary: [NSMutableDictionary]) {
+    static func saveDefaultsDictionary(key: String, dictionary: [[String: String]]) {
         
         let defaults = NSUserDefaults.standardUserDefaults()
         let rowsAsData = NSKeyedArchiver.archivedDataWithRootObject(dictionary)
@@ -57,14 +59,13 @@ class Helpers {
     }
     
     
-    static func loadDefaultsDictionary(key: String) -> [NSMutableDictionary] {
+    static func loadDefaultsDictionary(key: String) -> [[String: String]] {
         
         let defaultsData = NSUserDefaults.standardUserDefaults().dataForKey(key)
-        var returnDictionary: [NSMutableDictionary] = [["": ""]]
+        var returnDictionary = [[String: String]]()
         
         if (defaultsData != nil) {
-            let storedDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(defaultsData!)
-            returnDictionary = storedDictionary!.mutableCopy() as! [NSMutableDictionary]
+            returnDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(defaultsData!) as! [[String: String]]
         }
         
         return returnDictionary
