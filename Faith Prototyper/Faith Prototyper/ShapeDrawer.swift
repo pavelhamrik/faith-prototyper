@@ -78,26 +78,14 @@ class ShapeDrawer {
             
             if (textattributes["size"] != nil && font != nil) {
                 let customsize = textattributes["size"]! as NSString
-                font = NSFont(name: font!.fontName, size: CGFloat(customsize.intValue))
+                font = NSFont(name: font!.fontName, size: CGFloat(customsize.floatValue))
             }
             
             let paragraphStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
             
             var textColor = NSColor.blackColor()
             if (textattributes["color"] != nil) {
-                let color = textattributes["color"]!
-                switch color {
-                case "black":
-                    textColor = NSColor.blackColor()
-                case "white":
-                    textColor = NSColor.whiteColor()
-                case "red":
-                    textColor = NSColor.redColor()
-                case "gray":
-                    textColor = NSColor.grayColor()
-                default:
-                    textColor = NSColor.blackColor()
-                }
+                textColor = parseColor(textattributes["color"]!)
             }
             
             if (textattributes["lineSpacing"] != nil) {
@@ -322,8 +310,13 @@ class ShapeDrawer {
         }
         
         if !(textattributes["size"] ?? "").isEmpty {
-            let customsize = textattributes["size"]! as NSString
-            attributes[NSFontAttributeName] = NSFont(name: attributes[NSFontAttributeName]!.fontName, size: CGFloat(customsize.intValue))
+            let size = textattributes["size"]! as NSString
+            attributes[NSFontAttributeName] = NSFont(name: attributes[NSFontAttributeName]!.fontName, size: CGFloat(size.floatValue))
+        }
+        
+        if !(textattributes["kerning"] ?? "").isEmpty {
+            let kerning = textattributes["kerning"]! as NSString
+            attributes[NSKernAttributeName] = CGFloat(kerning.floatValue)
         }
         
         let paragraphStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
@@ -342,13 +335,35 @@ class ShapeDrawer {
             let paragraphSpacingBefore = textattributes["paragraphSpacingBefore"]! as NSString
             paragraphStyle.paragraphSpacingBefore = CGFloat(paragraphSpacingBefore.floatValue)
         }
-        
-        // TODO: Support custom colors
+
         attributes[NSForegroundColorAttributeName] = NSColor.blackColor()
+        if !(textattributes["color"] ?? "").isEmpty {
+            attributes[NSForegroundColorAttributeName] = parseColor(textattributes["color"]!)
+        }
         
         attributes[NSParagraphStyleAttributeName] = paragraphStyle
         
         return NSMutableAttributedString(string: "\(inputString)", attributes: attributes)
+    }
+    
+    
+    static func parseColor(color: String) -> NSColor {
+        
+        switch color {
+        case "black":
+            return NSColor.blackColor()
+        case "white":
+            return NSColor.whiteColor()
+        case "red":
+            return NSColor.redColor()
+        case "gray":
+            return NSColor.grayColor()
+        case "grey":
+            return NSColor.grayColor()
+        default:
+            return NSColor.blackColor()
+        }
+        
     }
     
     

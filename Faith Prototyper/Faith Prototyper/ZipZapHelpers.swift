@@ -27,14 +27,14 @@ class ZipZapHelpers {
                 try! fileManager.createDirectoryAtURL(entryURL.URLByDeletingLastPathComponent!, withIntermediateDirectories: true, attributes: nil)
                 try! entry.newData().writeToURL(entryURL, atomically: false)
                 
-                return true
-                
             }
+            
+            return true
             
         }
         catch {
             
-            print("Failed to unpack the XLSX.")
+            print("Failed to unzip the XLSX.")
             
         }
         

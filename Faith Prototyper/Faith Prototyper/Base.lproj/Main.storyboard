@@ -82,7 +82,7 @@
                                         </menuItem>
                                         <menuItem title="Generate PDF" keyEquivalent="g" id="rJf-P8-TMf">
                                             <connections>
-                                                <action selector="loadData:" target="Ady-hI-5gd" id="Pe6-dl-Vaj"/>
+                                                <action selector="generatePDF:" target="Ady-hI-5gd" id="RKA-0T-vX3"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>

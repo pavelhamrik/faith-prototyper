@@ -47,6 +47,7 @@
 		BFA171991BB56C5000EE90CA /* libZipZap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA171961BB56BD500EE90CA /* libZipZap.a */; };
 		BFB3ABFB1C2831A300C540D6 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFB3ABFA1C2831A300C540D6 /* Preferences.storyboard */; };
 		BFB3ABFD1C2833FF00C540D6 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB3ABFC1C2833FF00C540D6 /* Preferences.swift */; };
+		BFC8B0E11C40422200E44F9B /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC8B0E01C40422200E44F9B /* NSAttributedString.swift */; };
 		BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */; };
 		BFF8EF5B1C24487B008C965E /* ShapeDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8EF5A1C24487B008C965E /* ShapeDrawer.swift */; };
 		BFF8EF5D1C245484008C965E /* XLSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8EF5C1C245484008C965E /* XLSX.swift */; };
@@ -167,6 +168,7 @@
 		BFA171871BB56BD500EE90CA /* ZipZap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZipZap.xcodeproj; path = ZipZap/ZipZap.xcodeproj; sourceTree = "<group>"; };
 		BFB3ABFA1C2831A300C540D6 /* Preferences.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		BFB3ABFC1C2833FF00C540D6 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		BFC8B0E01C40422200E44F9B /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		BFCF3F491BB41E8200D93517 /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SWXMLHash.swift; path = SWXMLHash/Source/SWXMLHash.swift; sourceTree = "<group>"; };
 		BFF8EF5A1C24487B008C965E /* ShapeDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeDrawer.swift; sourceTree = "<group>"; };
 		BFF8EF5C1C245484008C965E /* XLSX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLSX.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 		BF97115B1BB00345006DA166 /* Faith Prototyper */ = {
 			isa = PBXGroup;
 			children = (
+				BFC8B0D81C40420400E44F9B /* Extensions */,
 				BFF8EF541C2446A8008C965E /* Helpers */,
 				BF97115C1BB00346006DA166 /* AppDelegate.swift */,
 				BF97115E1BB00346006DA166 /* ViewController.swift */,
@@ -315,6 +318,14 @@
 				BFA171981BB56BD500EE90CA /* ZipZapTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		BFC8B0D81C40420400E44F9B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BFC8B0E01C40422200E44F9B /* NSAttributedString.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		BFF8EF541C2446A8008C965E /* Helpers */ = {
@@ -548,6 +559,7 @@
 				BF87B9E61C28C14600194F8B /* Helpers.swift in Sources */,
 				BF8B57351BB9D2B800FEBD4F /* CardTable.swift in Sources */,
 				BF97115D1BB00346006DA166 /* AppDelegate.swift in Sources */,
+				BFC8B0E11C40422200E44F9B /* NSAttributedString.swift in Sources */,
 				BF331E3D1C2F39B60095ACD6 /* ZipZapHelpers.swift in Sources */,
 				BFB3ABFD1C2833FF00C540D6 /* Preferences.swift in Sources */,
 				BFF8EF651C2470F1008C965E /* PDFExporter.swift in Sources */,

@@ -17,8 +17,31 @@ class PDFExporter {
         
         if !(cost ?? "").isEmpty {
             if String(cost) != "None" {
-                output.appendAttributedString(ShapeDrawer.attributedCompose(cost, textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black"]))
-                output.appendAttributedString(ShapeDrawer.attributedCompose(": ", textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
+                
+                let normalizedCost = cost.stringByReplacingOccurrencesOfString(", ", withString: ",")
+                let splitCosts = normalizedCost.characters.split{$0 == ","}.map(String.init)
+                var elements = [NSAttributedString]()
+                
+                for splitCost in splitCosts {
+                    let matches = Helpers.matchesForRegexInText("([FCVRMI0-9]+(?=,|\\s|$))", text: splitCost)
+                    if matches.count > 0 {
+                        for match in matches {
+                            if match.count > 1 {
+                                for index in 1...match.count - 1 {
+                                    elements.append(ShapeDrawer.attributedCompose(ShapeDrawer.iconize(match[index]), textattributes: ["font": "FaithIcons", "size": "6", "color": "black", "kerning": "0.5", "paragraphSpacingAfter": "3.0"]))
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        elements.append(ShapeDrawer.attributedCompose(splitCost, textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black", "paragraphSpacingAfter": "3.0"]))
+                    }
+                }
+                
+                let separator = ShapeDrawer.attributedCompose(", ", textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black", "paragraphSpacingAfter": "3.0"])
+                output.appendAttributedString(elements.joinWithSeparator(separator))
+                output.appendAttributedString(ShapeDrawer.attributedCompose(": ", textattributes: ["font": "Lato", "size": "7", "weight": "Heavy", "color": "black", "paragraphSpacingAfter": "3.0"]))
+                
             }
         }
         
@@ -33,8 +56,22 @@ class PDFExporter {
         
         if !(effect ?? "").isEmpty {
             if String(effect) != "None" {
-                output.appendAttributedString(ShapeDrawer.attributedCompose(effect, textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
-                output.appendAttributedString(ShapeDrawer.attributedCompose("\u{2029}", textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black"]))
+                
+                let effectAttributed = ShapeDrawer.attributedCompose(effect, textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black", "paragraphSpacingAfter": "3.0"])
+                let matches = Helpers.matchesWithRangesForRegexInAttributedText("(\\(.*\\))", text: effectAttributed)
+                
+                for match in matches {
+                    if match.count > 1 {
+                        for index in 1...match.count - 1 {
+                            let (value, range) = match[index]
+                            let replacement = ShapeDrawer.attributedCompose(value, textattributes: ["font": "Lato", "size": "7", "weight": "LightItalic", "color": "black", "paragraphSpacingAfter": "3.0"])
+                            effectAttributed.replaceCharactersInRange(range, withAttributedString: replacement)
+                        }
+                    }
+                }
+                
+                output.appendAttributedString(effectAttributed)
+                output.appendAttributedString(ShapeDrawer.attributedCompose("\u{2029}", textattributes: ["font": "Lato", "size": "7", "weight": "Regular", "color": "black", "paragraphSpacingAfter": "3.0"]))
             }
         }
         
@@ -249,8 +286,8 @@ class PDFExporter {
                         abilities.appendAttributedString(self.preformatEffect(row["Ability 3"]!))
                     }
                     if !(row["Achieved Ability"] ?? "").isEmpty {
-                        if String(row["Achieved Ability"]) != "None" {
-                            abilities.appendAttributedString(ShapeDrawer.attributedCompose("ACHIEVED\u{000a}", textattributes: ["font": "Lato", "size": "5", "weight": "Regular", "color": "grey"]))
+                        if String(row["Achieved Ability"]!) != "None" {
+                            abilities.appendAttributedString(ShapeDrawer.attributedCompose("ACHIEVED\u{000a}", textattributes: ["font": "Lato", "size": "5", "weight": "Bold", "color": "gray", "paragraphSpacingAfter": "1.0"]))
                         }
                     }
                     if !(row["Achieved Ability Cost"] ?? "").isEmpty {
@@ -266,8 +303,8 @@ class PDFExporter {
                         xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
-                        ysize: frame[3],
-                        paragraphAttributes: ["paragraphSpacingAfter": "3.0"]
+                        ysize: frame[3]
+                        //paragraphAttributes: ["paragraphSpacingAfter": "3.0"]
                     )
                     
                     
@@ -299,6 +336,10 @@ class PDFExporter {
                     // ...
                     
                     
+                    // typeset myth/follower power
+                    // ...
+                    
+                    
                     // typeset card belief
                     // ...
                     
@@ -308,6 +349,10 @@ class PDFExporter {
                     
                     
                     // typeset artist incl. icon
+                    // ...
+                    
+                    
+                    // TODO: later, typeset scheme difficulty
                     // ...
                     
                     

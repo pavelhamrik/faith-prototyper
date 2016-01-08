@@ -32,9 +32,10 @@ class CardTable: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     func act(notification: NSNotification) {
         
         let userinfo = notification.userInfo
-        self.rows = userinfo?["rows"] as! [[String: String]]
-        
-        Helpers.saveDefaultsDictionary("DefaultCards", dictionary: self.rows)
+        if userinfo?["rows"] != nil {
+            self.rows = userinfo?["rows"] as! [[String: String]]
+            Helpers.saveDefaultsDictionary("DefaultCards", dictionary: self.rows)
+        }
         
         fillTable()
         

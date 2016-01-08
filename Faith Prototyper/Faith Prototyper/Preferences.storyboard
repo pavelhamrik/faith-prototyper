@@ -31,7 +31,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dyN-Mg-cKW">
-                                <rect key="frame" x="54" y="18" width="127" height="20"/>
+                                <rect key="frame" x="54" y="83" width="127" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Images:" id="7CJ-ic-kwX">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -39,7 +39,7 @@
                                 </textFieldCell>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oi8-0w-EJW">
-                                <rect key="frame" x="190" y="19" width="126" height="18"/>
+                                <rect key="frame" x="190" y="84" width="126" height="18"/>
                                 <buttonCell key="cell" type="check" title="Use Card Images" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="zhQ-fh-bdE">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -150,6 +150,16 @@
                                     <outlet property="delegate" destination="Utb-3i-41b" id="mbj-b4-E5X"/>
                                 </connections>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sZi-T2-J5f">
+                                <rect key="frame" x="180" y="1" width="126" height="42"/>
+                                <buttonCell key="cell" type="push" title="Clear Cache" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ejp-tK-Cfu">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="restoreDefaults:" target="Utb-3i-41b" id="zcn-tA-aZC"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>

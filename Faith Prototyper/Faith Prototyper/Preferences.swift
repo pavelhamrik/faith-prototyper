@@ -79,6 +79,20 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     }
     
     
+    @IBAction func restoreDefaults(sender: AnyObject) {
+        
+        Helpers.resetDefaults()
+        
+        //NSNotificationCenter.defaultCenter().postNotificationName("refreshCardTableView", object: nil)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("refreshCardTableView", object: nil, userInfo:["rows": [["And nothing!": "Load some cards..."]]])
+        
+        Helpers.runAlert("Defaults Restored", text: "Don't be surprised when you can't find anything.")
+        
+    }
+
+    
+    
     func processFieldChange(notification: NSNotification) {
     
         if notification.object as? NSComboBox == self.types {

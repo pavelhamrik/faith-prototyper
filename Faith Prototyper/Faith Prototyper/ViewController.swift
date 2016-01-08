@@ -21,9 +21,6 @@ class ViewController: NSViewController, NSWindowDelegate {
         window = NSApplication.sharedApplication().windows[0] as NSWindow
         window.delegate = self;
         
-        // TMP: use to clear all the writted defaults
-        //Helpers.resetDefaults()
-        
     }
     
     override var representedObject: AnyObject? {

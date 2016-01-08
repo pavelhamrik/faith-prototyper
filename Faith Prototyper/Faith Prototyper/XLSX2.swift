@@ -22,13 +22,15 @@ class XLSX2 {
 
     static func parse(importFileURL: NSURL) -> [[String: String]] {
         
-        // initialize the strings shared across all sheets
-        XLSX2.loadSharedStrings()
-        
-        // empty rows
-        self.rows.removeAll()
-        
         if ZipZapHelpers.unzip(importFileURL, tmpDirURL: tmpDirURL) {
+            
+            // initialize the strings shared across all sheets
+            if XLSX2.loadSharedStrings() <= 0 {
+                print("Shared Strings failed to load.")
+            }
+            
+            // empty rows
+            self.rows.removeAll()
             
             var sheetNames = XLSX2.sheetNameToPath()
             
@@ -138,11 +140,16 @@ class XLSX2 {
     
     static func loadSharedStrings() -> Int {
         
-        let xmlToParse = try! NSString(contentsOfURL: tmpDirURL.URLByAppendingPathComponent("xl/sharedStrings.xml"), encoding: NSUTF8StringEncoding)
-        let xmlParsed = SWXMLHash.parse(xmlToParse as String)
+        do {
+            let xmlToParse = try NSString(contentsOfURL: tmpDirURL.URLByAppendingPathComponent("xl/sharedStrings.xml"), encoding: NSUTF8StringEncoding)
+            let xmlParsed = SWXMLHash.parse(xmlToParse as String)
         
-        for xmlRow in xmlParsed["sst"]["si"] {
-            self.sharedStrings.append((xmlRow["t"].element?.text)!)
+            for xmlRow in xmlParsed["sst"]["si"] {
+                self.sharedStrings.append((xmlRow["t"].element?.text)!)
+            }
+        }
+        catch {
+            return 0
         }
     
         return self.sharedStrings.count
