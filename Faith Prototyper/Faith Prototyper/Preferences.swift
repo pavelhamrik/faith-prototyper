@@ -23,6 +23,12 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     @IBOutlet weak var factions: NSComboBox!
     
     @IBOutlet weak var useImages: NSButton!
+    
+    @IBOutlet weak var cardXSpacing: NSTextField!
+    
+    @IBOutlet weak var cardYSpacing: NSTextField!
+
+    // NOTE: all checkboxes are handled via bindings from the storyboard
 
 
     override func viewDidLoad() {
@@ -34,6 +40,9 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
         self.statuses.setDelegate(self)
         self.printings.delegate = self
         self.factions.setDelegate(self)
+        
+        self.cardXSpacing.delegate = self
+        self.cardYSpacing.delegate = self
         
         let defaultTypes = Helpers.loadDefaults("prefsExportTypes")
         if (!(defaultTypes ?? "").isEmpty) {
@@ -60,6 +69,16 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
             factions.stringValue = defaultFactions
         }
         
+        let defaultCardXSpacing = Helpers.loadDefaults("prefsExportCardXSpacing")
+        if (!(defaultCardXSpacing ?? "").isEmpty) {
+            cardXSpacing.stringValue = defaultCardXSpacing
+        }
+        
+        let defaultCardYSpacing = Helpers.loadDefaults("prefsExportCardYSpacing")
+        if (!(defaultCardYSpacing ?? "").isEmpty) {
+            cardYSpacing.stringValue = defaultCardYSpacing
+        }
+        
         // TODO: useImages
         
     }
@@ -82,8 +101,6 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     @IBAction func restoreDefaults(sender: AnyObject) {
         
         Helpers.resetDefaults()
-        
-        //NSNotificationCenter.defaultCenter().postNotificationName("refreshCardTableView", object: nil)
         
         NSNotificationCenter.defaultCenter().postNotificationName("refreshCardTableView", object: nil, userInfo:["rows": [["And nothing!": "Load some cards..."]]])
         
@@ -113,6 +130,14 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
         
         if notification.object as? NSComboBox == self.factions {
             Helpers.saveDefaults("prefsExportFactions", value: self.factions.stringValue)
+        }
+        
+        if notification.object as? NSTextField == self.cardXSpacing {
+            Helpers.saveDefaults("prefsExportCardXSpacing", value: self.cardXSpacing.stringValue)
+        }
+        
+        if notification.object as? NSTextField == self.cardYSpacing {
+            Helpers.saveDefaults("prefsExportCardYSpacing", value: self.cardYSpacing.stringValue)
         }
     
     }

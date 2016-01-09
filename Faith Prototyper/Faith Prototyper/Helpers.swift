@@ -83,7 +83,9 @@ class Helpers {
             "prefsExportGroups",
             "prefsExportStatuses",
             "prefsExportPrintings",
-            "prefsExportFactions"
+            "prefsExportFactions",
+            "prefsExportCardXSpacing",
+            "prefsExportCardYSpacing"
         ]
         
         for item in defaults {

@@ -82,6 +82,7 @@ class PDFExporter {
     
     static func generate(fileURL: NSURL, var rows: [[String: String]]) {
         
+        
         // page size
         
         let pgxsize = CGFloat(595.0)
@@ -96,8 +97,26 @@ class PDFExporter {
         
         // page layout
         
-        let cardxgutter = CGFloat(ShapeDrawer.mm2pt(3))
-        let cardygutter = CGFloat(ShapeDrawer.mm2pt(3))
+        
+        // load defaults for card x & y spacing
+        
+        var cardxgutter = CGFloat(ShapeDrawer.mm2pt(3))
+        let defaultCardXSpacing = Helpers.loadDefaults("prefsExportCardXSpacing")
+        if (!(defaultCardXSpacing ?? "").isEmpty) {
+            let nsDefaultCardXSpacing = defaultCardXSpacing as NSString
+            cardxgutter = CGFloat(ShapeDrawer.mm2pt(CGFloat(nsDefaultCardXSpacing.floatValue)))
+        }
+        
+        var cardygutter = CGFloat(ShapeDrawer.mm2pt(3))
+        let defaultCardYSpacing = Helpers.loadDefaults("prefsExportCardYSpacing")
+        if (!(defaultCardYSpacing ?? "").isEmpty) {
+            let nsDefaultCardYSpacing = defaultCardYSpacing as NSString
+            cardygutter = CGFloat(ShapeDrawer.mm2pt(CGFloat(nsDefaultCardYSpacing.floatValue)))
+        }
+        
+        
+        // computing the rest of card spacing
+        
         let minpgxmargin = CGFloat(ShapeDrawer.mm2pt(5))
         let minpgymargin = CGFloat(ShapeDrawer.mm2pt(8))
         
@@ -144,6 +163,45 @@ class PDFExporter {
         }
         
         
+        // additional global settings
+        
+        var printFrameAllPages = false
+        let defaultExportFrameAllPages = Helpers.loadDefaults("prefsExportFrameAllPages")
+        if !(defaultExportFrameAllPages ?? "").isEmpty {
+            if (defaultExportFrameAllPages as NSString).integerValue == NSOnState {
+                printFrameAllPages = true
+            }
+        }
+        
+        
+        // print template page, if requested by the user
+        
+        let defaultExportFrameTemplatePage = Helpers.loadDefaults("prefsExportFrameTemplatePage")
+        if !(defaultExportFrameTemplatePage ?? "").isEmpty {
+            if (defaultExportFrameTemplatePage as NSString).integerValue == NSOnState {
+                
+                CGPDFContextBeginPage(context, nil)
+                
+                for var pgrow = CGFloat(0.0); pgrow < cardsperx; pgrow += 1 {
+                    for var pgcol = CGFloat(0.0); pgcol < cardspery; pgcol += 1 {
+                        var cardxbound = CGFloat(cardxsize * pgcol + pgxmargin)
+                        if (pgcol >= CGFloat(1)) {
+                            cardxbound += cardxgutter * pgcol
+                        }
+                        var cardybound = CGFloat(cardysize * pgrow + pgymargin)
+                        if (pgrow >= CGFloat(1)) {
+                            cardybound += cardygutter * pgrow
+                        }
+                        ShapeDrawer.drawShape("linerect", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
+                    }
+                }
+                
+                CGPDFContextEndPage(context)
+                
+            }
+        }
+        
+        
         // card by card output
         
         let pgnums = Int(ceil(CGFloat(rows.count) / (cardsperx * cardspery)))
@@ -183,8 +241,9 @@ class PDFExporter {
 
                     
                     // draw the card frame
-                    ShapeDrawer.drawShape("linerect", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
-                    
+                    if printFrameAllPages {
+                        ShapeDrawer.drawShape("linerect", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
+                    }
                     
                     // typeset card name
                     frame = [CGFloat(31.5), CGFloat(10.5), CGFloat(138.0), CGFloat(30.0)]
@@ -317,7 +376,7 @@ class PDFExporter {
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
                         ysize: frame[3],
-                        text: ShapeDrawer.iconize(rows[Int(cardindex)]["Claim"]!, purpose: "generalMasking"),
+                        text: ShapeDrawer.iconize(row["Claim"]!, purpose: "generalMasking"),
                         textattributes: ["font": "FaithIcons", "size": "11", "color": "white", "lineSpacing": "1.1"] // do not include weight as the custom font apparently doesn't have one
                     )
                     ShapeDrawer.drawShape(
@@ -327,13 +386,35 @@ class PDFExporter {
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
                         ysize: frame[3],
-                        text: ShapeDrawer.iconize(rows[Int(cardindex)]["Claim"]!, purpose: "general"),
+                        text: ShapeDrawer.iconize(row["Claim"]!, purpose: "general"),
                         textattributes: ["font": "FaithIcons", "size": "11", "color": "black", "lineSpacing": "1.1"] // do not include weight as the custom font apparently doesn't have one
                     )
 
                     
                     // typeset scheme difficulty
-                    // ...
+                    if !(row["Difficulty"] ?? "").isEmpty {
+                        frame = [CGFloat(6.75), CGFloat(213.5), CGFloat(20.0), CGFloat(140.0)]
+                        ShapeDrawer.drawShape(
+                            "textframe",
+                            context: context!,
+                            xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                            yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                            xsize: frame[2],
+                            ysize: frame[3],
+                            text: ShapeDrawer.iconize(row["Difficulty"]!, purpose: "difficultyMasking"),
+                            textattributes: ["font": "FaithIcons", "size": "18", "color": "white", "lineSpacing": "1.1"] // do not include weight as the custom font apparently doesn't have one
+                        )
+                        ShapeDrawer.drawShape(
+                            "textframe",
+                            context: context!,
+                            xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                            yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                            xsize: frame[2],
+                            ysize: frame[3],
+                            text: ShapeDrawer.iconize(row["Difficulty"]!, purpose: "difficulty"),
+                            textattributes: ["font": "FaithIcons", "size": "18", "color": "black", "lineSpacing": "1.1"] // do not include weight as the custom font apparently doesn't have one
+                        )
+                    }
                     
                     
                     // typeset myth/follower power

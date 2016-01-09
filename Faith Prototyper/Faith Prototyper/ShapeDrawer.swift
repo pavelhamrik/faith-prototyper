@@ -52,7 +52,7 @@ class ShapeDrawer {
             
         case "linerect":
             CGContextSetLineWidth(context, thinline)
-            CGContextSetStrokeColorWithColor(context, NSColor.redColor().CGColor)
+            CGContextSetStrokeColorWithColor(context, NSColor.blackColor().CGColor)
             CGContextAddRect(context, CGRectMake(xfrom, yfrom, xsize, ysize))
             CGContextStrokePath(context)
             
