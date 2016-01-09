@@ -202,6 +202,15 @@ class PDFExporter {
         }
         
         
+        // copyright note from defaults
+        
+        var copyrightNote = ""
+        let defaultCopyrightNote = Helpers.loadDefaults("prefsExportCopyrightNote")
+        if !(defaultCopyrightNote ?? "").isEmpty {
+            copyrightNote = defaultCopyrightNote
+        }
+        
+        
         // card by card output
         
         let pgnums = Int(ceil(CGFloat(rows.count) / (cardsperx * cardspery)))
@@ -211,6 +220,9 @@ class PDFExporter {
             
             for var pgrow = CGFloat(0.0); pgrow < cardsperx; pgrow += 1 {
                 for var pgcol = CGFloat(0.0); pgcol < cardspery; pgcol += 1 {
+                    
+                    
+                    // computing the card bounds for the current interation
                     
                     var cardxbound = CGFloat(cardxsize * pgcol + pgxmargin)
                     if (pgcol >= CGFloat(1)) {
@@ -230,22 +242,29 @@ class PDFExporter {
                     }
                     
                     
+                    // simplify getting the current row
+                    
                     let row = rows[Int(cardindex)]
                     
+                    
                     // draw backgrounds from asset catalog
+                    
                     ShapeDrawer.drawImageFromAssetCatalog("background_Grey", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
                     
                     
                     // TODO: Draw a card image if found
+                    
                     //ShapeDrawer.drawImageFromURL(NSURL(string: "file:///Users/pavelhamrik/Dropbox/Public/faith/mac/background_Grey.png")!, context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
 
                     
                     // draw the card frame
+                    
                     if printFrameAllPages {
                         ShapeDrawer.drawShape("linerect", context: context!, xfrom: cardxbound, yfrom: cardybound, xsize: cardxsize, ysize: cardysize)
                     }
                     
                     // typeset card name
+                    
                     frame = [CGFloat(31.5), CGFloat(10.5), CGFloat(138.0), CGFloat(30.0)]
                     ShapeDrawer.drawShape(
                         "textframe",
@@ -321,7 +340,7 @@ class PDFExporter {
                     
                     
                     // typeset card text
-                    // TODO: attributed string, icons, etc.
+                    
                     frame = [CGFloat(31.5), CGFloat(164.0), CGFloat(138.0), CGFloat(70.0)]
                     
                     let abilities = ShapeDrawer.attributedCompose("", textattributes: ["": ""])
@@ -363,11 +382,11 @@ class PDFExporter {
                         yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
                         xsize: frame[2],
                         ysize: frame[3]
-                        //paragraphAttributes: ["paragraphSpacingAfter": "3.0"]
                     )
                     
                     
                     // typeset card claim
+                    
                     frame = [CGFloat(10.5), CGFloat(11.5), CGFloat(16.0), CGFloat(140.0)]
                     ShapeDrawer.drawShape(
                         "textframe",
@@ -387,11 +406,12 @@ class PDFExporter {
                         xsize: frame[2],
                         ysize: frame[3],
                         text: ShapeDrawer.iconize(row["Claim"]!, purpose: "general"),
-                        textattributes: ["font": "FaithIcons", "size": "11", "color": "black", "lineSpacing": "1.1"] // do not include weight as the custom font apparently doesn't have one
+                        textattributes: ["font": "FaithIcons", "size": "11", "color": "black", "lineSpacing": "1.1"]
                     )
 
                     
                     // typeset scheme difficulty
+                    
                     if !(row["Difficulty"] ?? "").isEmpty {
                         frame = [CGFloat(6.75), CGFloat(213.5), CGFloat(20.0), CGFloat(140.0)]
                         ShapeDrawer.drawShape(
@@ -402,7 +422,7 @@ class PDFExporter {
                             xsize: frame[2],
                             ysize: frame[3],
                             text: ShapeDrawer.iconize(row["Difficulty"]!, purpose: "difficultyMasking"),
-                            textattributes: ["font": "FaithIcons", "size": "18", "color": "white", "lineSpacing": "1.1"] // do not include weight as the custom font apparently doesn't have one
+                            textattributes: ["font": "FaithIcons", "size": "18", "color": "white", "lineSpacing": "1.1"]
                         )
                         ShapeDrawer.drawShape(
                             "textframe",
@@ -412,28 +432,114 @@ class PDFExporter {
                             xsize: frame[2],
                             ysize: frame[3],
                             text: ShapeDrawer.iconize(row["Difficulty"]!, purpose: "difficulty"),
-                            textattributes: ["font": "FaithIcons", "size": "18", "color": "black", "lineSpacing": "1.1"] // do not include weight as the custom font apparently doesn't have one
+                            textattributes: ["font": "FaithIcons", "size": "18", "color": "black", "lineSpacing": "1.1"]
                         )
                     }
                     
                     
                     // typeset myth/follower power
-                    // ...
+                    
+                    if !(row["Power"] ?? "").isEmpty {
+                        frame = [CGFloat(7.75), CGFloat(214.5), CGFloat(20.0), CGFloat(140.0)]
+                        ShapeDrawer.drawShape(
+                            "textframe",
+                            context: context!,
+                            xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                            yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                            xsize: frame[2],
+                            ysize: frame[3],
+                            text: ShapeDrawer.iconize(row["Power"]!, purpose: "powerMasking"),
+                            textattributes: ["font": "FaithIcons", "size": "16", "color": "white", "lineSpacing": "1.1"]
+                        )
+                        ShapeDrawer.drawShape(
+                            "textframe",
+                            context: context!,
+                            xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                            yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                            xsize: frame[2],
+                            ysize: frame[3],
+                            text: ShapeDrawer.iconize(row["Power"]!, purpose: "power"),
+                            textattributes: ["font": "FaithIcons", "size": "16", "color": "black", "lineSpacing": "1.1"]
+                        )
+                    }
                     
                     
                     // typeset card belief
-                    // ...
+                    
+                    if !(row["Belief"] ?? "").isEmpty {
+                        frame = [CGFloat(10.0), CGFloat(163.0), CGFloat(20.0), CGFloat(140.0)]
+                        ShapeDrawer.drawShape(
+                            "textframe",
+                            context: context!,
+                            xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                            yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                            xsize: frame[2],
+                            ysize: frame[3],
+                            text: ShapeDrawer.iconize(row["Belief"]!, purpose: "beliefMasking"),
+                            textattributes: ["font": "FaithIcons", "size": "12", "color": "white", "lineSpacing": "1.1"]
+                        )
+                        ShapeDrawer.drawShape(
+                            "textframe",
+                            context: context!,
+                            xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                            yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                            xsize: frame[2],
+                            ysize: frame[3],
+                            text: ShapeDrawer.iconize(row["Belief"]!, purpose: "belief"),
+                            textattributes: ["font": "FaithIcons", "size": "12", "color": "black", "lineSpacing": "1.1"]
+                        )
+                    }
                     
                     
-                    // typeset meta information incl. icon
-                    // ...
+                    // typeset lock icon
                     
+                    frame = [CGFloat(31.5), CGFloat(237), CGFloat(16.0), CGFloat(140.0)]
+                    ShapeDrawer.drawShape(
+                        "textframe",
+                        context: context!,
+                        xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                        yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                        xsize: frame[2],
+                        ysize: frame[3],
+                        text: ShapeDrawer.iconize("l", purpose: "general"),
+                        textattributes: ["font": "FaithIcons", "size": "9", "color": "gray"]
+                    )
+                    
+                    
+                    // typeset meta
+                    
+                    frame = [CGFloat(42.0), CGFloat(236.0), CGFloat(138.0), CGFloat(70.0)]
+                    let meta = ShapeDrawer.attributedCompose("", textattributes: ["": ""])
+                    let metaLineSpacing = "0.1"
+                    
+                    if !(copyrightNote ?? "").isEmpty {
+                        meta.appendAttributedString(ShapeDrawer.attributedCompose(copyrightNote.uppercaseString, textattributes: ["font": "Lato", "size": "4", "weight": "Regular", "color": "gray", "paragraphSpacingAfter": metaLineSpacing]))
+                        meta.appendAttributedString(ShapeDrawer.attributedCompose("\u{2029}", textattributes: ["font": "Lato", "size": "4", "weight": "Regular", "color": "black", "paragraphSpacingAfter": metaLineSpacing]))
+                    }
+                    
+                    meta.appendAttributedString(ShapeDrawer.attributedCompose(Helpers.getFormattedNow().uppercaseString, textattributes: ["font": "Lato", "size": "4", "weight": "Regular", "color": "gray", "paragraphSpacingAfter": metaLineSpacing]))
+                    
+                    if !(row["Printing"] ?? "").isEmpty {
+                        meta.appendAttributedString(ShapeDrawer.attributedCompose("\u{2005}\u{2022}\u{2005}", textattributes: ["font": "Lato", "size": "4", "weight": "Thin", "color": "gray", "paragraphSpacingAfter": metaLineSpacing]))
+                        meta.appendAttributedString(ShapeDrawer.attributedCompose(row["Printing"]!.uppercaseString, textattributes: ["font": "Lato", "size": "4", "weight": "Regular", "color": "gray", "paragraphSpacingAfter": metaLineSpacing]))
+                    }
+                    
+                    if !(row["Status"] ?? "").isEmpty {
+                        meta.appendAttributedString(ShapeDrawer.attributedCompose("\u{2005}\u{2022}\u{2005}", textattributes: ["font": "Lato", "size": "4", "weight": "Thin", "color": "gray", "paragraphSpacingAfter": metaLineSpacing]))
+                        meta.appendAttributedString(ShapeDrawer.attributedCompose(row["Status"]!.uppercaseString, textattributes: ["font": "Lato", "size": "4", "weight": "Regular", "color": "gray", "paragraphSpacingAfter": metaLineSpacing]))
+                    }
+                    
+                    ShapeDrawer.drawAttributedString(
+                        meta,
+                        context: context!,
+                        xfrom: ShapeDrawer.calculateXBound(cardxbound, baseSize: cardxsize, itemCoord: frame[0], itemSize: frame[2]),
+                        yfrom: ShapeDrawer.calculateYBound(cardybound, baseSize: cardysize, itemCoord: frame[1], itemSize: frame[3]),
+                        xsize: frame[2],
+                        ysize: frame[3]
+                    )
+
                     
                     // typeset artist incl. icon
-                    // ...
-                    
-                    
-                    // TODO: later, typeset scheme difficulty
                     // ...
                     
                     

@@ -194,11 +194,8 @@ class ShapeDrawer {
         var output = string.lowercaseString
         
         let icons: NSMutableDictionary = [
-            "circle": "\u{e91b}",
-            "diamond": "\u{e91c}",
-            "pentagon": "\u{e91d}",
-            "lock": "\u{e919}",
-            "pencil": "\u{e91a}"
+            "l": "\u{e919}",
+            "p": "\u{e91a}"
         ]
         
         switch purpose {
@@ -285,14 +282,14 @@ class ShapeDrawer {
             icons.addEntriesFromDictionary([
                 "0": "\u{e900}",
                 "1": "\u{e901}",
-                "2": "\u{e901}",
-                "3": "\u{e901}",
-                "4": "\u{e901}",
-                "5": "\u{e901}",
-                "6": "\u{e901}",
-                "7": "\u{e901}",
-                "8": "\u{e901}",
-                "9": "\u{e901}",
+                "2": "\u{e902}",
+                "3": "\u{e903}",
+                "4": "\u{e904}",
+                "5": "\u{e905}",
+                "6": "\u{e906}",
+                "7": "\u{e907}",
+                "8": "\u{e908}",
+                "9": "\u{e909}",
                 
                 "c": "\u{e90a}",
                 "f": "\u{e90b}",

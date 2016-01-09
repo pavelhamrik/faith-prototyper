@@ -27,6 +27,8 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     @IBOutlet weak var cardXSpacing: NSTextField!
     
     @IBOutlet weak var cardYSpacing: NSTextField!
+    
+    @IBOutlet weak var copyrightNote: NSTextField!
 
     // NOTE: all checkboxes are handled via bindings from the storyboard
 
@@ -77,6 +79,11 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
         let defaultCardYSpacing = Helpers.loadDefaults("prefsExportCardYSpacing")
         if (!(defaultCardYSpacing ?? "").isEmpty) {
             cardYSpacing.stringValue = defaultCardYSpacing
+        }
+        
+        let defaultCopyrightNote = Helpers.loadDefaults("prefsExportCopyrightNote")
+        if (!(defaultCopyrightNote ?? "").isEmpty) {
+            copyrightNote.stringValue = defaultCopyrightNote
         }
         
         // TODO: useImages
@@ -138,6 +145,10 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
         
         if notification.object as? NSTextField == self.cardYSpacing {
             Helpers.saveDefaults("prefsExportCardYSpacing", value: self.cardYSpacing.stringValue)
+        }
+        
+        if notification.object as? NSTextField == self.copyrightNote {
+            Helpers.saveDefaults("prefsExportCopyrightNote", value: self.copyrightNote.stringValue)
         }
     
     }

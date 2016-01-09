@@ -188,4 +188,17 @@ class Helpers {
     }
     
     
+    static func getFormattedNow() -> String {
+        
+        let currentDateTime = NSDate()
+        
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = NSDateFormatterStyle.NoStyle
+        formatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        
+        return formatter.stringFromDate(currentDateTime)
+        
+    }
+    
+    
 }
