@@ -222,6 +222,10 @@ class ShapeDrawer {
                 "r": "\u{e917}",
                 "v": "\u{e918}",
                 
+                "*": "\u{e945}",
+                "×": "\u{e946}",
+                "x": "\u{e946}",
+                
                 "i": "\u{e915}",
             ])
             
@@ -238,13 +242,43 @@ class ShapeDrawer {
                 "8": "\u{e926}",
                 "9": "\u{e927}",
                 
-                "c": "\u{e914}",
-                "f": "\u{e915}",
-                "m": "\u{e916}",
-                "r": "\u{e917}",
-                "v": "\u{e918}",
+                "c": "\u{e90f}",
+                "f": "\u{e910}",
+                "m": "\u{e911}",
+                "r": "\u{e912}",
+                "v": "\u{e913}",
+                
+                "*": "\u{e943}",
+                "×": "\u{e944}",
+                "x": "\u{e944}",
                 
                 "i": "\u{e915}"
+            ])
+            
+        case "power":
+            icons.addEntriesFromDictionary([
+                "0": "\u{e937}",
+                "1": "\u{e938}",
+                "2": "\u{e939}",
+                "3": "\u{e93a}",
+                "4": "\u{e93b}",
+                "5": "\u{e93c}",
+                "6": "\u{e93d}",
+                "7": "\u{e93e}",
+                "8": "\u{e93f}",
+                "9": "\u{e940}",
+                
+                "c": "\u{e932}",
+                "f": "\u{e933}",
+                "m": "\u{e934}",
+                "r": "\u{e935}",
+                "v": "\u{e936}",
+                
+                "*": "\u{e941}",
+                "×": "\u{e942}",
+                "x": "\u{e942}",
+                
+                "i": "\u{e933}"
             ])
             
         default:
@@ -266,6 +300,10 @@ class ShapeDrawer {
                 "r": "\u{e90d}",
                 "v": "\u{e90e}",
                 
+                "*": "\u{e947}",
+                "×": "\u{e948}",
+                "x": "\u{e948}",
+                
                 "i": "\u{e90b}"
                 ])
         }
@@ -281,6 +319,9 @@ class ShapeDrawer {
             
         case "difficultyMasking":
             output = maskIcons(output, mask: "\u{e91c}")
+            
+        case "powerMasking":
+            output = maskIcons(output, mask: "\u{e949}")
 
         default:
             for (key, value) in icons {
