@@ -36,6 +36,23 @@ class ShapeDrawer {
     }
     
     
+    static func checkFontWeights(fontFamily: String, weights: [[String]]) -> Bool {
+        for weight in weights{
+            var altWeightFound = false
+            for altWeight in weight {
+                let font = NSFont(name: fontFamily + "-" + altWeight, size: 10.0)
+                if font != nil {
+                    altWeightFound = true
+                }
+            }
+            if !altWeightFound {
+                return false
+            }
+        }
+        return true
+    }
+    
+    
     static func drawShape(shape: String, context: CGContextRef, xfrom: CGFloat, yfrom: CGFloat, xsize: CGFloat, ysize: CGFloat) {
         self.drawShape(shape, context: context, xfrom: xfrom, yfrom: yfrom, xsize: xsize, ysize: ysize, text: "", textattributes: ["": ""])
     }
@@ -175,6 +192,47 @@ class ShapeDrawer {
         CGContextDrawImage(context, CGRectMake(xfrom, yfrom, xsize, ysize), image);
         
     }
+    
+    
+    static func safeDrawImageCropped(filename: String, directory: String, context: CGContextRef, xfrom: CGFloat, yfrom: CGFloat, xsize: CGFloat, ysize: CGFloat, cardxsize: CGFloat, cardysize: CGFloat, cardBleed: CGFloat) {
+    
+        // try all the formats
+        for format in PDFExporter.imageFormatExtensions {
+            
+            let escPath = (directory + filename + format).stringByReplacingOccurrencesOfString(" ", withString: "%20")
+            let filePath = NSURL(string: escPath)
+            let imageSource = CGImageSourceCreateWithURL(filePath! as CFURL, nil)
+            if imageSource != nil {
+                var image = CGImageSourceCreateImageAtIndex(imageSource!, 0, nil)
+                
+                // crop it, remember bleed
+                let imageXSize = CGFloat(CGImageGetWidth(image))
+                let imageYSize = CGFloat(CGImageGetHeight(image))
+                let originalRatio = imageXSize / imageYSize
+                let targetRatio = xsize / ysize
+                
+                if originalRatio > targetRatio {
+                    let targetXSize = imageYSize * targetRatio
+                    let cutXFrom = (imageXSize - targetXSize) / 2
+                    let area = CGRectMake(cutXFrom, CGFloat(0.0), targetXSize, imageYSize)
+                    image = CGImageCreateWithImageInRect(image, area)
+                }
+                else {
+                    let targetYSize = imageXSize * targetRatio
+                    let cutYFrom = (imageYSize - targetYSize) / 3 // crop origin shift from center
+                    let area = CGRectMake(CGFloat(0.0), cutYFrom, imageXSize, targetYSize)
+                    image = CGImageCreateWithImageInRect(image, area)
+                }
+                
+                // draw it
+                let area = CGRectMake(xfrom, yfrom + (cardysize - ysize), xsize, ysize)
+                CGContextDrawImage(context, area, image)
+
+                break
+            }
+        }
+    
+    }
 
     
     static func drawImageFromAssetCatalog(imageName: String, context: CGContextRef, xfrom: CGFloat, yfrom: CGFloat, xsize: CGFloat, ysize: CGFloat) {
@@ -182,6 +240,25 @@ class ShapeDrawer {
         let image = NSImage(named: imageName)?.CGImageForProposedRect(nil, context: nil, hints: nil)
         CGContextDrawImage(context, CGRectMake(xfrom, yfrom, xsize, ysize), image);
     
+    }
+    
+    
+    static func drawImageFromAssetCatalogBleedClipped(imageName: String, context: CGContextRef, xfrom: CGFloat, yfrom: CGFloat, xsize: CGFloat, ysize: CGFloat, assetBleed: CGFloat, targetBleed: CGFloat) {
+        
+        let image = NSImage(named: imageName)?.CGImageForProposedRect(nil, context: nil, hints: nil)
+        var subImage = image
+        if assetBleed > targetBleed {
+            let imageXSize = CGFloat(CGImageGetWidth(image))
+            let imageYSize = CGFloat(CGImageGetHeight(image))
+            
+            let ratio = imageXSize / (xsize - targetBleed + assetBleed)
+            let bleedCut = (assetBleed - targetBleed) * ratio
+            
+            let area = CGRectMake(bleedCut, bleedCut, imageXSize - (CGFloat(2.0) * bleedCut), imageYSize - (CGFloat(2.0) * bleedCut))
+            subImage = CGImageCreateWithImageInRect(image, area)
+        }
+        CGContextDrawImage(context, CGRectMake(xfrom, yfrom, xsize, ysize), subImage)
+        
     }
 
 
@@ -359,9 +436,43 @@ class ShapeDrawer {
         
         let paragraphStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         
+        if !(textattributes["tailIndent"] ?? "").isEmpty {
+            let tailIndent = textattributes["tailIndent"]! as NSString
+            paragraphStyle.tailIndent = CGFloat(tailIndent.floatValue)
+        }
+        
+        if !(textattributes["headIndent"] ?? "").isEmpty {
+            let headIndent = textattributes["headIndent"]! as NSString
+            paragraphStyle.headIndent = CGFloat(headIndent.floatValue)
+        }
+        
+        if !(textattributes["firstLineHeadIndent"] ?? "").isEmpty {
+            let firstLineHeadIndent = textattributes["firstLineHeadIndent"]! as NSString
+            paragraphStyle.firstLineHeadIndent = CGFloat(firstLineHeadIndent.floatValue)
+        }
+        
         if !(textattributes["lineSpacing"] ?? "").isEmpty {
             let lineSpacing = textattributes["lineSpacing"]! as NSString
             paragraphStyle.lineSpacing = CGFloat(lineSpacing.floatValue)
+        }
+        
+        if !(textattributes["alignment"] ?? "").isEmpty {
+            var alignment = NSTextAlignment.Left
+            switch textattributes["alignment"]! {
+            case "center":
+                alignment = NSTextAlignment.Center
+            case "left":
+                alignment = NSTextAlignment.Left
+            case "right":
+                alignment = NSTextAlignment.Right
+            case "justified":
+                alignment = NSTextAlignment.Justified
+            case "natural":
+                alignment = NSTextAlignment.Natural
+            default:
+                break
+            }
+            paragraphStyle.alignment = alignment
         }
         
         if !(textattributes["paragraphSpacingAfter"] ?? "").isEmpty {
@@ -388,16 +499,26 @@ class ShapeDrawer {
     static func parseColor(color: String) -> NSColor {
         
         switch color {
+            
+        case "red":
+            return NSColor(r: 206, g: 57, b: 57, a: 255)
+        case "purple":
+            return NSColor(r: 169, g: 62, b: 131, a: 255)
+        case "blue":
+            return NSColor(r: 31, g: 114, b: 169, a: 255)
+        case "green":
+            return NSColor(r: 37, g: 143, b: 110, a: 255)
+        case "yellow":
+            return NSColor(r: 219, g: 168, b: 25, a: 255)
+            
         case "black":
             return NSColor.blackColor()
         case "white":
             return NSColor.whiteColor()
-        case "red":
-            return NSColor.redColor()
         case "gray":
-            return NSColor.grayColor()
+            return NSColor(r: 100, g: 116, b: 137, a: 255)
         case "grey":
-            return NSColor.grayColor()
+            return NSColor(r: 100, g: 116, b: 137, a: 255)
         default:
             return NSColor.blackColor()
         }

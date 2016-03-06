@@ -22,11 +22,15 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     
     @IBOutlet weak var factions: NSComboBox!
     
-    @IBOutlet weak var useImages: NSButton!
+    @IBOutlet weak var imagesPath: NSTextField!
     
     @IBOutlet weak var cardXSpacing: NSTextField!
     
     @IBOutlet weak var cardYSpacing: NSTextField!
+    
+    @IBOutlet weak var cardBleed: NSTextField!
+    
+    @IBOutlet weak var fontFamily: NSTextField!
     
     @IBOutlet weak var copyrightNote: NSTextField!
 
@@ -71,6 +75,11 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
             factions.stringValue = defaultFactions
         }
         
+        let defaultImagesPath = Helpers.loadDefaults("prefsExportImagesPath")
+        if (!(defaultImagesPath ?? "").isEmpty) {
+            imagesPath.stringValue = defaultImagesPath
+        }
+        
         let defaultCardXSpacing = Helpers.loadDefaults("prefsExportCardXSpacing")
         if (!(defaultCardXSpacing ?? "").isEmpty) {
             cardXSpacing.stringValue = defaultCardXSpacing
@@ -81,12 +90,20 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
             cardYSpacing.stringValue = defaultCardYSpacing
         }
         
+        let defaultCardBleed = Helpers.loadDefaults("prefsExportCardBleed")
+        if (!(defaultCardBleed ?? "").isEmpty) {
+            cardBleed.stringValue = defaultCardBleed
+        }
+        
+        let defaultFontFamily = Helpers.loadDefaults("prefsExportFontFamily")
+        if (!(defaultFontFamily ?? "").isEmpty) {
+            fontFamily.stringValue = defaultFontFamily
+        }
+        
         let defaultCopyrightNote = Helpers.loadDefaults("prefsExportCopyrightNote")
         if (!(defaultCopyrightNote ?? "").isEmpty) {
             copyrightNote.stringValue = defaultCopyrightNote
         }
-        
-        // TODO: useImages
         
     }
     
@@ -139,12 +156,24 @@ class Preferences: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
             Helpers.saveDefaults("prefsExportFactions", value: self.factions.stringValue)
         }
         
+        if notification.object as? NSTextField == self.imagesPath {
+            Helpers.saveDefaults("prefsExportImagesPath", value: self.imagesPath.stringValue)
+        }
+        
         if notification.object as? NSTextField == self.cardXSpacing {
             Helpers.saveDefaults("prefsExportCardXSpacing", value: self.cardXSpacing.stringValue)
         }
         
         if notification.object as? NSTextField == self.cardYSpacing {
             Helpers.saveDefaults("prefsExportCardYSpacing", value: self.cardYSpacing.stringValue)
+        }
+        
+        if notification.object as? NSTextField == self.cardBleed {
+            Helpers.saveDefaults("prefsExportCardBleed", value: self.cardBleed.stringValue)
+        }
+        
+        if notification.object as? NSTextField == self.fontFamily {
+            Helpers.saveDefaults("prefsExportFontFamily", value: self.fontFamily.stringValue)
         }
         
         if notification.object as? NSTextField == self.copyrightNote {

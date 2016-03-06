@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3E2B65E1C8C70EF00BD062B /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E2B65D1C8C70EF00BD062B /* NSColor.swift */; };
 		BF2C2E6E1C086C0D006D25F6 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2C2E6D1C086C0C006D25F6 /* CoreText.framework */; };
 		BF331E041C2DE3D80095ACD6 /* FaithIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF331E021C2DE3CC0095ACD6 /* FaithIcons.ttf */; };
 		BF331E171C2DE6F80095ACD6 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF331E051C2DE6F80095ACD6 /* Lato-Black.ttf */; };
@@ -121,6 +122,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B3E2B65D1C8C70EF00BD062B /* NSColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
 		BF0153DF1C28488B009C1550 /* Bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		BF2C2E6D1C086C0C006D25F6 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		BF331E021C2DE3CC0095ACD6 /* FaithIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FaithIcons.ttf; path = Resources/Fonts/FaithIcons.ttf; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				BFC8B0E01C40422200E44F9B /* NSAttributedString.swift */,
+				B3E2B65D1C8C70EF00BD062B /* NSColor.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				BFF8EF5D1C245484008C965E /* XLSX.swift in Sources */,
 				BFF8EF5B1C24487B008C965E /* ShapeDrawer.swift in Sources */,
 				BF97115F1BB00346006DA166 /* ViewController.swift in Sources */,
+				B3E2B65E1C8C70EF00BD062B /* NSColor.swift in Sources */,
 				BFCF3F4A1BB41E8200D93517 /* SWXMLHash.swift in Sources */,
 				BF87B9E61C28C14600194F8B /* Helpers.swift in Sources */,
 				BF8B57351BB9D2B800FEBD4F /* CardTable.swift in Sources */,
