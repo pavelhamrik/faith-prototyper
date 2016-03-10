@@ -38,7 +38,7 @@ class XLSX2 {
 
             // remove all irrelevant sheets
             // TODO: Types in Preferences
-            let supportedCardTypes = ["Myths", "Schemes", "Events", "Attachments"]
+            let supportedCardTypes = ["Myths", "Schemes", "Events", "Attachments", "Legacy"]
             for (name, path) in sheetNames {
                 if !supportedCardTypes.contains(name) {
                     sheetNames.removeValueForKey(name)
